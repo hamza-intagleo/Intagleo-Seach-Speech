@@ -118,6 +118,14 @@ DEALINGS IN THE SOFTWARE.
         processData: false,
         success: function(result) {
           $('#translated_text').html((result['result'][0].split(':')[1]))
+          var api_data = '';
+          $.each(result['search_data'], function(key, val){
+            api_data += '<tr>'
+            api_data += '<td>'+val.title+'</td>'
+            api_data += '<td><a href='+val.link+ '>'+val.link+'</a></td>'
+            api_data += '/<tr>'
+          })
+          $('#search_data_table').append(api_data)
           $('#page-loader').hide();
         }
     });
