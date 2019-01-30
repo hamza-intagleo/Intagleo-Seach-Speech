@@ -106,9 +106,11 @@ DEALINGS IN THE SOFTWARE.
     reader.onloadend = function() {
         var base64data = reader.result;
         var savedWAVBlob=base64data
+        var site = $('#site_name').val();
         console.log(savedWAVBlob );
         data = new FormData(), 
         data.append("audio_url", savedWAVBlob)
+        data.append("site", site)
 
         $.ajax({
         url: '/google_speech_to_text',
@@ -117,15 +119,20 @@ DEALINGS IN THE SOFTWARE.
         contentType: false,
         processData: false,
         success: function(result) {
-          $('#translated_text').html((result['result'][0].split(':')[1]))
-          var api_data = '';
-          $.each(result['search_data'], function(key, val){
-            api_data += '<tr>'
-            api_data += '<td>'+val.title+'</td>'
-            api_data += '<td><a href='+val.link+ '>'+val.link+'</a></td>'
-            api_data += '/<tr>'
-          })
-          $('#search_data_table').append(api_data)
+          if(result['result'][0] != undefined){
+            $('#translated_text').html((result['result'][0].split(':')[1]))
+            var api_data = '';
+            $.each(result['search_data'], function(key, val){
+              api_data += '<tr>'
+              api_data += '<td>'+val.title+'</td>'
+              api_data += '<td><a href='+val.link+ '>'+val.link+'</a></td>'
+              api_data += '/<tr>'
+            })
+            $('#search_data_table').append(api_data)
+            $('#error_message').addClass('d-none')
+          } else {
+            $('#error_message').removeClass('d-none')
+          }
           $('#page-loader').hide();
         }
     });

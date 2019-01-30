@@ -39,3 +39,7 @@ text-align: center;
 #page-loader h3 {
   width: 100%;
 }
+
+.alert {
+  border-radius: 0 !important;
+}

@@ -39,22 +39,25 @@ class HomeController < ApplicationController
     results = response.results
     
     outputs = []
+    alternatives = results.present? ? results.first.alternatives : []
+    if alternatives.present?
+      alternatives.each do |alternative|
+        outputs << "Transcription: #{alternative.transcript}"
+      end
 
-    alternatives = results.first.alternatives
-    alternatives.each do |alternative|
-      outputs << "Transcription: #{alternative.transcript}"
+      if outputs.present?
+        require 'google/apis/customsearch_v1'
+        search = Google::Apis::CustomsearchV1
+        search_client = search::CustomsearchService.new
+        search_client.key = ENV['GOOGLE_SEARCH_API_KEY']
+        # (q, c2coff: nil, cr: nil, cx: nil, date_restrict: nil, exact_terms: nil, exclude_terms: nil, file_type: nil, filter: nil, gl: nil, googlehost: nil, high_range: nil, hl: nil, hq: nil, img_color_type: nil, img_dominant_color: nil, img_size: nil, img_type: nil, link_site: nil, low_range: nil, lr: nil, num: nil, or_terms: nil, related_site: nil, rights: nil, safe: nil, search_type: nil, site_search: nil, site_search_filter: nil, sort: nil, start: nil, fields: nil, quota_user: nil, user_ip: nil, options: nil)
+        response = search_client.list_cses("#{outputs.first.split(':').last.strip}", {cx: ENV['GOOGLE_CUSTOM_SEARCH_ENGINE_ID'], site_search: params[:site]})
+      end
+
+      return render :json => {:success => true, :result => outputs, :search_data => response.items} 
+    else
+      render :json => {:success => false, :result => [], :search_data => []}
     end
-
-    if outputs.present?
-      require 'google/apis/customsearch_v1'
-      search = Google::Apis::CustomsearchV1
-      search_client = search::CustomsearchService.new
-      search_client.key = ENV['GOOGLE_SEARCH_API_KEY']
-      # (q, c2coff: nil, cr: nil, cx: nil, date_restrict: nil, exact_terms: nil, exclude_terms: nil, file_type: nil, filter: nil, gl: nil, googlehost: nil, high_range: nil, hl: nil, hq: nil, img_color_type: nil, img_dominant_color: nil, img_size: nil, img_type: nil, link_site: nil, low_range: nil, lr: nil, num: nil, or_terms: nil, related_site: nil, rights: nil, safe: nil, search_type: nil, site_search: nil, site_search_filter: nil, sort: nil, start: nil, fields: nil, quota_user: nil, user_ip: nil, options: nil)
-      response = search_client.list_cses("#{outputs.first.split(':').last.strip}", {cx: ENV['GOOGLE_CUSTOM_SEARCH_ENGINE_ID'], site_search: 'nike.com'})
-    end
-
-  return render :json => {:success => true, :result => outputs, :search_data => response.items} 
   end
 
 
