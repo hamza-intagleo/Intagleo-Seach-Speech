@@ -111,6 +111,7 @@ DEALINGS IN THE SOFTWARE.
         data = new FormData(), 
         data.append("audio_url", savedWAVBlob)
         data.append("site", site)
+        $('#search_data_table').html('')
 
         $.ajax({
         url: '/google_speech_to_text',
