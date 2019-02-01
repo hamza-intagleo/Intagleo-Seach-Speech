@@ -9,7 +9,6 @@ class HomeController < ApplicationController
     unless File.exists?(save_path)
       Dir::mkdir(Rails.root.join("public/audio"))
     end
-
     data=params[:audio_url]
     audio_data=Base64.decode64(data.split(',').last)
     File.open(save_path+"_audio", 'wb') do |f| f.write audio_data end

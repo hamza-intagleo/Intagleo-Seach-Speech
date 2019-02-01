@@ -16,6 +16,5 @@
 //= require bootstrap
 //= require jquery_ujs
 //= require activestorage
-//= require audiodisplay
 //= require recorder
 //= require home

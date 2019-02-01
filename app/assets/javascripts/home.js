@@ -1,187 +1,167 @@
-/* Copyright 2013 Chris Wilson
+  //webkitURL is deprecated but nevertheless
+  URL = window.URL || window.webkitURL;
 
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+  var gumStream;                      //stream from getUserMedia()
+  var rec;                            //Recorder.js object
+  var input;                          //MediaStreamAudioSourceNode we'll be recording
 
-       http://www.apache.org/licenses/LICENSE-2.0
+  // shim for AudioContext when it's not avb. 
+  var AudioContext = window.AudioContext || window.webkitAudioContext;
+  var audioContext //audio context to help us record
 
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
 
-window.AudioContext = window.AudioContext || window.webkitAudioContext;
-
-var audioContext = new AudioContext();
-var audioInput = null,
-    realAudioInput = null,
-    inputPoint = null,
-    audioRecorder = null;
-var rafID = null;
-var analyserContext = null;
-var canvasWidth, canvasHeight;
-var recIndex = 0;
-
-/* TODO:
-
-- offer mono option
-- "Monitor input" switch
-*/
-
-function saveAudio() {
-    audioRecorder.exportWAV( doneEncoding );
-    // could get mono instead by saying
-    // audioRecorder.exportMonoWAV( doneEncoding );
-}
-
-function gotBuffers( buffers ) {
-    // var canvas = document.getElementById( "wavedisplay" );
-
-    // drawBuffer( canvas.width, canvas.height, canvas.getContext('2d'), buffers[0] );
-
-    // the ONLY time gotBuffers is called is right after a new recording is completed - 
-    // so here's where we should set up the download.
-    audioRecorder.exportWAV( doneEncoding );
-}
-
-function doneEncoding( blob ) {
-    Recorder.setupDownload( blob, "myRecording" + ((recIndex<10)?"0":"") + recIndex + ".wav" );
-    recIndex++;
-}
 
 function toggleRecording( e ) {
-    if (e.classList.contains("recording")) {
-        // stop recording
-        audioRecorder.stop();
-        e.classList.remove("recording");
-        audioRecorder.getBuffers( gotBuffers );
-        $('#page-loader').show();
-    } else {
-        // start recording
-        if (!audioRecorder)
-            return;
-        e.classList.add("recording");
-        audioRecorder.clear();
-        audioRecorder.record();
-    }
+  if (e.classList.contains("recording")) {
+      // stop recording
+      stopRecording();
+      e.classList.remove("recording");
+      $('#page-loader').show();
+  } else {
+    // start recording
+    e.classList.add("recording");
+    startRecording();
+  }
 }
 
-function convertToMono( input ) {
-    var splitter = audioContext.createChannelSplitter(2);
-    var merger = audioContext.createChannelMerger(2);
+function startRecording() {
+    console.log("recordButton clicked");
 
-    input.connect( splitter );
-    splitter.connect( merger, 0, 0 );
-    splitter.connect( merger, 0, 1 );
-    return merger;
-}
-
-function cancelAnalyserUpdates() {
-    window.cancelAnimationFrame( rafID );
-    rafID = null;
-}
-
-function updateAnalysers(time) {
-    // if (!analyserContext) {
-    //     var canvas = document.getElementById("analyser");
-    //     canvasWidth = canvas.width;
-    //     canvasHeight = canvas.height;
-    //     analyserContext = canvas.getContext('2d');
-    // }
-
-    // // analyzer draw code here
-    // {
-    //     var SPACING = 3;
-    //     var BAR_WIDTH = 1;
-    //     var numBars = Math.round(canvasWidth / SPACING);
-    //     var freqByteData = new Uint8Array(analyserNode.frequencyBinCount);
-
-    //     analyserNode.getByteFrequencyData(freqByteData); 
-
-    //     analyserContext.clearRect(0, 0, canvasWidth, canvasHeight);
-    //     analyserContext.fillStyle = '#F6D565';
-    //     analyserContext.lineCap = 'round';
-    //     var multiplier = analyserNode.frequencyBinCount / numBars;
-
-    //     // Draw rectangle for each frequency bin.
-    //     for (var i = 0; i < numBars; ++i) {
-    //         var magnitude = 0;
-    //         var offset = Math.floor( i * multiplier );
-    //         // gotta sum/average the block, or we miss narrow-bandwidth spikes
-    //         for (var j = 0; j< multiplier; j++)
-    //             magnitude += freqByteData[offset + j];
-    //         magnitude = magnitude / multiplier;
-    //         var magnitude2 = freqByteData[i * multiplier];
-    //         analyserContext.fillStyle = "hsl( " + Math.round((i*360)/numBars) + ", 100%, 50%)";
-    //         analyserContext.fillRect(i * SPACING, canvasHeight, BAR_WIDTH, -magnitude);
-    //     }
-    // }
+    /*
+        Simple constraints object, for more advanced audio features see
+        https://addpipe.com/blog/audio-constraints-getusermedia/
+    */
     
-    // rafID = window.requestAnimationFrame( updateAnalysers );
+    constraints = { audio: true, video:false }
+
+    /*
+        Disable the record button until we get a success or fail from getUserMedia() 
+    */
+    $("#recordButton").attr('disabled', true);
+    $("#stopButton").removeAttr('disabled');
+    $("#pauseButton").removeAttr('disabled');
+
+    /*
+        We're using the standard promise based getUserMedia() 
+        https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
+    */
+
+    navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+        console.log("getUserMedia() success, stream created, initializing Recorder.js ...");
+
+        /*
+            create an audio context after getUserMedia is called
+            sampleRate might change after getUserMedia is called, like it does on macOS when recording through AirPods
+            the sampleRate defaults to the one set in your OS for your playback device
+
+        */
+        audioContext = new AudioContext();
+
+        //update the format 
+        $("#formats").innerHTML="Format: 1 channel pcm @ "+audioContext.sampleRate/1000+"kHz"
+
+        /*  assign to gumStream for later use  */
+        gumStream = stream;
+        
+        /* use the stream */
+        input = audioContext.createMediaStreamSource(stream);
+
+        /* 
+            Create the Recorder object and configure to record mono sound (1 channel)
+            Recording 2 channels  will double the file size
+        */
+        rec = new Recorder(input,{numChannels:1})
+
+        //start the recording process
+        rec.record()
+
+        console.log("Recording started");
+
+    }).catch(function(err) {
+        //enable the record button if getUserMedia() fails
+        $("#recordButton").removeAttr('disabled');
+        $("#stopButton").attr('disabled', true);
+        $("#pauseButton").attr('disabled', true);
+    });
 }
 
-function toggleMono() {
-    if (audioInput != realAudioInput) {
-        audioInput.disconnect();
-        realAudioInput.disconnect();
-        audioInput = realAudioInput;
-    } else {
-        realAudioInput.disconnect();
-        audioInput = convertToMono( realAudioInput );
+function pauseRecording(){
+    console.log("pauseButton clicked rec.recording=",rec.recording );
+    if (rec.recording){
+        //pause
+        rec.stop();
+        $("#pauseButton").innerHTML="Resume";
+    }else{
+        //resume
+        rec.record()
+        $("#pauseButton").innerHTML="Pause";
+
     }
-
-    audioInput.connect(inputPoint);
 }
 
-function gotStream(stream) {
-    inputPoint = audioContext.createGain();
+function stopRecording() {
+    console.log("stopButton clicked");
 
-    // Create an AudioNode from the stream.
-    realAudioInput = audioContext.createMediaStreamSource(stream);
-    audioInput = realAudioInput;
-    audioInput.connect(inputPoint);
+    //disable the stop button, enable the record too allow for new recordings
+    $("#stopButton").attr('disabled', true);
+    $("#recordButton").removeAttr('disabled');
+    $("#pauseButton").attr('disabled', true);
 
-//    audioInput = convertToMono( input );
+    //reset button just in case the recording is stopped while paused
+    $("#pauseButton").innerHTML="Pause";
+    
+    //tell the recorder to stop the recording
+    rec.stop();
 
-    analyserNode = audioContext.createAnalyser();
-    analyserNode.fftSize = 2048;
-    inputPoint.connect( analyserNode );
+    //stop microphone access
+    gumStream.getAudioTracks()[0].stop();
 
-    audioRecorder = new Recorder( inputPoint );
-
-    zeroGain = audioContext.createGain();
-    zeroGain.gain.value = 0.0;
-    inputPoint.connect( zeroGain );
-    zeroGain.connect( audioContext.destination );
-    updateAnalysers();
+    //create the wav blob and pass it on to createDownloadLink
+    rec.exportWAV(createDownloadLink);
 }
 
-function initAudio() {
-        if (!navigator.getUserMedia)
-            navigator.getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-        if (!navigator.cancelAnimationFrame)
-            navigator.cancelAnimationFrame = navigator.webkitCancelAnimationFrame || navigator.mozCancelAnimationFrame;
-        if (!navigator.requestAnimationFrame)
-            navigator.requestAnimationFrame = navigator.webkitRequestAnimationFrame || navigator.mozRequestAnimationFrame;
+function createDownloadLink(blob) {
 
-    navigator.getUserMedia(
-        {
-            "audio": {
-                "mandatory": {
-                    "googEchoCancellation": "false",
-                    "googAutoGainControl": "false",
-                    "googNoiseSuppression": "false",
-                    "googHighpassFilter": "false"
-                },
-                "optional": []
-            },
-        }, gotStream, function(e) {
-            alert('Error getting audio');
-            console.log(e);
-        });
+  var reader  = new window.FileReader();
+  reader.readAsDataURL(blob); 
+  reader.onloadend = function() {
+    var base64data = reader.result;
+    var savedWAVBlob=base64data
+    var site = $('#site_name').val();
+    console.log(savedWAVBlob );
+    data = new FormData(), 
+    data.append("audio_url", savedWAVBlob)
+    data.append("site", site)
+    $('#search_data_table').html('')
+
+    $.ajax({
+      url: '/google_speech_to_text',
+      type: 'POST',
+      data: data,
+      contentType: false,
+      processData: false,
+      success: function(result) {
+        if(result['result'][0] != undefined){
+          $('#translated_text').html((result['result'][0].split(':')[1]))
+          var api_data = '';
+          $.each(result['search_data'], function(key, val){
+            api_data += '<tr>'
+            api_data += '<td>'+val.title+'</td>'
+            api_data += '<td><a href='+val.link+ '>'+val.link+'</a></td>'
+            api_data += '/<tr>'
+          })
+          $('#search_data_table').append(api_data)
+          $('#error_message').addClass('d-none')
+        } else {
+          $('#error_message').removeClass('d-none')
+        }
+        $('#page-loader').hide();
+      }
+    });
+  }
+
+  var url = (window.URL || window.webkitURL).createObjectURL(blob);
+  var link = document.getElementById("save");
+  link.href = url;
+  link.download = filename || 'output.wav';
 }
-
-window.addEventListener('load', initAudio );
