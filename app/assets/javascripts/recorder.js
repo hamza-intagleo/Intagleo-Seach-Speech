@@ -3,8 +3,6 @@
 
 module.exports = require("./recorder").Recorder;
 
-var g = undefined;
-
 },{"./recorder":2}],2:[function(require,module,exports){
 'use strict';
 
@@ -81,7 +79,7 @@ var Recorder = exports.Recorder = (function () {
                 sampleRate = undefined,
                 numChannels = undefined;
 
-            self.onmessage = function (e) {
+            this.onmessage = function (e) {
                 switch (e.data.command) {
                     case 'init':
                         init(e.data.config);
