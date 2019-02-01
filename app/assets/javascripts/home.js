@@ -37,9 +37,9 @@ function startRecording() {
     /*
         Disable the record button until we get a success or fail from getUserMedia() 
     */
-    $("#recordButton").attr('disabled', true);
-    $("#stopButton").removeAttr('disabled');
-    $("#pauseButton").removeAttr('disabled');
+    // $("#recordButton").attr('disabled', true);
+    // $("#stopButton").removeAttr('disabled');
+    // $("#pauseButton").removeAttr('disabled');
 
     /*
         We're using the standard promise based getUserMedia() 
@@ -79,9 +79,10 @@ function startRecording() {
 
     }).catch(function(err) {
         //enable the record button if getUserMedia() fails
-        $("#recordButton").removeAttr('disabled');
-        $("#stopButton").attr('disabled', true);
-        $("#pauseButton").attr('disabled', true);
+        // $("#recordButton").removeAttr('disabled');
+        // $("#stopButton").attr('disabled', true);
+        // $("#pauseButton").attr('disabled', true);
+        console.log('exception catch')
     });
 }
 
@@ -103,9 +104,9 @@ function stopRecording() {
     console.log("stopButton clicked");
 
     //disable the stop button, enable the record too allow for new recordings
-    $("#stopButton").attr('disabled', true);
-    $("#recordButton").removeAttr('disabled');
-    $("#pauseButton").attr('disabled', true);
+    // $("#stopButton").attr('disabled', true);
+    // $("#recordButton").removeAttr('disabled');
+    // $("#pauseButton").attr('disabled', true);
 
     //reset button just in case the recording is stopped while paused
     $("#pauseButton").innerHTML="Pause";

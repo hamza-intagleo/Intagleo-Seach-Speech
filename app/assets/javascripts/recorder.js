@@ -3,6 +3,8 @@
 
 module.exports = require("./recorder").Recorder;
 
+var g = undefined;
+
 },{"./recorder":2}],2:[function(require,module,exports){
 'use strict';
 
