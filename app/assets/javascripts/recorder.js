@@ -126,7 +126,7 @@ var Recorder = exports.Recorder = (function () {
                 var dataview = encodeWAV(interleaved);
                 var audioBlob = new Blob([dataview], { type: type });
 
-                self.postMessage({ command: 'exportWAV', data: audioBlob });
+                this.postMessage({ command: 'exportWAV', data: audioBlob });
             }
 
             function getBuffer() {
@@ -134,7 +134,7 @@ var Recorder = exports.Recorder = (function () {
                 for (var channel = 0; channel < numChannels; channel++) {
                     buffers.push(mergeBuffers(recBuffers[channel], recLength));
                 }
-                self.postMessage({ command: 'getBuffer', data: buffers });
+                this.postMessage({ command: 'getBuffer', data: buffers });
             }
 
             function clear() {
