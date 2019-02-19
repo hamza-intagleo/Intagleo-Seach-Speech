@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2019_02_18_074130) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "plans", force: :cascade do |t|
     t.string "plan_name"
     t.integer "query_limit"
@@ -34,10 +37,11 @@ ActiveRecord::Schema.define(version: 2019_02_18_074130) do
     t.string "client_key"
     t.string "client_secret"
     t.string "status", default: "inactive"
-    t.integer "plan_id", default: 1
+    t.bigint "plan_id", default: 1
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["plan_id"], name: "index_users_on_plan_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "users", "plans"
 end
