@@ -9,38 +9,37 @@
       "operations": [
         {
           "summary": "Sign Up",
-          "notes": "This lists all the active users",
           "parameters": [
             {
-              "paramType": "form",
+              "paramType": "query",
               "name": "registration[first_name]",
               "type": "string",
               "description": "First Name",
               "required": true
             },
             {
-              "paramType": "form",
+              "paramType": "query",
               "name": "registration[last_name]",
               "type": "string",
               "description": "Last Name",
               "required": true
             },
             {
-              "paramType": "form",
+              "paramType": "query",
               "name": "registration[email]",
               "type": "string",
               "description": "Email Address",
               "required": true
             },
             {
-              "paramType": "form",
+              "paramType": "query",
               "name": "registration[password]",
               "type": "string",
               "description": "Password",
               "required": true
             },
             {
-              "paramType": "form",
+              "paramType": "query",
               "name": "registration[password_confirmation]",
               "type": "string",
               "description": "Confirm Password",
