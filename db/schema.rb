@@ -31,7 +31,8 @@ ActiveRecord::Schema.define(version: 2019_02_18_074130) do
     t.datetime "updated_at", null: false
     t.string "first_name"
     t.string "last_name"
-    t.string "api_key"
+    t.string "client_key"
+    t.string "client_secret"
     t.string "status", default: "inactive"
     t.integer "plan_id", default: 1
     t.index ["email"], name: "index_users_on_email", unique: true

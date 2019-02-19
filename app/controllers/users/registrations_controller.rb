@@ -26,6 +26,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     build_resource(configure_sign_up_params)
     resource.save
     if resource.persisted?
+      resource.generate_api_keys
       if resource.active_for_authentication?
         # set_flash_message! :notice, :signed_up
         # To avoid login comment out sign_up method
