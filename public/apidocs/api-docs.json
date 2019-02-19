@@ -4,6 +4,14 @@
   "basePath": "http://localhost:3000",
   "apis": [
     {
+      "path": "/apidocs/users/sessions.{format}",
+      "description": "User Login"
+    },
+    {
+      "path": "/apidocs/users/passwords.{format}",
+      "description": "Reset password"
+    },
+    {
       "path": "/apidocs/users/registrations.{format}",
       "description": "User Registration"
     }

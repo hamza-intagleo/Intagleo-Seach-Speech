@@ -33,16 +33,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
         # set_flash_message! :notice, :signed_up
         # To avoid login comment out sign_up method
         # sign_up(resource_name, resource)
-        render json: resource # , location: after_sign_up_path_for(resource)
+        render json: {success: true, error: false, message: "User is successfully created", results: resource}, status: 200
+        # render json: resource  , location: after_sign_up_path_for(resource)
       else
         # set_flash_message! :notice, :"signed_up_but_#{resource.inactive_message}"
         expire_data_after_sign_in!
-        render json: resource # , location: after_inactive_sign_up_path_for(resource)
+        render json: {success: true, error: false, message: "User is successfully created", results: resource}, status: 200
+        # render json: resource # , location: after_inactive_sign_up_path_for(resource)
       end
     else
       clean_up_passwords resource
       set_minimum_password_length
-      render json: { error_messages: resource.errors.full_messages.join(', ') }, status: 422
+      render json: {success: false, error: true, message: resource.errors.full_messages.join(', ')}, status: 422
     end
   end
 
