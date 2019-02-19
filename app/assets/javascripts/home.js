@@ -82,7 +82,7 @@ function startRecording() {
         // $("#recordButton").removeAttr('disabled');
         // $("#stopButton").attr('disabled', true);
         // $("#pauseButton").attr('disabled', true);
-        console.log('exception catch')
+        alert('Please make sure to run application with https protocol')
     });
 }
 
