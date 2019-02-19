@@ -1,0 +1,22 @@
+connection: &connection
+  adapter: postgresql
+  host: localhost
+  pool: 5
+  timeout: 5000
+  min_messages: warning
+  username: postgres
+  password: postgres
+
+development:
+  <<: *connection
+  database: speech_development
+test: &test
+  <<: *connection
+  database: speech_test
+
+production:
+  <<: *connection
+  database: speech_development
+
+cucumber:
+  <<: *test
