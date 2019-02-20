@@ -8,6 +8,60 @@
       "path": "/users.json",
       "operations": [
         {
+          "summary": "Updates an existing User",
+          "parameters": [
+            {
+              "paramType": "form",
+              "name": "user[first_name]",
+              "type": "string",
+              "description": "First name",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "user[last_name]",
+              "type": "string",
+              "description": "Last name",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "user[email]",
+              "type": "string",
+              "description": "Email address",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "user[contact_number]",
+              "type": "string",
+              "description": "Contact number",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "user[password]",
+              "type": "string",
+              "description": "Password",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "user[current_password]",
+              "type": "string",
+              "description": "Current Password",
+              "required": true
+            }
+          ],
+          "nickname": "Users::Registrations#update",
+          "method": "patch"
+        }
+      ]
+    },
+    {
+      "path": "/users.json",
+      "operations": [
+        {
           "summary": "Sign Up",
           "parameters": [
             {

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
-  skip_before_action :verify_authenticity_token, only: :create
+  skip_before_action :verify_authenticity_token, only: [:create, :update]
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
@@ -14,6 +14,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
     param :query, "registration[email]", :string, :required, 'Email Address'
     param :query, "registration[password]", :string, :required, 'Password'
     param :query, "registration[password_confirmation]", :string, :required, 'Confirm Password'
+  end
+
+  swagger_api :update do
+    summary "Updates an existing User"
+    param :path, :user_id, :integer, :required, "User Id"
+    param :form, "user[first_name]", :string, :optional, "First name"
+    param :form, "user[last_name]", :string, :optional, "Last name"
+    param :form, "user[email]", :string, :optional, "Email address"
+    param :form, "user[contact_number]", :string, :optional, "Contact number"
+    param :form, "user[password]", :string, :optional, "Password"
+    param :form, "user[current_password]", :string, :required, "Current Password"
   end
 
   # GET /resource/sign_up
@@ -54,9 +65,24 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # PUT /resource
-  # def update
-  #   super
-  # end
+  def update
+    self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
+    prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
+    resource_updated = update_resource(resource, account_update_params)
+    # yield resource if block_given?
+    if resource_updated
+      # set_flash_message_for_update(resource, prev_unconfirmed_email)
+      bypass_sign_in resource, scope: resource_name if sign_in_after_change_password?
+      render json: {success: true, error: false, message: "User is successfully updated", results: resource}, status: 200
+
+      # respond_with resource, location: after_update_path_for(resource)
+    else
+      clean_up_passwords resource
+      set_minimum_password_length
+      render json: {success: false, error: true, message: resource.errors.full_messages.join(', ')}, status: 422
+      # respond_with resource
+    end
+  end
 
   # DELETE /resource
   # def destroy
@@ -78,6 +104,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def configure_sign_up_params
     params[:registration].permit(:email, :password, :first_name, :last_name, :password_confirmation)
     # devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute])
+  end
+
+  def account_update_params
+    params[:user].permit(:email, :password, :first_name, :last_name, :contact_number, :current_password)
   end
 
   # If you have extra params to permit, append them to the sanitizer.

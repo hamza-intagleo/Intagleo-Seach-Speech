@@ -103,6 +103,7 @@ ActiveRecord::Schema.define(version: 2019_02_19_104624) do
     t.string "last_name"
     t.string "client_key"
     t.string "client_secret"
+    t.string "contact_number"
     t.string "status", default: "inactive"
     t.bigint "plan_id", default: 1
     t.index ["email"], name: "index_users_on_email", unique: true
