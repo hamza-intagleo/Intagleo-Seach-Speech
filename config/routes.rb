@@ -12,5 +12,8 @@ Rails.application.routes.draw do
 
   post 'google_speech_to_text' => 'home#google_speech_to_text', as: :google_speech_to_text
 
+  resources :users, only: :renew_api_keys do
+    get :renew_api_keys
+  end
 
 end
