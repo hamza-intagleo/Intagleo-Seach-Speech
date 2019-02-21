@@ -14,6 +14,10 @@ Rails.application.routes.draw do
 
   resources :users, only: :renew_api_keys do
     get :renew_api_keys
+    resources :sites, only: :create do
+      post :add_site_configuration
+    end
   end
+
 
 end

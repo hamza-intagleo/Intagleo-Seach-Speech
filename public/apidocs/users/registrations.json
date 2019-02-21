@@ -8,7 +8,7 @@
       "path": "/users.json",
       "operations": [
         {
-          "summary": "Updates an existing User",
+          "summary": "Updates the existing User",
           "parameters": [
             {
               "paramType": "form",
@@ -62,7 +62,7 @@
       "path": "/users.json",
       "operations": [
         {
-          "summary": "Sign Up",
+          "summary": "Register new user",
           "parameters": [
             {
               "paramType": "query",

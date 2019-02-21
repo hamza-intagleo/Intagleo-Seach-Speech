@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_19_104624) do
+ActiveRecord::Schema.define(version: 2019_02_21_065207) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,26 @@ ActiveRecord::Schema.define(version: 2019_02_19_104624) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "analytics", force: :cascade do |t|
+    t.bigint "site_id"
+    t.string "search_string"
+    t.float "search_reponse_time"
+    t.float "text_processing_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["site_id"], name: "index_analytics_on_site_id"
+  end
+
+  create_table "custom_responses", force: :cascade do |t|
+    t.bigint "site_id"
+    t.string "searched_text"
+    t.string "target_url"
+    t.integer "search_ranking"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["site_id"], name: "index_custom_responses_on_site_id"
+  end
+
   create_table "plans", force: :cascade do |t|
     t.string "plan_name"
     t.integer "query_limit"
@@ -55,22 +75,11 @@ ActiveRecord::Schema.define(version: 2019_02_19_104624) do
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource_type_and_resource_id"
   end
 
-  create_table "search_logs", force: :cascade do |t|
-    t.bigint "site_id"
-    t.text "search_string"
-    t.datetime "start_time"
-    t.datetime "end_time"
-    t.text "api_response"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["site_id"], name: "index_search_logs_on_site_id"
-  end
-
   create_table "site_configurations", force: :cascade do |t|
     t.bigint "site_id"
     t.boolean "return_results_on_rendered_page"
     t.boolean "return_results_on_customer_webpage"
-    t.string "search_string_url"
+    t.string "custom_search_results_url"
     t.string "search_icon_color"
     t.string "search_icon_text"
     t.string "search_box_size"
@@ -106,6 +115,7 @@ ActiveRecord::Schema.define(version: 2019_02_19_104624) do
     t.string "contact_number"
     t.string "status", default: "inactive"
     t.bigint "plan_id", default: 1
+    t.string "unconfirmed_email"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["plan_id"], name: "index_users_on_plan_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -114,7 +124,9 @@ ActiveRecord::Schema.define(version: 2019_02_19_104624) do
   create_table "users_roles", id: false, force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "role_id"
+    t.bigint "site_id"
     t.index ["role_id"], name: "index_users_roles_on_role_id"
+    t.index ["site_id"], name: "index_users_roles_on_site_id"
     t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
@@ -128,7 +140,8 @@ ActiveRecord::Schema.define(version: 2019_02_19_104624) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "search_logs", "sites"
+  add_foreign_key "analytics", "sites"
+  add_foreign_key "custom_responses", "sites"
   add_foreign_key "site_configurations", "sites"
   add_foreign_key "users", "plans"
 end

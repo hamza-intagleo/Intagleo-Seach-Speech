@@ -5,10 +5,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
-  swagger_controller :registrations, 'User Registration'
+  swagger_controller :Users, 'Registrations'
 
   swagger_api :create do |api| 
-    summary 'Sign Up'
+    summary 'Register new user'
     param :query, "registration[first_name]", :string, :required, 'First Name'
     param :query, "registration[last_name]", :string, :required, 'Last Name'
     param :query, "registration[email]", :string, :required, 'Email Address'
@@ -17,7 +17,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   swagger_api :update do
-    summary "Updates an existing User"
+    summary "Updates the existing User"
     param :path, :user_id, :integer, :required, "User Id"
     param :form, "user[first_name]", :string, :optional, "First name"
     param :form, "user[last_name]", :string, :optional, "Last name"
@@ -34,28 +34,32 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    build_resource(configure_sign_up_params)
-    api_key, secret_key = resource.generate_api_keys
-    resource.client_key = api_key
-    resource.client_secret = secret_key
-    resource.save
-    if resource.persisted?
-      if resource.active_for_authentication?
-        # set_flash_message! :notice, :signed_up
-        # To avoid login comment out sign_up method
-        # sign_up(resource_name, resource)
-        render json: {success: true, error: false, message: "User is successfully created", results: resource}, status: 200
-        # render json: resource  , location: after_sign_up_path_for(resource)
+    begin
+      build_resource(configure_sign_up_params)
+      api_key, secret_key = resource.generate_api_keys
+      resource.client_key = api_key
+      resource.client_secret = secret_key
+      resource.save
+      if resource.persisted?
+        if resource.active_for_authentication?
+          # set_flash_message! :notice, :signed_up
+          # To avoid login comment out sign_up method
+          # sign_up(resource_name, resource)
+          render json: {success: true, error: false, message: "User is successfully created", results: resource}, status: 200
+          # render json: resource  , location: after_sign_up_path_for(resource)
+        else
+          # set_flash_message! :notice, :"signed_up_but_#{resource.inactive_message}"
+          expire_data_after_sign_in!
+          render json: {success: true, error: false, message: "User is successfully created", results: resource}, status: 200
+          # render json: resource # , location: after_inactive_sign_up_path_for(resource)
+        end
       else
-        # set_flash_message! :notice, :"signed_up_but_#{resource.inactive_message}"
-        expire_data_after_sign_in!
-        render json: {success: true, error: false, message: "User is successfully created", results: resource}, status: 200
-        # render json: resource # , location: after_inactive_sign_up_path_for(resource)
+        clean_up_passwords resource
+        set_minimum_password_length
+        render json: {success: false, error: true, message: resource.errors.full_messages.join(', ')}, status: 422
       end
-    else
-      clean_up_passwords resource
-      set_minimum_password_length
-      render json: {success: false, error: true, message: resource.errors.full_messages.join(', ')}, status: 422
+    rescue Exception => e
+      render json: {success: false, error: true, message: e}, status: 500
     end
   end
 
@@ -66,21 +70,25 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # PUT /resource
   def update
-    self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
-    prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
-    resource_updated = update_resource(resource, account_update_params)
-    # yield resource if block_given?
-    if resource_updated
-      # set_flash_message_for_update(resource, prev_unconfirmed_email)
-      bypass_sign_in resource, scope: resource_name if sign_in_after_change_password?
-      render json: {success: true, error: false, message: "User is successfully updated", results: resource}, status: 200
+    begin
+      self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
+      prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
+      resource_updated = update_resource(resource, account_update_params)
+      # yield resource if block_given?
+      if resource_updated
+        # set_flash_message_for_update(resource, prev_unconfirmed_email)
+        bypass_sign_in resource, scope: resource_name if sign_in_after_change_password?
+        render json: {success: true, error: false, message: "User is successfully updated", results: resource}, status: 200
 
-      # respond_with resource, location: after_update_path_for(resource)
-    else
-      clean_up_passwords resource
-      set_minimum_password_length
-      render json: {success: false, error: true, message: resource.errors.full_messages.join(', ')}, status: 422
-      # respond_with resource
+        # respond_with resource, location: after_update_path_for(resource)
+      else
+        clean_up_passwords resource
+        set_minimum_password_length
+        render json: {success: false, error: true, message: resource.errors.full_messages.join(', ')}, status: 422
+        # respond_with resource
+      end
+    rescue Exception => e
+      render json: {success: false, error: true, message: e}, status: 500
     end
   end
 

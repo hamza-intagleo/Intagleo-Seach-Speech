@@ -4,7 +4,7 @@ class CreateSiteConfigurations < ActiveRecord::Migration[5.2]
       t.references :site, foreign_key: true
       t.boolean :return_results_on_rendered_page
       t.boolean :return_results_on_customer_webpage
-      t.string :search_string_url
+      t.string :custom_search_results_url
       t.string :search_icon_color
       t.string :search_icon_text
       t.string :search_box_size

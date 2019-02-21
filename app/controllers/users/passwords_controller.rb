@@ -18,15 +18,19 @@ class Users::PasswordsController < Devise::PasswordsController
 
   # POST /resource/password
   def create
-    self.resource = resource_class.send_reset_password_instructions(params)
-    # yield resource if block_given?
+    begin
+      self.resource = resource_class.send_reset_password_instructions(params)
+      # yield resource if block_given?
 
-    if successfully_sent?(resource)
-      render json: {success: true, error: false, message: "You will receive an email with instructions on how to reset your password in a few minutes."}, status: 200
-      # respond_with({}, location: after_sending_reset_password_instructions_path_for(resource_name))
-    else
-      render json: {success: false, error: true, message: resource.errors.full_messages.join(', ')}, status: 422
-      # respond_with(resource)
+      if successfully_sent?(resource)
+        render json: {success: true, error: false, message: "You will receive an email with instructions on how to reset your password in a few minutes."}, status: 200
+        # respond_with({}, location: after_sending_reset_password_instructions_path_for(resource_name))
+      else
+        render json: {success: false, error: true, message: resource.errors.full_messages.join(', ')}, status: 422
+        # respond_with(resource)
+      end
+    rescue Exception => e
+      render json: {success: false, error: true, message: e}, status: 500
     end
   end
 

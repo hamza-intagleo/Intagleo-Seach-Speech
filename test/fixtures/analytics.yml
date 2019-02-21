@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  site_id: one
+  search_string: MyString
+  search_reponse_time: 1.5
+  text_processing_time: 1.5
+
+two:
+  site_id: two
+  search_string: MyString
+  search_reponse_time: 1.5
+  text_processing_time: 1.5

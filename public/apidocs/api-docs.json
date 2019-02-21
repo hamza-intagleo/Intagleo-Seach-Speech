@@ -5,7 +5,7 @@
   "apis": [
     {
       "path": "/apidocs/users/sessions.{format}",
-      "description": "User Login"
+      "description": "Login"
     },
     {
       "path": "/apidocs/users/passwords.{format}",
@@ -13,11 +13,15 @@
     },
     {
       "path": "/apidocs/users/registrations.{format}",
-      "description": "User Registration"
+      "description": "Registrations"
     },
     {
       "path": "/apidocs/users.{format}",
       "description": "Re-Generate API Keys"
+    },
+    {
+      "path": "/apidocs/sites.{format}",
+      "description": "Add User Site"
     }
   ],
   "authorizations": null,
