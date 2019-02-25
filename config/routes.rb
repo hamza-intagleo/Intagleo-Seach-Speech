@@ -16,6 +16,8 @@ Rails.application.routes.draw do
     get :renew_api_keys
     resources :sites, only: :create do
       post :add_site_configuration
+      get :get_site_configuration
+      get :search_text_into_site
     end
   end
 

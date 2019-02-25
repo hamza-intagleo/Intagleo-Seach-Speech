@@ -40,7 +40,7 @@
             },
             {
               "paramType": "query",
-              "name": "search_string_url",
+              "name": "custom_search_results_url",
               "type": "integer",
               "description": "Search String Url",
               "required": false
@@ -90,6 +90,79 @@
           ],
           "nickname": "Sites#add_site_configuration",
           "method": "post"
+        }
+      ]
+    },
+    {
+      "path": "/users/{user_id}/sites/{site_id}/get_site_configuration.json",
+      "operations": [
+        {
+          "summary": "Get Site Configuration",
+          "parameters": [
+            {
+              "paramType": "path",
+              "name": "user_id",
+              "type": "integer",
+              "description": "User ID",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "site_id",
+              "type": "integer",
+              "description": "Site ID",
+              "required": true
+            }
+          ],
+          "nickname": "Sites#get_site_configuration",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/users/{user_id}/sites/{site_id}/search_text_into_site.json",
+      "operations": [
+        {
+          "summary": "Search Text In Site",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "client_api",
+              "type": "string",
+              "description": "Cleint API Key",
+              "required": true
+            },
+            {
+              "paramType": "header",
+              "name": "client_secret",
+              "type": "string",
+              "description": "Client Secret Key",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "user_id",
+              "type": "integer",
+              "description": "User ID",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "site_id",
+              "type": "integer",
+              "description": "Site ID",
+              "required": true
+            },
+            {
+              "paramType": "query",
+              "name": "search_string",
+              "type": "string",
+              "description": "Search String",
+              "required": true
+            }
+          ],
+          "nickname": "Sites#search_text_into_site",
+          "method": "get"
         }
       ]
     },
