@@ -18,6 +18,8 @@ Rails.application.routes.draw do
       post :add_site_configuration
       get :get_site_configuration
       get :search_text_into_site
+      post :convert_audio_to_text
+      get :get_statistics
     end
   end
 

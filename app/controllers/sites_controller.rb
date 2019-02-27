@@ -1,8 +1,8 @@
 class SitesController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: [:create, :add_site_configuration]
-  before_action :verify_client, only: [:search_text_into_site]
+  skip_before_action :verify_authenticity_token, only: [:create, :add_site_configuration, :convert_audio_to_text]
+  before_action :verify_client, only: [:search_text_into_site, :convert_audio_to_text, :get_statistics]
 
-  swagger_controller :sites, 'Add User Site'
+  swagger_controller :sites, 'Site Management'
 
   swagger_api :create do |api| 
     summary 'Add new Site'
@@ -34,6 +34,15 @@ class SitesController < ApplicationController
     param :path, :site_id, :integer, :required, "Site ID"
   end
 
+  swagger_api :convert_audio_to_text do |api| 
+    summary 'Convert Audio To Text'
+    param :header, 'client_api', :string, :required, "Cleint API Key"
+    param :header, 'client_secret', :string, :required, "Client Secret Key"
+    param :path, :user_id, :integer, :required, "User ID"
+    param :path, :site_id, :integer, :required, "Site ID"
+    param :query, "audio_file", :file, :required, "Audio File"
+  end
+
   swagger_api :search_text_into_site do |api| 
     summary 'Search Text In Site'
     param :header, 'client_api', :string, :required, "Cleint API Key"
@@ -41,6 +50,17 @@ class SitesController < ApplicationController
     param :path, :user_id, :integer, :required, "User ID"
     param :path, :site_id, :integer, :required, "Site ID"
     param :query, "search_string", :string, :required, "Search String"
+  end
+
+  swagger_api :get_statistics do |api| 
+    summary 'Get Statistics'
+    param :header, 'client_api', :string, :required, "Cleint API Key"
+    param :header, 'client_secret', :string, :required, "Client Secret Key"
+    param :path, :user_id, :integer, :required, "User ID"
+    param :path, :site_id, :integer, :required, "Site ID"
+    param :query, "detail_id", :string, :required, "Detail ID from 1 - 8"
+    param :query, "date_from", :date, :optional, "Date from"
+    param :query, "date_to", :date, :optional, "Date to"
   end
 
   def create
@@ -91,6 +111,74 @@ class SitesController < ApplicationController
     end
   end
 
+  
+  def convert_audio_to_text
+    begin
+      require 'base64'
+      require "google/cloud/speech"
+
+      @site = Site.find(params[:site_id])
+      
+      
+      if params[:audio_url].present?
+
+        save_path = Rails.root.join("public/audio")
+        unless File.exists?(save_path)
+          Dir::mkdir(Rails.root.join("public/audio"))
+        end
+
+        data=params[:audio_url]
+
+        audio_data=Base64.decode64(data.split(',').last)
+        File.open(save_path+"_audio", 'wb') do |f| f.write audio_data end
+
+        require 'wavefile'
+
+        files_to_append = ["public/audio/_audio"]
+
+        Writer.new("./public//audio/converted_audio.wav", Format.new(:mono, :pcm_16, 44100)) do |writer|
+          files_to_append.each do |file_name|
+            Reader.new(file_name).each_buffer do |buffer|
+              writer.write(buffer)
+            end
+          end
+        end
+        file_name = save_path+"converted_audio.wav"
+      else
+        file_name = params[:audio_file].tempfile
+      end
+
+      # ENV['GOOGLE_APPLICATION_CREDENTIALS'] = "#{Rails.root}/resources/speech_to_text.json"
+      processing_start_at = Time.now
+      speech = Google::Cloud::Speech.new
+      audio_file = File.binread file_name
+      config = { encoding:          :LINEAR16,
+                 sample_rate_hertz: 44100,
+                 language_code:     "en-US"   }
+      audio  = { content: audio_file }
+
+      response = speech.recognize config, audio
+      results = response.results
+      processing_ends_at = Time.now
+        
+      outputs = []
+      alternatives = results.present? ? results.first.alternatives : []
+      if alternatives.present?
+        alternatives.each do |alternative|
+          outputs << "Transcription: #{alternative.transcript}"
+        end
+      end
+      if outputs.present?
+        @site.analytics.create!(search_string: outputs.first.split(':').last.strip, search_reponse_time: (processing_ends_at - processing_start_at))
+        return render json: {success: true, error: false,  results: outputs}, status: 200
+      else
+        return render json: {success: false, error: true,  message: "Audio is not valid"}, status: 422
+      end
+    rescue => e
+      render json: {success: false, error: true, message: e}, status: 500
+    end
+  end
+
   def search_text_into_site
     begin
       @site = Site.find(params[:site_id])
@@ -108,6 +196,20 @@ class SitesController < ApplicationController
       render json: {success: false, error: true, message: e}, status: 500
     end
 
+  end
+
+  def get_statistics
+    begin
+      @site = Site.find(params[:site_id])
+      stats = @site.analytics
+      if stats.present?
+        render json: {success: true, error: false, message: "", results: stats}, status: 200
+      else
+        render json: {success: false, error: true, message: "No Statistics Found"}, status: 422
+      end
+    rescue => e
+      render json: {success: false, error: true, message: e}, status: 500
+    end
   end
 
 

@@ -5,7 +5,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
-  swagger_controller :Users, 'Registrations'
+  swagger_controller :Users, 'User Management'
 
   swagger_api :create do |api| 
     summary 'Register new user'

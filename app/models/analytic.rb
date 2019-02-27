@@ -1,3 +1,3 @@
 class Analytic < ApplicationRecord
-  belongs_to :site_id
+  belongs_to :site
 end

@@ -5,23 +5,23 @@
   "apis": [
     {
       "path": "/apidocs/users/sessions.{format}",
-      "description": "Login"
+      "description": "User Management"
     },
     {
       "path": "/apidocs/users/passwords.{format}",
-      "description": "Reset password"
+      "description": "User Management"
     },
     {
       "path": "/apidocs/users/registrations.{format}",
-      "description": "Registrations"
+      "description": "User Management"
     },
     {
       "path": "/apidocs/users.{format}",
-      "description": "Re-Generate API Keys"
+      "description": "User Management"
     },
     {
       "path": "/apidocs/sites.{format}",
-      "description": "Add User Site"
+      "description": "Site Management"
     }
   ],
   "authorizations": null,

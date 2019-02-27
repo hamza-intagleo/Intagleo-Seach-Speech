@@ -167,6 +167,114 @@
       ]
     },
     {
+      "path": "/users/{user_id}/sites/{site_id}/convert_audio_to_text.json",
+      "operations": [
+        {
+          "summary": "Convert Audio To Text",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "client_api",
+              "type": "string",
+              "description": "Cleint API Key",
+              "required": true
+            },
+            {
+              "paramType": "header",
+              "name": "client_secret",
+              "type": "string",
+              "description": "Client Secret Key",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "user_id",
+              "type": "integer",
+              "description": "User ID",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "site_id",
+              "type": "integer",
+              "description": "Site ID",
+              "required": true
+            },
+            {
+              "paramType": "query",
+              "name": "audio_file",
+              "type": "file",
+              "description": "Audio File",
+              "required": true
+            }
+          ],
+          "nickname": "Sites#convert_audio_to_text",
+          "method": "post"
+        }
+      ]
+    },
+    {
+      "path": "/users/{user_id}/sites/{site_id}/get_statistics.json",
+      "operations": [
+        {
+          "summary": "Get Statistics",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "client_api",
+              "type": "string",
+              "description": "Cleint API Key",
+              "required": true
+            },
+            {
+              "paramType": "header",
+              "name": "client_secret",
+              "type": "string",
+              "description": "Client Secret Key",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "user_id",
+              "type": "integer",
+              "description": "User ID",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "site_id",
+              "type": "integer",
+              "description": "Site ID",
+              "required": true
+            },
+            {
+              "paramType": "query",
+              "name": "detail_id",
+              "type": "string",
+              "description": "Detail ID from 1 - 8",
+              "required": true
+            },
+            {
+              "paramType": "query",
+              "name": "date_from",
+              "type": "date",
+              "description": "Date from",
+              "required": false
+            },
+            {
+              "paramType": "query",
+              "name": "date_to",
+              "type": "date",
+              "description": "Date to",
+              "required": false
+            }
+          ],
+          "nickname": "Sites#get_statistics",
+          "method": "get"
+        }
+      ]
+    },
+    {
       "path": "/users/{user_id}/sites.json",
       "operations": [
         {

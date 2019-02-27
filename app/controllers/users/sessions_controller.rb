@@ -4,7 +4,7 @@ class Users::SessionsController < Devise::SessionsController
   skip_before_action :verify_authenticity_token, only: :create
   skip_before_action :require_no_authentication, only: :create
   # before_action :configure_sign_in_params, only: [:create]
-  swagger_controller :Users, 'Login'
+  swagger_controller :Users, 'User Management'
   swagger_api :create do |api| 
     summary 'Sign In'
     param :query, :email, :string, :required, 'Email Address'

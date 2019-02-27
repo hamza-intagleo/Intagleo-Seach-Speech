@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  swagger_controller :users, 'Re-Generate API Keys'
+  swagger_controller :users, 'User Management'
 
   swagger_api :renew_api_keys do |api| 
     summary 'Renew API keys'

@@ -4,7 +4,7 @@ class Users::PasswordsController < Devise::PasswordsController
   skip_before_action :verify_authenticity_token, only: [:create, :edit]
   skip_before_action :require_no_authentication, only: [:create, :edit, :update]
 
-  swagger_controller :Passwords, 'Reset password'
+  swagger_controller :Passwords, 'User Management'
 
   swagger_api :create do |api| 
     summary 'Reset password'
