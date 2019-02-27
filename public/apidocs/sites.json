@@ -253,20 +253,6 @@
               "type": "string",
               "description": "Detail ID from 1 - 8",
               "required": true
-            },
-            {
-              "paramType": "query",
-              "name": "date_from",
-              "type": "date",
-              "description": "Date from",
-              "required": false
-            },
-            {
-              "paramType": "query",
-              "name": "date_to",
-              "type": "date",
-              "description": "Date to",
-              "required": false
             }
           ],
           "nickname": "Sites#get_statistics",

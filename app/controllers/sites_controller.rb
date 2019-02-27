@@ -59,8 +59,8 @@ class SitesController < ApplicationController
     param :path, :user_id, :integer, :required, "User ID"
     param :path, :site_id, :integer, :required, "Site ID"
     param :query, "detail_id", :string, :required, "Detail ID from 1 - 8"
-    param :query, "date_from", :date, :optional, "Date from"
-    param :query, "date_to", :date, :optional, "Date to"
+    # param :query, "date_from", :date, :optional, "Date from"
+    # param :query, "date_to", :date, :optional, "Date to"
   end
 
   def create
@@ -169,8 +169,8 @@ class SitesController < ApplicationController
         end
       end
       if outputs.present?
-        @site.analytics.create!(search_string: outputs.first.split(':').last.strip, search_reponse_time: (processing_ends_at - processing_start_at))
-        return render json: {success: true, error: false,  results: outputs}, status: 200
+        analytics = @site.analytics.create!(search_string: outputs.first.split(':').last.strip, search_reponse_time: (processing_ends_at - processing_start_at))
+        return render json: {success: true, error: false,  results: outputs, analytics_id: analytics.id}, status: 200
       else
         return render json: {success: false, error: true,  message: "Audio is not valid"}, status: 422
       end
@@ -182,12 +182,16 @@ class SitesController < ApplicationController
   def search_text_into_site
     begin
       @site = Site.find(params[:site_id])
+      site_analytics = @site.analytics.find(params[:analytics_id])
       require 'google/apis/customsearch_v1'
+      processing_start_at = Time.now
       search = Google::Apis::CustomsearchV1
       search_client = search::CustomsearchService.new
       search_client.key = ENV['GOOGLE_SEARCH_API_KEY']
       response = search_client.list_cses("site:#{@site.site_url} #{params['search_string']}", {cx: ENV['GOOGLE_CUSTOM_SEARCH_ENGINE_ID']})
+      processing_end_at = Time.now
       if response.items.present?
+        site_analytics.update(text_processing_time: (processing_end_at - processing_start_at))
         render json: {success: true, error: false,  results: response.items}, status: 200 
       else
         render json: {success: false, error: true,  message: "Not found any thing"}, status: 404 
@@ -201,7 +205,11 @@ class SitesController < ApplicationController
   def get_statistics
     begin
       @site = Site.find(params[:site_id])
-      stats = @site.analytics
+      detail_id = params[:detail_id]
+
+      stats = @site.fetch_stats(detail_id)
+      
+
       if stats.present?
         render json: {success: true, error: false, message: "", results: stats}, status: 200
       else
