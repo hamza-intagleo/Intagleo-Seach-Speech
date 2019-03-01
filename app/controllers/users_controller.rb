@@ -1,12 +1,5 @@
 class UsersController < ApplicationController
 
-  swagger_controller :users, 'User Management'
-
-  swagger_api :renew_api_keys do |api| 
-    summary 'Renew API keys'
-    param :path, :user_id, :integer, :required, "User ID"
-  end
-
   def renew_api_keys
     begin
       @user = User.find(params[:user_id])

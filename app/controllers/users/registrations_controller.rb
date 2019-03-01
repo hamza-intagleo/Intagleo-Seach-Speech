@@ -5,17 +5,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
-  swagger_controller :Users, 'User Management'
-
-  swagger_api :create do |api| 
-    summary 'Register new user'
-    param :query, "registration[first_name]", :string, :required, 'First Name'
-    param :query, "registration[last_name]", :string, :required, 'Last Name'
-    param :query, "registration[email]", :string, :required, 'Email Address'
-    param :query, "registration[password]", :string, :required, 'Password'
-    param :query, "registration[password_confirmation]", :string, :required, 'Confirm Password'
-  end
-
   swagger_api :update do
     summary "Updates the existing User"
     param :path, :user_id, :integer, :required, "User Id"

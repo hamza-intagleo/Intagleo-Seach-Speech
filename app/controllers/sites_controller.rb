@@ -2,67 +2,6 @@ class SitesController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:create, :add_site_configuration, :convert_audio_to_text]
   before_action :verify_client, only: [:search_text_into_site, :convert_audio_to_text, :get_statistics]
 
-  swagger_controller :sites, 'Site Management'
-
-  swagger_api :create do |api| 
-    summary 'Add new Site'
-    param :path, :user_id, :integer, :required, "User ID"
-    param :query, "site[site_name]", :integer, :required, "Site Name"
-    param :query, "site[site_url]", :integer, :required, "Site URL"
-  end
-
-  swagger_api :add_site_configuration do |api| 
-    summary 'Add Site Configuration'
-
-    param :path, :user_id, :integer, :required, "User ID"
-    param :path, :site_id, :integer, :required, "Site ID"
-    param :query, "return_results_on_rendered_page", :boolean, :required, "Return Results On Rendered Page"
-    param :query, "return_results_on_customer_webpage", :boolean, :required, "Return Results On Customer Webpage"
-    param :query, "custom_search_results_url", :integer, :optional, "Search String Url"
-    param :query, "search_icon_color", :string, :optional, "Search Icon Color"
-    param :query, "search_icon_text", :text, :optional, "Search Icon Text"
-    param :query, "search_box_shape", :string, :optional, "Search Box Shape"
-    param :query, "search_box_fill_color", :string, :optional, "Search Box Fill Color"
-    param :query, "search_box_border_color", :string, :optional, "Search Box Border Color"
-    param :query, "search_box_placeholder_text", :text, :optional, "Search Box Placeholder Text"
-  end
-
-  swagger_api :get_site_configuration do |api| 
-    summary 'Get Site Configuration'
-
-    param :path, :user_id, :integer, :required, "User ID"
-    param :path, :site_id, :integer, :required, "Site ID"
-  end
-
-  swagger_api :convert_audio_to_text do |api| 
-    summary 'Convert Audio To Text'
-    param :header, 'client_api', :string, :required, "Cleint API Key"
-    param :header, 'client_secret', :string, :required, "Client Secret Key"
-    param :path, :user_id, :integer, :required, "User ID"
-    param :path, :site_id, :integer, :required, "Site ID"
-    param :query, "audio_file", :file, :required, "Audio File"
-  end
-
-  swagger_api :search_text_into_site do |api| 
-    summary 'Search Text In Site'
-    param :header, 'client_api', :string, :required, "Cleint API Key"
-    param :header, 'client_secret', :string, :required, "Client Secret Key"
-    param :path, :user_id, :integer, :required, "User ID"
-    param :path, :site_id, :integer, :required, "Site ID"
-    param :query, "search_string", :string, :required, "Search String"
-  end
-
-  swagger_api :get_statistics do |api| 
-    summary 'Get Statistics'
-    param :header, 'client_api', :string, :required, "Cleint API Key"
-    param :header, 'client_secret', :string, :required, "Client Secret Key"
-    param :path, :user_id, :integer, :required, "User ID"
-    param :path, :site_id, :integer, :required, "Site ID"
-    param :query, "detail_id", :string, :required, "Detail ID from 1 - 8"
-    # param :query, "date_from", :date, :optional, "Date from"
-    # param :query, "date_to", :date, :optional, "Date to"
-  end
-
   def create
     begin
       @user = User.find(params[:user_id])
