@@ -11,7 +11,8 @@ Rails.application.routes.draw do
   root 'home#index'
 
   post 'google_speech_to_text' => 'home#google_speech_to_text', as: :google_speech_to_text
-
+  get 'generate_signature' => 'home#generate_signature', as: :generate_signature
+  
   resources :users, only: :renew_api_keys do
     get :renew_api_keys
     resources :sites, only: :create do

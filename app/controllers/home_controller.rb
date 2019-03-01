@@ -1,6 +1,14 @@
 include WaveFile
 class HomeController < ApplicationController
 
+  swagger_controller :sites, 'User Authorization'
+
+  swagger_api :generate_signature do |api| 
+    summary 'Generate signature that can be used for API calls'
+
+    param :header, 'client_api', :string, :required, "Cleint API Key"
+    param :header, 'client_secret', :string, :required, "Client Secret Key"
+  end
 
   def google_speech_to_text
     require 'base64'
@@ -58,6 +66,15 @@ class HomeController < ApplicationController
     else
       render :json => {:success => false, :result => [], :search_data => []}
     end
+  end
+
+  def generate_signature
+    require 'digest'
+    api_key = params[:api_key]
+    shared_secret = params[:shared_secret]
+    toBeHashed = "#{api_key}#{shared_secret}"
+    signature = Digest::SHA2.new(512).hexdigest(toBeHashed)
+    render json: {success: true, error: false, authorized_signature: signature}
   end
 
 

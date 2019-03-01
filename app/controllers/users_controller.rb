@@ -19,7 +19,5 @@ class UsersController < ApplicationController
     rescue Exception => e
       render json: {success: false, error: true, message: e}, status: 500
     end
-
-
   end
 end
