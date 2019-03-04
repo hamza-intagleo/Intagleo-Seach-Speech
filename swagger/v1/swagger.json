@@ -198,7 +198,7 @@
             "in": "query",
             "type": "string",
             "required": true,
-            "example": 1551686786
+            "description": "Current Timestamp i.e 1551687034"
           }
         ],
         "responses": {
@@ -480,7 +480,7 @@
             "in": "header",
             "type": "string",
             "required": true,
-            "example": 1551686786
+            "description": "Current Timestamp i.e 1551687034"
           },
           {
             "name": "user_id",
