@@ -75,6 +75,7 @@ describe 'Users API' do
     get 'Renew API Keys' do
       tags 'User Management'
       consumes 'application/json'
+      parameter name: :user_id, :in => :path, :type => :integer
       parameter name: :email, :in => :path, :type => :integer
 
       response '200', 'New keys are successfully generated' do
@@ -115,8 +116,8 @@ end
 
 describe 'Sites API' do
 
-  path '/users' do
-    post 'Creates a User' do
+  path '/users/{user_id}/sites' do
+    post 'Add a Site' do
       tags 'Site Management'
       consumes 'application/json'
       parameter name: :user_id, :in => :path, :type => :integer
@@ -151,15 +152,22 @@ describe 'Sites API' do
       parameter name: :user_id, :in => :path, :type => :integer
       parameter name: :site_id, :in => :path, :type => :integer
 
-      parameter name: :return_results_on_rendered_page, :in => :query, :type => :boolean, :required=> true
-      parameter name: :return_results_on_customer_webpage, :in => :query, :type => :boolean, :required=> true
-      parameter name: :custom_search_results_url, :in => :query, :type => :string
-      parameter name: :search_icon_color, :in => :query, :type => :string
-      parameter name: :search_icon_text, :in => :query, :type => :string
-      parameter name: :search_box_shape, :in => :query, :type => :string
-      parameter name: :search_box_fill_color, :in => :query, :type => :string
-      parameter name: :search_box_border_color, :in => :query, :type => :string
-      parameter name: :search_box_placeholder_text, :in => :query, :type => :text
+      parameter name: :site_configuration, in: :body, schema: {
+        type: :object,
+        properties: {
+          return_results_on_rendered_page: { type: :boolean },
+          return_results_on_customer_webpage: { type: :boolean },
+          custom_search_results_url: { type: :string },
+          search_icon_color: { type: :string },
+          search_icon_text: { type: :string },
+          search_box_shape: { type: :string },
+          search_box_fill_color: { type: :string },
+          search_box_border_color: { type: :string },
+          search_box_placeholder_text: { type: :string },
+
+        },
+        required: [ 'return_results_on_rendered_page', 'return_results_on_customer_webpage']
+      }
 
       response '200', 'Site configuration is added successfully' do
         run_test!
@@ -201,7 +209,7 @@ describe 'Sites API' do
   path '/users/{user_id}/sites/{site_id}/convert_audio_to_text' do
     post 'Convert audio to text' do
       tags 'Site Management'
-      consumes 'application/json'
+      consumes 'multipart/form-data'
 
       parameter name: :api_key, :in => :header, :type => :string, :required => true
       parameter name: :signature, :in => :header, :type => :string, :required => true
@@ -209,7 +217,15 @@ describe 'Sites API' do
       parameter name: :user_id, :in => :path, :type => :integer
       parameter name: :site_id, :in => :path, :type => :integer
 
-      parameter name: :audio_file, :in => :query, :type => :file
+      # parameter name: :site_audio, in: :body, schema: {
+      #   type: :object,
+      #   properties: {
+      #     audio_file: { type: :file },
+      #   },
+      #   required: [ 'audio_file', 'return_results_on_customer_webpage']
+      # }
+
+      parameter name: :audio_file, :in => :formData, :type => :file
 
 
       response '200', '' do

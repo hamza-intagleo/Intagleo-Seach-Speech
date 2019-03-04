@@ -5,16 +5,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
-  swagger_api :update do
-    summary "Updates the existing User"
-    param :path, :user_id, :integer, :required, "User Id"
-    param :form, "user[first_name]", :string, :optional, "First name"
-    param :form, "user[last_name]", :string, :optional, "Last name"
-    param :form, "user[email]", :string, :optional, "Email address"
-    param :form, "user[contact_number]", :string, :optional, "Contact number"
-    param :form, "user[password]", :string, :optional, "Password"
-    param :form, "user[current_password]", :string, :required, "Current Password"
-  end
+  # swagger_api :update do
+  #   summary "Updates the existing User"
+  #   param :path, :user_id, :integer, :required, "User Id"
+  #   param :form, "user[first_name]", :string, :optional, "First name"
+  #   param :form, "user[last_name]", :string, :optional, "Last name"
+  #   param :form, "user[email]", :string, :optional, "Email address"
+  #   param :form, "user[contact_number]", :string, :optional, "Contact number"
+  #   param :form, "user[password]", :string, :optional, "Password"
+  #   param :form, "user[current_password]", :string, :required, "Current Password"
+  # end
 
   # GET /resource/sign_up
   # def new

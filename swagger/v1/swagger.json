@@ -9,41 +9,43 @@
       "post": {
         "summary": "Creates a User",
         "tags": [
-          "Site Management"
+          "User Management"
         ],
         "consumes": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "user_id",
-            "in": "path",
-            "type": "integer",
-            "required": true
-          },
-          {
-            "name": "site",
+            "name": "registration",
             "in": "body",
             "schema": {
               "type": "object",
               "properties": {
-                "site_name": {
+                "first_name": {
                   "type": "string"
                 },
-                "site_url": {
+                "last_name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "password": {
                   "type": "string"
                 }
               },
               "required": [
-                "site_name",
-                "site_url"
+                "first_name",
+                "last_name",
+                "email",
+                "password"
               ]
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "Site is successfully added"
+            "description": "User is successfully created"
           },
           "422": {
             "description": "Invalid request"
@@ -131,6 +133,12 @@
         ],
         "parameters": [
           {
+            "name": "user_id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          },
+          {
             "name": "email",
             "in": "path",
             "type": "integer",
@@ -186,6 +194,55 @@
         }
       }
     },
+    "/users/{user_id}/sites": {
+      "post": {
+        "summary": "Add a Site",
+        "tags": [
+          "Site Management"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          },
+          {
+            "name": "site",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "site_name": {
+                  "type": "string"
+                },
+                "site_url": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "site_name",
+                "site_url"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Site is successfully added"
+          },
+          "422": {
+            "description": "Invalid request"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
     "/users/{user_id}/sites/{site_id}/add_site_configuration": {
       "post": {
         "summary": "Add site configuration",
@@ -209,51 +266,44 @@
             "required": true
           },
           {
-            "name": "return_results_on_rendered_page",
-            "in": "query",
-            "type": "boolean",
-            "required": true
-          },
-          {
-            "name": "return_results_on_customer_webpage",
-            "in": "query",
-            "type": "boolean",
-            "required": true
-          },
-          {
-            "name": "custom_search_results_url",
-            "in": "query",
-            "type": "string"
-          },
-          {
-            "name": "search_icon_color",
-            "in": "query",
-            "type": "string"
-          },
-          {
-            "name": "search_icon_text",
-            "in": "query",
-            "type": "string"
-          },
-          {
-            "name": "search_box_shape",
-            "in": "query",
-            "type": "string"
-          },
-          {
-            "name": "search_box_fill_color",
-            "in": "query",
-            "type": "string"
-          },
-          {
-            "name": "search_box_border_color",
-            "in": "query",
-            "type": "string"
-          },
-          {
-            "name": "search_box_placeholder_text",
-            "in": "query",
-            "type": "text"
+            "name": "site_configuration",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "return_results_on_rendered_page": {
+                  "type": "boolean"
+                },
+                "return_results_on_customer_webpage": {
+                  "type": "boolean"
+                },
+                "custom_search_results_url": {
+                  "type": "string"
+                },
+                "search_icon_color": {
+                  "type": "string"
+                },
+                "search_icon_text": {
+                  "type": "string"
+                },
+                "search_box_shape": {
+                  "type": "string"
+                },
+                "search_box_fill_color": {
+                  "type": "string"
+                },
+                "search_box_border_color": {
+                  "type": "string"
+                },
+                "search_box_placeholder_text": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "return_results_on_rendered_page",
+                "return_results_on_customer_webpage"
+              ]
+            }
           }
         ],
         "responses": {
@@ -312,7 +362,7 @@
           "Site Management"
         ],
         "consumes": [
-          "application/json"
+          "multipart/form-data"
         ],
         "parameters": [
           {
@@ -341,7 +391,7 @@
           },
           {
             "name": "audio_file",
-            "in": "query",
+            "in": "formData",
             "type": "file"
           }
         ],
