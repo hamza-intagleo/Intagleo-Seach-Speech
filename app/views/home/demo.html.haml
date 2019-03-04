@@ -1,0 +1,35 @@
+%nav.navbar.navbar-expand-md.navbar-dark.bg-dark
+  %a.navbar-brand{:href => "#"} Intagleo Speech Search
+  %button.navbar-toggler{"aria-controls" => "navbarCollapse", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarCollapse", "data-toggle" => "collapse", :type => "button"}
+    %span.navbar-toggler-icon
+  #navbarCollapse.collapse.navbar-collapse
+.alert.alert-danger.alert-dismissible.d-none#error_message
+  %a.close{"aria-label" => "close", "data-dismiss" => "alert", :href => "#"} ×
+  %strong Alert!
+  No Speech is recorded
+.container.pt-5{:role => "main"}
+
+  .row.mb-5.mt-3
+    .col-md-2.mt-3
+      %label Site URL:
+    .col-md-8
+      .form-group
+        %input.form-control.form-control-lg#site_name{:placeholder => "Enter Site Name", :type => "text", :value => "nike.com"}/
+  .row#viz
+    .col-md-10
+      %h4.mb-3 Your translated text will appear here in the box below:
+      .jumbotron
+        %h2#translated_text
+    .col-md-2
+      #controls.mt-5
+        %a.btn.btn-primary.btn-lg.btn-block.btn-height#record{href: "javascript:void(0);", onclick: "toggleRecording(this);"}
+          %i.fa.fa-microphone
+
+  %h5
+    %b Google API Search Results will appear below:
+
+  %table.table#search_data_table
+    %thead
+      %tr
+        %th Title
+        %th Link

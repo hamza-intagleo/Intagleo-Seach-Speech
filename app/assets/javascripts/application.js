@@ -13,8 +13,25 @@
 //= require rails-ujs
 //= require jquery3
 //= require popper
-//= require bootstrap
 //= require jquery_ujs
+//= require bootstrap
+//= require jparticle.jquery
+//= require custom
+//= require wow
+//= require slick.min
 //= require activestorage
 //= require recorder
 //= require home
+
+    
+
+$(document).ready(function(){
+  
+  $('.single-item').slick({
+    slidesToScroll: 1,
+    autoplay: true,
+    dots: true,
+    speed: 1500,
+    autoplaySpeed: 2000
+  });
+})

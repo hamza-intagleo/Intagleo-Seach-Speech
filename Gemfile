@@ -40,7 +40,7 @@ gem 'google-cloud-speech'
 gem "haml-rails", "~> 1.0"
 gem 'wavefile'
 gem "figaro"
-gem "font-awesome-rails"
+gem 'font_awesome5_rails'
 gem 'devise'
 gem "rolify"
 gem 'rswag'
