@@ -172,13 +172,14 @@ class SitesController < ApplicationController
 
   def verify_client
     begin
-      if request.headers['HTTP_API_KEY'].present? && request.headers['HTTP_SIGNATURE'].present?
+      if request.headers['HTTP_API_KEY'].present? && request.headers['HTTP_SIGNATURE'].present? && request.headers['HTTP_TIMESTAMP']
         require 'digest'
         api_key = request.headers['HTTP_API_KEY']
+        timestamp = request.headers['HTTP_TIMESTAMP']
         user = User.find_by(client_key: api_key)
         if user.present?
           shared_secret = user.client_secret
-          toBeHashed = "#{api_key}#{shared_secret}"
+          toBeHashed = "#{api_key}#{shared_secret}#{timestamp}"
           signature = Digest::SHA2.new(512).hexdigest(toBeHashed)
           unless signature == request.headers['HTTP_SIGNATURE']
             render json: {success: false, error: true, message: "Not Authorised!"}, status: 404

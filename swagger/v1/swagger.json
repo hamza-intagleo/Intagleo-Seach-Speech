@@ -14,10 +14,12 @@
         "consumes": [
           "application/json"
         ],
+        "description": "This API method will be used to create a user. In response it will provide the API key and shared secret key which can be used to generate signature.",
         "parameters": [
           {
             "name": "registration",
             "in": "body",
+            "description": "Body parameters for this call",
             "schema": {
               "type": "object",
               "properties": {
@@ -65,18 +67,21 @@
         "consumes": [
           "application/json"
         ],
+        "description": "This API method will be used to login the user providing the below input parameters.",
         "parameters": [
           {
             "name": "email",
             "in": "query",
             "type": "string",
-            "required": true
+            "required": true,
+            "description": "Enter email address"
           },
           {
             "name": "password",
             "in": "query",
             "type": "string",
-            "required": true
+            "required": true,
+            "description": "Enter password"
           }
         ],
         "responses": {
@@ -101,12 +106,14 @@
         "consumes": [
           "application/json"
         ],
+        "description": "This API method will be used to resets the user's password. This method will send an email to provided email address for futher steps.",
         "parameters": [
           {
             "name": "email",
             "in": "query",
             "type": "string",
-            "required": true
+            "required": true,
+            "description": "Enter email address"
           }
         ],
         "responses": {
@@ -131,17 +138,20 @@
         "consumes": [
           "application/json"
         ],
+        "description": "This API method will be used to re generate API key and shared secret key. Please note that you need to re generate the signature using these new keys.",
         "parameters": [
           {
             "name": "user_id",
             "in": "path",
             "type": "integer",
+            "description": "Enter user ID",
             "required": true
           },
           {
             "name": "email",
             "in": "path",
             "type": "integer",
+            "description": "Enter email address",
             "required": true
           }
         ],
@@ -167,18 +177,29 @@
         "consumes": [
           "application/json"
         ],
+        "description": "This API method will be used to generate signature which will be used as a header in the calls for authorization.",
         "parameters": [
           {
             "name": "api_key",
-            "in": "header",
+            "in": "query",
             "type": "string",
-            "required": true
+            "required": true,
+            "description": "Enter API key"
           },
           {
             "name": "signature",
-            "in": "header",
+            "in": "query",
             "type": "string",
-            "required": true
+            "required": true,
+            "description": "Enter Signature"
+          },
+          {
+            "name": "timestamp",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "example": 1551685983,
+            "description": "Current Timestamp"
           }
         ],
         "responses": {
@@ -203,16 +224,19 @@
         "consumes": [
           "application/json"
         ],
+        "description": "This API method will be used to add a new site for provided user.",
         "parameters": [
           {
             "name": "user_id",
             "in": "path",
             "type": "integer",
+            "description": "Enter user ID",
             "required": true
           },
           {
             "name": "site",
             "in": "body",
+            "description": "Site parameters",
             "schema": {
               "type": "object",
               "properties": {
@@ -252,22 +276,26 @@
         "consumes": [
           "application/json"
         ],
+        "description": "This API method will be used to add a configuration settings for provided site.",
         "parameters": [
           {
             "name": "user_id",
             "in": "path",
             "type": "integer",
+            "description": "Enter user ID",
             "required": true
           },
           {
             "name": "site_id",
             "in": "path",
             "type": "integer",
+            "description": "Enter site ID",
             "required": true
           },
           {
             "name": "site_configuration",
             "in": "body",
+            "description": "Site configuration parameters",
             "schema": {
               "type": "object",
               "properties": {
@@ -328,17 +356,20 @@
         "consumes": [
           "application/json"
         ],
+        "description": "This method will be used to get the configuration of any site.",
         "parameters": [
           {
             "name": "user_id",
             "in": "path",
             "type": "integer",
+            "description": "Enter user ID",
             "required": true
           },
           {
             "name": "site_id",
             "in": "path",
             "type": "integer",
+            "description": "Enter site ID",
             "required": true
           }
         ],
@@ -364,29 +395,41 @@
         "consumes": [
           "multipart/form-data"
         ],
+        "description": "This API method will be used to convert audio speech file into text.",
         "parameters": [
           {
             "name": "api_key",
             "in": "header",
             "type": "string",
-            "required": true
+            "required": true,
+            "description": "Enter API Key"
           },
           {
             "name": "signature",
             "in": "header",
             "type": "string",
-            "required": true
+            "required": true,
+            "description": "Enter Signature"
+          },
+          {
+            "name": "timestamp",
+            "in": "header",
+            "type": "string",
+            "required": true,
+            "description": "Enter Timestamp"
           },
           {
             "name": "user_id",
             "in": "path",
             "type": "integer",
+            "description": "Enter user ID",
             "required": true
           },
           {
             "name": "site_id",
             "in": "path",
             "type": "integer",
+            "description": "Enter site ID",
             "required": true
           },
           {
@@ -417,40 +460,55 @@
         "consumes": [
           "application/json"
         ],
+        "description": "This API method will be used to search into site url with converted speech text.",
         "parameters": [
           {
             "name": "api_key",
             "in": "header",
             "type": "string",
-            "required": true
+            "required": true,
+            "description": "Enter API key"
           },
           {
             "name": "signature",
             "in": "header",
             "type": "string",
-            "required": true
+            "required": true,
+            "description": "Enter Signature"
+          },
+          {
+            "name": "timestamp",
+            "in": "header",
+            "type": "string",
+            "required": true,
+            "example": 1551685983,
+            "description": "Enter Timestamp"
           },
           {
             "name": "user_id",
             "in": "path",
             "type": "integer",
+            "description": "Enter user ID",
             "required": true
           },
           {
             "name": "site_id",
             "in": "path",
             "type": "integer",
+            "description": "Enter site ID",
             "required": true
           },
           {
             "name": "search_string",
             "in": "query",
-            "type": "string"
+            "type": "string",
+            "description": "Enter converted speech text"
           },
           {
             "name": "analytics_id",
             "in": "query",
-            "type": "integer"
+            "type": "integer",
+            "description": "Enter analytics ID retrieved from previous call (i.e convert_audio_to_text)."
           }
         ],
         "responses": {
@@ -475,35 +533,48 @@
         "consumes": [
           "application/json"
         ],
+        "description": "This API method will be used to retrieved the statistics of a site provided.",
         "parameters": [
           {
             "name": "api_key",
             "in": "header",
             "type": "string",
-            "required": true
+            "required": true,
+            "description": "Enter API key"
           },
           {
             "name": "signature",
             "in": "header",
             "type": "string",
-            "required": true
+            "required": true,
+            "description": "Enter Signature"
+          },
+          {
+            "name": "timestamp",
+            "in": "header",
+            "type": "string",
+            "required": true,
+            "description": "Enter Timestamp"
           },
           {
             "name": "user_id",
             "in": "path",
             "type": "integer",
+            "description": "Enter user ID",
             "required": true
           },
           {
             "name": "site_id",
             "in": "path",
             "type": "integer",
+            "description": "Enter site ID",
             "required": true
           },
           {
             "name": "detail_id",
             "in": "query",
-            "type": "integer"
+            "type": "integer",
+            "description": "Enter detail ID from the following options: \n 1- Number of Searches Per Minute / Past 24 Hours \n 2- Total Searches \n 3- Average Searches / Minute \n 4- Average Search Response Time \n 5- Average Text Processing Time \n 6- List all Searches \n 7- List all Text Conversion Times e.g. Job 1, Start, End, Time \n 8- All Stats "
           }
         ],
         "responses": {

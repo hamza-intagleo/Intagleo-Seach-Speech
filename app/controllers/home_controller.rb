@@ -64,7 +64,8 @@ class HomeController < ApplicationController
     require 'digest'
     api_key = params[:api_key]
     shared_secret = params[:shared_secret]
-    toBeHashed = "#{api_key}#{shared_secret}"
+    timestamp = params[:timestamp]
+    toBeHashed = "#{api_key}#{shared_secret}#{timestamp}"
     signature = Digest::SHA2.new(512).hexdigest(toBeHashed)
     render json: {success: true, error: false, authorized_signature: signature}
   end

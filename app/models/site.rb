@@ -27,7 +27,15 @@ class Site < ApplicationRecord
     when 6
       analytics.pluck(:search_string)
     when 7
-      analytics
+      if analytics.present?
+        results = []
+        analytics.each_with_index do |analytic, index|
+          results << {:Job => index+1, :text_string => analytic.search_string, :processing_time_in_seconds => analytic.text_processing_time}
+        end
+        results
+      else
+        []
+      end
     when 8
       analytics
     else
