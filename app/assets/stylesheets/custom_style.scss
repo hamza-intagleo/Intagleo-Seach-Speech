@@ -2,6 +2,10 @@
   max-width: 1300px;
 }
 
+.slick-dots{
+  display: none !important;
+}
+
 
 @font-face {
     font-family: 'Avenir';
@@ -601,10 +605,11 @@ img {
   padding: 14px 30px 14px 30px;
   color: white;
   font-size: 15px;
-  margin-top: 19px;
   display: inline-block;
   font-family: 'Poppins', sans-serif;
   font-weight: 600;
+  position: relative;
+  top: -50px;
 }
 
 .static-content p {
