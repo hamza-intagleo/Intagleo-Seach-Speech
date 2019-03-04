@@ -187,19 +187,18 @@
             "description": "Enter API key"
           },
           {
-            "name": "signature",
+            "name": "shared_secret",
             "in": "query",
             "type": "string",
             "required": true,
-            "description": "Enter Signature"
+            "description": "Enter shared secret key"
           },
           {
             "name": "timestamp",
             "in": "query",
             "type": "string",
             "required": true,
-            "example": 1551685983,
-            "description": "Current Timestamp"
+            "example": 1551686786
           }
         ],
         "responses": {
@@ -481,8 +480,7 @@
             "in": "header",
             "type": "string",
             "required": true,
-            "example": 1551685983,
-            "description": "Enter Timestamp"
+            "example": 1551686786
           },
           {
             "name": "user_id",

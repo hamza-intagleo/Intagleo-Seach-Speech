@@ -102,8 +102,8 @@ describe 'Users API' do
       consumes 'application/json'
       description "This API method will be used to generate signature which will be used as a header in the calls for authorization."
       parameter name: :api_key, :in => :query, :type => :string, :required => true, :description => "Enter API key"
-      parameter name: :signature, :in => :query, :type => :string, :required => true, :description => "Enter Signature"
-      parameter name: :timestamp, :in => :query, :type => :string, :required => true, :example => Time.now.to_i, :description => "Current Timestamp"
+      parameter name: :shared_secret, :in => :query, :type => :string, :required => true, :description => "Enter shared secret key"
+      parameter name: :timestamp, :in => :query, :type => :string, :required => true, :example => Time.now.to_i
 
       response '200', '' do
         run_test!
@@ -255,7 +255,7 @@ describe 'Sites API' do
 
       parameter name: :api_key, :in => :header, :type => :string, :required => true, :description => "Enter API key"
       parameter name: :signature, :in => :header, :type => :string, :required => true, :description => "Enter Signature"
-      parameter name: :timestamp, :in => :header, :type => :string, :required => true, :example => Time.now.to_i, :description => "Enter Timestamp"
+      parameter name: :timestamp, :in => :header, :type => :string, :required => true, :example => Time.now.to_i
 
       parameter name: :user_id, :in => :path, :type => :integer, :description => "Enter user ID"
       parameter name: :site_id, :in => :path, :type => :integer, :description => "Enter site ID"
