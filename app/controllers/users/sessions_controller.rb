@@ -12,20 +12,36 @@ class Users::SessionsController < Devise::SessionsController
 
   # POST /resource/sign_in
   def create
-    begin
-      resource = User.find_by(email: params[:email])
-      if resource.present? && resource.valid_password?(params[:password])
-        # set_flash_message!(:notice, :signed_in)
-        sign_in(resource_name, resource)
-        # yield resource if block_given?
+    self.resource = warden.authenticate!(auth_options)
+    set_flash_message!(:notice, :signed_in)
+    sign_in(resource_name, resource)
+    yield resource if block_given?
+    respond_to do |format|
+      format.html {respond_with resource, location: after_sign_in_path_for(resource)}
+      format.json { 
         render json: {success: true, error: false, message: "User is successfully logged in", results: resource},  status: 200
-        # respond_with resource, location: after_sign_in_path_for(resource)
-      else
-        render json: {success: false, error: true, message: "Invalid user name or password"},  status: 422
-      end
-    rescue Exception => e
-      render json: {success: false, error: true, message: e}, status: 500
+      }
     end
+
+    # respond_with resource, location: after_sign_in_path_for(resource)
+    # begin
+    #   if user_signed_in?
+    #     render json: {success: false, error: true, message: "User is already Signed In"},  status: 409  
+    #   else
+    #     resource = User.find_by(email: params[:user][:email])
+    #     if resource.present? && resource.valid_password?(params[:user][:password])
+    #       # set_flash_message!(:notice, :signed_in)
+    #       sign_in(resource_name, resource)
+    #       # yield resource if block_given?
+    #       render json: {success: true, error: false, message: "User is successfully logged in", results: resource},  status: 200
+    #       # respond_with resource, location: after_sign_in_path_for(resource)
+    #     else
+    #       render json: {success: false, error: true, message: "Invalid user name or password"},  status: 422
+    #     end
+    #   end
+    # rescue Exception => e
+    #   render json: {success: false, error: true, message: e}, status: 500
+    # end
   end
 
   # DELETE /resource/sign_out

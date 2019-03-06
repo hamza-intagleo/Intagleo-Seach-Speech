@@ -65,31 +65,29 @@
           "User Management"
         ],
         "consumes": [
-          "application/json"
+          "multipart/form-data"
         ],
         "description": "This API method will be used to login the user providing the below input parameters.",
         "parameters": [
           {
-            "name": "email",
-            "in": "query",
+            "name": "user[email]",
+            "in": "formData",
             "type": "string",
-            "required": true,
-            "description": "Enter email address"
+            "required": true
           },
           {
-            "name": "password",
-            "in": "query",
+            "name": "user[password]",
+            "in": "formData",
             "type": "string",
-            "required": true,
-            "description": "Enter password"
+            "required": true
           }
         ],
         "responses": {
           "200": {
             "description": "User is successfully logged in"
           },
-          "422": {
-            "description": "Invalid user name or password"
+          "401": {
+            "description": "Invalid Email or password."
           },
           "500": {
             "description": "Internal server error"
@@ -198,7 +196,7 @@
             "in": "query",
             "type": "string",
             "required": true,
-            "description": "Current Timestamp i.e 1551687034"
+            "description": "Current Timestamp i.e 1551857108"
           }
         ],
         "responses": {
@@ -480,7 +478,7 @@
             "in": "header",
             "type": "string",
             "required": true,
-            "description": "Current Timestamp i.e 1551687034"
+            "description": "Current Timestamp i.e 1551857108"
           },
           {
             "name": "user_id",

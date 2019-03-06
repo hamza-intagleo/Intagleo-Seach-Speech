@@ -14,6 +14,7 @@
 //= require jquery3
 //= require popper
 //= require jquery_ujs
+//= require parsley
 //= require bootstrap
 //= require jparticle.jquery
 //= require custom

@@ -34,16 +34,20 @@ describe 'Users API' do
   path '/users/sign_in' do
     post 'User Sign In' do
       tags 'User Management'
-      consumes 'application/json'
+      # consumes 'application/json'
+      consumes 'multipart/form-data'
       description "This API method will be used to login the user providing the below input parameters."
-      parameter name: :email, :in => :query, :type => :string, :required => true, :description => "Enter email address"
-      parameter name: :password, :in => :query, :type => :string, :required => true, :description => "Enter password"
+      parameter name: "user[email]", :in => :formData, :type => :string, :required => true
+      parameter name: "user[password]", :in => :formData, :type => :string, :required => true
+
+      # parameter name: :email, :in => :query, :type => :string, :required => true, :description => "Enter email address"
+      # parameter name: :password, :in => :query, :type => :string, :required => true, :description => "Enter password"
 
       response '200', 'User is successfully logged in' do
         run_test!
       end
 
-      response '422', 'Invalid user name or password' do
+      response '401', 'Invalid Email or password.' do
         run_test!
       end
 
