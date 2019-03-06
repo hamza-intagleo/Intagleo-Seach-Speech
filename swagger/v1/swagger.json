@@ -12,37 +12,33 @@
           "User Management"
         ],
         "consumes": [
-          "application/json"
+          "multipart/form-data"
         ],
         "description": "This API method will be used to create a user. In response it will provide the API key and shared secret key which can be used to generate signature.",
         "parameters": [
           {
-            "name": "registration",
-            "in": "body",
-            "description": "Body parameters for this call",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "first_name": {
-                  "type": "string"
-                },
-                "last_name": {
-                  "type": "string"
-                },
-                "email": {
-                  "type": "string"
-                },
-                "password": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "first_name",
-                "last_name",
-                "email",
-                "password"
-              ]
-            }
+            "name": "user[first_name]",
+            "in": "formData",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "user[last_name]",
+            "in": "formData",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "user[email]",
+            "in": "formData",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "user[password]",
+            "in": "formData",
+            "type": "string",
+            "required": true
           }
         ],
         "responses": {
@@ -50,7 +46,10 @@
             "description": "User is successfully created"
           },
           "422": {
-            "description": "Invalid request"
+            "description": "Email is invalid"
+          },
+          "409": {
+            "description": "Email has already been taken"
           },
           "500": {
             "description": "Internal server error"
@@ -102,13 +101,13 @@
           "User Management"
         ],
         "consumes": [
-          "application/json"
+          "multipart/form-data"
         ],
         "description": "This API method will be used to resets the user's password. This method will send an email to provided email address for futher steps.",
         "parameters": [
           {
-            "name": "email",
-            "in": "query",
+            "name": "user[email]",
+            "in": "formData",
             "type": "string",
             "required": true,
             "description": "Enter email address"
@@ -119,7 +118,7 @@
             "description": "You will receive an email with instructions on how to reset your password in a few minutes."
           },
           "422": {
-            "description": "Invalid request"
+            "description": "Email not found"
           },
           "500": {
             "description": "Internal server error"
@@ -196,7 +195,7 @@
             "in": "query",
             "type": "string",
             "required": true,
-            "description": "Current Timestamp i.e 1551857108"
+            "description": "Current Timestamp i.e 1551860382"
           }
         ],
         "responses": {
@@ -478,7 +477,7 @@
             "in": "header",
             "type": "string",
             "required": true,
-            "description": "Current Timestamp i.e 1551857108"
+            "description": "Current Timestamp i.e 1551860382"
           },
           {
             "name": "user_id",

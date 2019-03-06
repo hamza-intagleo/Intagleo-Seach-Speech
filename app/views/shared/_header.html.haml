@@ -58,20 +58,20 @@
             .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "dropdownMenuButton"}
               .row
                 .col-12.col-sm-12.col-md-12.col-xl-12
-                  %form.form-signin.login-form.sign-up
+                  = form_for(@user, url: registration_path(@user), html: {class: "form-signin login-form.sign_up parsley-validate"}) do |f|
                     .row
                       .col-sm-6
                         .form-label-group
-                          %input.form-control{:placeholder => "First Name", :type => "text"}/
+                          = f.text_field :first_name, placeholder: "First Name", class: "form-control", data: {"parsley-required": true}
                       .col-sm-6
                         .form-label-group
-                          %input.form-control{:placeholder => "Last Name", :type => "text"}/
+                          = f.text_field :last_name, placeholder: "Last Name", class: "form-control", data: {"parsley-required": true}
                     .form-label-group
-                      %input.form-control{:placeholder => "Email", :type => "text"}/
+                      = f.email_field :email, placeholder: "Email", class: "form-control", data: {"parsley-required": true, "parsley-type": "email"}
                     .form-label-group
-                      %input.form-control{:placeholder => "Password", :type => "password"}/
+                      = f.password_field :password, placeholder: "Password", class: "form-control", data: {"parsley-required": true}
                     .form-label-group
-                      %input.form-control{:placeholder => "Confirm Password", :type => "password"}/
+                      = f.password_field :password_confirmation, placeholder: "Confirm Password", class: "form-control", data: {"parsley-required": true}
                     %button.btn.btn-lg.btn-primary.btn-block.submit-button{:type => "submit"} Sign up
                   .already-account
                     %p
