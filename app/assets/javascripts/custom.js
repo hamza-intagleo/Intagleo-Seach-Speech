@@ -2,8 +2,8 @@ $(document).ready(function(){
  
 	$(function(){
 		$(".bg-image").jParticle({
-		 background: "linear-gradient(120deg, #15b4ba 25%, #1dcdd4 75%)",
-			color: "#39d6dc"
+		 background: "linear-gradient(50deg, #3577ff 5%, #181e91 85%)",
+			color: "#405ec8"
 		});
 	});
  
@@ -136,8 +136,8 @@ $(".navigation li").click(function () {
 $( window ).resize(function() {
 	$(function(){
 		$(".bg-image").jParticle({
-		   background: "linear-gradient(120deg, #15b4ba 25%, #1dcdd4 75%)",
-			color: "#39d6dc"
+		   background: "linear-gradient(50deg, #3577ff 5%, #181e91 85%)",
+      color: "#405ec8"
 		});
 	});
 

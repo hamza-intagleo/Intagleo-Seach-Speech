@@ -54,7 +54,7 @@
 }
 
 .free-trial-tile .subscribe-button {
-  background: #ff711b;
+  background: #1a1e28;
   color: white;
 }
 
@@ -112,7 +112,7 @@
   display: inline-block;
   padding: 81px 0 81px 0;
   position: relative;
-  background: linear-gradient(120deg, #15b4ba 25%, #1dcdd4 75%);
+  background: linear-gradient(120deg, #3577ff 5%, #181e91 85%);
   bottom: 2px;
   canvas {
     position: absolute;
@@ -208,17 +208,17 @@ button:focus {
   right: 6px;
   top: 6px;
   width: 168px;
-  background: #ff711b;
+  background: #316cf2;
   text-align: center;
   border-radius: 35px;
-  border: 1px solid #ff711b;
+  border: 1px solid #316cf2;
   height: 68px;
   border: transparent;
   &:hover {
     background: #fff;
-    border: 1px solid #ff711b;
+    border: 1px solid #316cf2;
     i {
-      color: #ff711b;
+      color: #316cf2;
     }
   }
 }
@@ -290,7 +290,7 @@ footer {
 }
 
 .plan-with-price {
-  background-image: image-url('stylish-image.png');
+  background-image: image-url('price-bg.png');
   background-size: 100% 100%;
   height: 202px;
   background-repeat: no-repeat;
@@ -307,13 +307,13 @@ footer {
 }
 
 .active_hover .subscribe-button {
-  background: #ff711b;
+  background: #1a1e28;
   color: white;
 }
 
 .result_hover #free-trail {
   background: transparent;
-  color: #ff711b;
+  color: #1a1e28;
 }
 
 .submit-button {
@@ -324,8 +324,8 @@ footer {
 .active-tile {
   .subscribe-button:hover {
     background: white;
-    color: #ff711b;
-    border: 2px solid #ff711b;
+    color: #1a1e28;
+    border: 2px solid #1a1e28;
   }
   box-shadow: 1px 1px 40px 14px #575d6d1c;
 }
@@ -384,12 +384,13 @@ nav {
 }
 
 .icon-with-text .icon {
-  padding-bottom: 27px;
   padding-top: 27px;
   min-height: 140px;
   box-shadow: 3px 1px 11px 1px #e3e5ea00;
 }
-
+.icon-with-text .icon img{
+  margin-bottom: 35px;
+}
 .navigation li {
   padding: 0px 39px 0 5px;
 }
@@ -413,7 +414,7 @@ section#features {
 }
 
 .navigation .active a {
-  color: #1dcdd4;
+  color: #316cf2;
   border-bottom: 1px solid;
 }
 
@@ -463,7 +464,7 @@ section#about {
 }
 
 .navigation a::after {
-  background-color: #1dcdd4;
+  background-color: #316cf2;
   bottom: 0;
   content: "";
   display: block;
@@ -475,8 +476,7 @@ section#about {
 }
 
 .plans-prices a:hover {
-  background: white;
-  color: #ff711b;
+  color: #316cf2;
 }
 
 .navigation a:hover::after {
@@ -556,8 +556,8 @@ section#about {
 }
 
 .login-buttons .signup-button {
-  border: 2px solid #1dcdd4;
-  background: #1dcdd4;
+  border: 2px solid #1a1e28;
+  background: #1a1e28;
   color: white;
 }
 
@@ -578,12 +578,13 @@ section#about {
 
 .login-buttons {
   .login-button:hover {
-    background: black;
-    color: white;
+    background: #1a1e28;
+    color: #fff;
   }
   .signup-button:hover {
-    background: white;
-    color: #1dcdd4;
+    background: #fff;
+    border-color: #1a1e28;
+    color: #1a1e28;
   }
 }
 
@@ -600,10 +601,10 @@ img {
 }
 
 .plans-prices a {
-  background: #ff711b;
+  background: #fff;
   border-radius: 28px;
   padding: 14px 30px 14px 30px;
-  color: white;
+  color: #000;
   font-size: 15px;
   display: inline-block;
   font-family: 'Poppins', sans-serif;
@@ -654,7 +655,7 @@ a:hover {
 }
 
 .navigation a:hover {
-  color: #1dcdd4;
+  color: #316cf2;
 }
 
 .icon-with-text {
@@ -702,7 +703,7 @@ a:hover {
 
 .subscribe-button {
   background: white;
-  color: #ff711b;
+  color: #1a1e28;
   width: 200px;
   display: block;
   margin: auto;
@@ -713,9 +714,9 @@ a:hover {
   font-weight: 500;
   border-radius: 35px;
   margin-top: 45px;
-  border: 2px solid #ff711b;
+  border: 2px solid #1a1e28;
   &:hover {
-    background: #ff711b;
+    background: #1a1e28;
     color: white;
   }
 }
@@ -743,7 +744,7 @@ a:hover {
     &:focus {
       outline: none;
       box-shadow: none;
-      border-color: #1dcdd4;
+      border-color: #316cf2;
       border-radius: 0;
     }
   }
@@ -753,19 +754,19 @@ a:hover {
 }
 
 .btn-main {
-  background: #ff711b;
+  background: #1a1e28;
   border-radius: 28px;
   padding: 12px 30px 10px 30px;
   color: white;
   font-size: 15px;
-  border: 1px solid #ff711b;
+  border: 1px solid #1a1e28;
   font-family: 'Poppins', sans-serif;
   font-weight: 600;
   min-width: 150px;
   &:hover {
     background: #fff;
-    color: #ff711b;
-    border: 1px solid #ff711b;
+    color: #1a1e28;
+    border: 1px solid #1a1e28;
   }
 }
 
@@ -980,21 +981,25 @@ a:hover {
 @media screen and (min-width: 1440px) and (max-width: 1600px) {
   .icon-with-text {
     padding: 13px;
-    min-height: 242px;
+    min-height: 260px;
     .icon {
       padding-bottom: 19px;
       min-height: 128px;
     }
   }
+   .icon img {
+    width: 80px;
+  }
 }
 
 @media screen and (min-width: 1280px) and (max-width: 1400px) {
   .icon-with-text {
-    padding: 3px 15px 3px 15px;
-    min-height: 217px;
+    padding: 13px 15px 3px 15px;
+    min-height: 260px;
   }
+  run
   .icon img {
-    width: 63px;
+    margin-bottom: 20px;
   }
   .icon-with-text .icon {
     padding-bottom: 3px;
@@ -1102,12 +1107,15 @@ a:hover {
     left: 0;
     bottom: 27%;
   }
+  .navbar-header .navbar-toggler{
+    padding-right: 5px;
+  }
   .navbar-toggler-icon {
     display: inline-block;
     cursor: pointer;
   }
   .bar1, .bar2, .bar3 {
-    width: 35px;
+    width: 30px;
     height: 3px;
     background-color: #1ccdd3;
     margin: 7px 0;
@@ -1168,7 +1176,7 @@ a:hover {
   }
   .login-buttons {
     top: 20px;
-    right: 58px;
+    right: 43px;
   }
   .navigation li {
     padding-bottom: 8px;
@@ -1216,7 +1224,7 @@ a:hover {
     }
     .show-dropdown {
       right: 0 !important;
-      left: -84px;
+      left: -100px;
       width: 300px;
       padding-left: 10px;
       padding-right: 10px;
@@ -1240,22 +1248,22 @@ a:hover {
   }
   .login-buttons .dropdown-menu {
     &:before {
-      right: 56%;
+      right: 51%;
     }
     &:after {
-      right: 55.5%;
+      right: 50.5%;
     }
   }
   .sign-up {
     .show-dropdown {
-      left: -165px;
+      left: -183px;
     }
     .dropdown-menu {
       &:before {
-        right: 26%;
+        right: 22.5%;
       }
       &:after {
-        right: 25.5%;
+        right: 22%;
       }
     }
   }
@@ -1273,5 +1281,15 @@ a:hover {
   }
   #speech_icon .fa-microphone {
     font-size: 35px;
+  }
+
+  .navbar-brand{
+    .logo{
+      img{
+        width: 100px;
+        margin-bottom: 18px;
+        margin-top: 18px;
+      }
+    }
   }
 }
