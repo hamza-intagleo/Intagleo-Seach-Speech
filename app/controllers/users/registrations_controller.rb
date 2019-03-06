@@ -25,27 +25,38 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     begin
       build_resource(configure_sign_up_params)
-      api_key, secret_key = resource.generate_api_keys
-      resource.client_key = api_key
-      resource.client_secret = secret_key
+
       resource.save
+      yield resource if block_given?
       if resource.persisted?
         if resource.active_for_authentication?
-          # set_flash_message! :notice, :signed_up
-          # To avoid login comment out sign_up method
-          # sign_up(resource_name, resource)
-          render json: {success: true, error: false, message: "User is successfully created", results: resource}, status: 200
-          # render json: resource  , location: after_sign_up_path_for(resource)
+          set_flash_message! :notice, :signed_up
+          sign_up(resource_name, resource)
+          respond_to do |format|
+            format.html {respond_with resource, location: after_sign_up_path_for(resource)}
+            format.json { 
+              render json: {success: true, error: false, message: "User is successfully created", results: resource},  status: 200
+            }
+          end
         else
-          # set_flash_message! :notice, :"signed_up_but_#{resource.inactive_message}"
+          set_flash_message! :notice, :"signed_up_but_#{resource.inactive_message}"
           expire_data_after_sign_in!
-          render json: {success: true, error: false, message: "User is successfully created", results: resource}, status: 200
-          # render json: resource # , location: after_inactive_sign_up_path_for(resource)
+          respond_to do |format|
+            format.html {respond_with resource, location: after_inactive_sign_up_path_for(resource)}
+            format.json { 
+              render json: {success: false, error: true, message: resource.errors.full_messages.join(', ')},  status: 409
+            }
+          end
         end
       else
         clean_up_passwords resource
         set_minimum_password_length
-        render json: {success: false, error: true, message: resource.errors.full_messages.join(', ')}, status: 422
+        respond_to do |format|
+          format.html {respond_with resource}
+          format.json { 
+            render json: {success: false, error: true, message: resource.errors.full_messages.join(', ')},  status: 422
+          }
+        end
       end
     rescue Exception => e
       render json: {success: false, error: true, message: e}, status: 500
@@ -99,7 +110,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
-    params[:registration].permit(:email, :password, :first_name, :last_name, :password_confirmation)
+    params[:user].permit(:email, :password, :first_name, :last_name, :password_confirmation)
     # devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute])
   end
 

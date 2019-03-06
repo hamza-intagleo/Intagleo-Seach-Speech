@@ -1,4 +1,6 @@
 $(document).ready(function(){
+
+  $('.parsley-validate').parsley();
  
 	$(function(){
 		$(".bg-image").jParticle({

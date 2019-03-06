@@ -4,24 +4,33 @@ describe 'Users API' do
   path '/users' do
     post 'Creates a User' do
       tags 'User Management'
-      consumes 'application/json'
+      consumes 'multipart/form-data'
       description "This API method will be used to create a user. In response it will provide the API key and shared secret key which can be used to generate signature."
-      parameter name: :registration, in: :body, description: "Body parameters for this call", schema: {
-        type: :object,
-        properties: {
-          first_name: { type: :string },
-          last_name: { type: :string },
-          email: { type: :string },
-          password: { type: :string }
-        },
-        required: [ 'first_name', 'last_name', 'email', 'password' ]
-      }
+
+      parameter name: "user[first_name]", :in => :formData, :type => :string, :required => true
+      parameter name: "user[last_name]", :in => :formData, :type => :string, :required => true
+      parameter name: "user[email]", :in => :formData, :type => :string, :required => true
+      parameter name: "user[password]", :in => :formData, :type => :string, :required => true
+      # parameter name: :user, in: :body, description: "Body parameters for this call", schema: {
+      #   type: :object,
+      #   properties: {
+      #     "user[first_name]": { type: :string },
+      #     "user[last_name]": { type: :string },
+      #     "user[email]": { type: :string },
+      #     "user[password]": { type: :string }
+      #   },
+      #   required: [ 'first_name', 'last_name', 'email', 'password' ]
+      # }
 
       response '200', 'User is successfully created' do
         run_test!
       end
 
-      response '422', 'Invalid request' do
+      response '422', 'Email is invalid' do
+        run_test!
+      end
+
+      response '409', 'Email has already been taken' do
         run_test!
       end
 
@@ -34,16 +43,20 @@ describe 'Users API' do
   path '/users/sign_in' do
     post 'User Sign In' do
       tags 'User Management'
-      consumes 'application/json'
+      # consumes 'application/json'
+      consumes 'multipart/form-data'
       description "This API method will be used to login the user providing the below input parameters."
-      parameter name: :email, :in => :query, :type => :string, :required => true, :description => "Enter email address"
-      parameter name: :password, :in => :query, :type => :string, :required => true, :description => "Enter password"
+      parameter name: "user[email]", :in => :formData, :type => :string, :required => true
+      parameter name: "user[password]", :in => :formData, :type => :string, :required => true
+
+      # parameter name: :email, :in => :query, :type => :string, :required => true, :description => "Enter email address"
+      # parameter name: :password, :in => :query, :type => :string, :required => true, :description => "Enter password"
 
       response '200', 'User is successfully logged in' do
         run_test!
       end
 
-      response '422', 'Invalid user name or password' do
+      response '401', 'Invalid Email or password.' do
         run_test!
       end
 
@@ -56,15 +69,15 @@ describe 'Users API' do
   path '/users/password' do
     post 'Reset Password' do
       tags 'User Management'
-      consumes 'application/json'
+      consumes 'multipart/form-data'
       description "This API method will be used to resets the user's password. This method will send an email to provided email address for futher steps."
-      parameter name: :email, :in => :query, :type => :string, :required => true, :description => "Enter email address"
+      parameter name: "user[email]", :in => :formData, :type => :string, :required => true, :description => "Enter email address"
 
       response '200', 'You will receive an email with instructions on how to reset your password in a few minutes.' do
         run_test!
       end
 
-      response '422', 'Invalid request' do
+      response '422', 'Email not found' do
         run_test!
       end
 
