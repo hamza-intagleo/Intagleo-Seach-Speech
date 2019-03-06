@@ -162,13 +162,18 @@
 }
 
 .submit-button {
-  background: #1ccdd3;
-  border: 1px solid #1ccdd3;
+  background: #1a1e28;
+  border: 1px solid #1a1e28;
   border-radius: 50px;
 }
 
 .custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
-  background-color: #1ccdd3;
+  background-color: #1a1e28;
+}
+.parsley-errors-list.filled{
+    color: red;
+    margin-top: -11px;
+    margin-bottom: 15px;
 }
 
 .login-hover .login-container {
@@ -513,12 +518,12 @@ section#about {
 
 .submit-button:hover {
   background: transparent;
-  border: 1px solid #1ccdd3;
-  color: #1ccdd3;
+  border: 1px solid #1a1e28;
+  color: #1a1e28;
 }
 
 .forgot-pass a {
-  color: #789090;
+  color: #1a1e28;
   font-family: 'Open Sans', sans-serif;
   font-size: 14px;
 }
@@ -551,7 +556,7 @@ section#about {
     font-weight: 500;
   }
   a {
-    color: #1ccdd3;
+    color: #1a1e28;
   }
 }
 
