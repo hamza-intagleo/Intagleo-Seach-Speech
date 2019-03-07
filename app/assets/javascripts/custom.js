@@ -80,6 +80,13 @@ $(".navigation li").click(function () {
         }, 1000);
         return false;
     });	
+
+    $('.scroll-home').click(function () {
+        $("html, body").animate({
+            scrollTop: 0
+        }, 1000);
+        return false;
+    }); 
 	
 		    $('.login-buttons .login-button').click(function () {
 		$(this).parent().toggleClass('show-overlay-login');

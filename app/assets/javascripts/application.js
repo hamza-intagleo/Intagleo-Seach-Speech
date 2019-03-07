@@ -29,10 +29,13 @@
 $(document).ready(function(){
   
   $('.single-item').slick({
-    slidesToScroll: 1,
     autoplay: true,
     dots: true,
-    speed: 1500,
-    autoplaySpeed: 2000
+    vertical: true,
+    speed: 3500,
+    autoplaySpeed: 4000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    verticalSwiping: true,
   });
 })
