@@ -21,12 +21,13 @@
           %a{:href => "#pricing"} Pricing
         %li#link_5.d-inline-block
           %a{:href => "#contact"} Contact
+    
     .login-buttons
       .login-hover.hover-effects-login
         %a#dropdownMenuButton.login-button.d-inline-block.buttons{:href => "javascript:void(0)"}
           = user_signed_in? ? current_user.first_name : 'login'
         .dropdown
-          .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "dropdownMenuButton"}
+          .dropdown-menu.dropdown-menu-right#login_dropdown{"aria-labelledby" => "dropdownMenuButton"}
             .row
               .col-12.col-sm-12.col-md-12.col-xl-12
                 - @user = User.new
@@ -42,18 +43,32 @@
                       = f.check_box :remember_me, class: "custom-control-input", id: "customCheck1"
                       %label.custom-control-label{:for => "customCheck1"} Remember me
                     .float-right.forgot-pass
-                      %a{:href => "#{new_password_path(@user)}"} Forgot Password?
+                      %a#forgot_password{:href => "javascript:void(0);"} Forgot Password?
                   %button.btn.btn-lg.btn-primary.btn-block.submit-button{:type => "submit"} Login
                 .already-account
                   %p
                     Dont have an account?
-                    %a{:href => "#"} Sign Up
+                    %a#sign_up{:href => "javascript:void(0);"} Sign Up
+        .dropdown
+          .dropdown-menu.dropdown-menu-right#forgot_password_dropdown{"aria-labelledby" => "dropdownMenuButton"}
+            .row
+              .col-12.col-sm-12.col-md-12.col-xl-12
+                - @user = User.new
+                = form_for(@user , url: password_path(@user), html: {class: "form-signin login-form parsley-validate"}) do |f|
+                  .form-label-group.icon
+                    = f.email_field :email, placeholder: "Email", class: "form-control", data: {"parsley-required": true, "parsley-type": "email"}
+                    %i.fas.fa-envelope
+                  %button.btn.btn-lg.btn-primary.btn-block.submit-button{:type => "submit"} Send Instructions
+                .already-account
+                  %p
+                    Already have an account?
+                    %a#forgot_login_btn{:href => "javascript:void(0);"} Login
         .overlay
       - unless user_signed_in?
         .login-hover.hover-effects-signup
           %a#dropdownMenuButton.signup-button.d-inline-block.buttons{:href => "javascript:void(0)"} Sign Up
           .dropdown.sign-up
-            .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "dropdownMenuButton"}
+            .dropdown-menu.dropdown-menu-right#signup_dropdown{"aria-labelledby" => "dropdownMenuButton"}
               .row
                 .col-12.col-sm-12.col-md-12.col-xl-12
                   = form_for(@user, url: registration_path(@user), html: {class: "form-signin login-form.sign_up parsley-validate"}) do |f|
@@ -74,7 +89,7 @@
                   .already-account
                     %p
                       Already have an account ?
-                      %a{:href => "#"} Login
+                      %a#login{:href => "javascript:void(0);"} Login
           .overlay
       - else
         .login-hover.hover-effects-signout
