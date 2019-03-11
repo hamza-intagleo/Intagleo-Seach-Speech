@@ -1,15 +1,18 @@
-%h5
-  %b Google API Search Results will appear below:
-
-  %table.table#search_data_table
-    %thead
-      %tr
-        %th Title
-        %th Link
-      - @response.items.each do |item|
-        %tr
-          %td
-            = item.title
-          %td
-            = link_to item.link, item.link, target: '_blank'
+.container.pt-5.pb-5
+  .row
+    .col-md-12
+      %h5.mb-4
+        %b Google API Search Results:
+      %table.table.table-bordered.table-striped#search_data_table
+        %thead
+          %tr
+            %th Title
+            %th Link
+        %tbody
+          - @response.items.each do |item|
+            %tr
+              %td
+                = item.title
+              %td
+                = link_to item.link, item.link, target: '_blank'
 

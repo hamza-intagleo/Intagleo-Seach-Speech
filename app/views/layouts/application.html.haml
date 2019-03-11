@@ -17,10 +17,8 @@
     = render partial: "shared/header"
     #content.main-container
       #main.main-content{:role => "main"}
-
+        = render 'layouts/messages'
         = yield
-    %p.notice= notice
-    %p.alert= alert
     = render partial: "shared/footer"
     .back-to-top
       %button.btn.btn-primary.scroll-top{"data-scroll" => "up", :type => "button"}
