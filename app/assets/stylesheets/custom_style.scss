@@ -146,7 +146,7 @@ right: 0;
   }
 }
 
-#speech_icon .fa-microphone {
+#speech_icon .fa-microphone, #speech_submit .fa-search  {
   color: white;
   font-size: 49px;
   line-height: 57px;
@@ -229,7 +229,7 @@ button:focus {
   margin-bottom: 0;
 }
 
-#speech_icon {
+#speech_icon, #speech_submit {
   position: absolute;
   right: 6px;
   top: 6px;
@@ -1260,7 +1260,7 @@ a:hover {
   .grow-buss, #features h1, .text-with-dashboard h1 {
     font-size: 27px;
   }
-  #speech_icon {
+  #speech_icon, #speech_submit {
     position: unset;
     margin: auto;
     display: block;
@@ -1331,7 +1331,7 @@ a:hover {
   #speech_widget .try-it {
     font-size: 27px;
   }
-  #speech_icon {
+  #speech_icon, #speech_submit {
     width: 74px;
     height: 74px;
   }
@@ -1340,7 +1340,7 @@ a:hover {
     height: 60px;
     font-size: 20px;
   }
-  #speech_icon .fa-microphone {
+  #speech_icon .fa-microphone, #speech_submit .fa-search {
     font-size: 35px;
   }
   .text-with-image{

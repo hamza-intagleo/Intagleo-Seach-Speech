@@ -120,7 +120,7 @@ $(document).ready(function(){
 	  if ($(".login-hover").hasClass("show-overlay-signup")) {
       $('.login-hover').removeClass('show-overlay-signup');
     }
-	 });
+	  });
 
 	  $('.login-buttons .signup-button').click(function () {
 		  $(this).parent().toggleClass('show-overlay-signup');

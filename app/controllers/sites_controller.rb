@@ -1,6 +1,6 @@
 class SitesController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:create, :add_site_configuration, :convert_audio_to_text]
-  before_action :verify_client, only: [:search_text_into_site, :convert_audio_to_text, :get_statistics]
+  # before_action :verify_client, only: [:search_text_into_site, :convert_audio_to_text, :get_statistics]
 
   def create
     begin

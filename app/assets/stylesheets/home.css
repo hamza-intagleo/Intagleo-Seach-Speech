@@ -12,7 +12,7 @@
   font-size: 36px;
 }
 
-#record.recording {
+#speech_icon.recording {
   background-color: #dc3545;
   border-color: #dc3545;
   box-shadow: none;

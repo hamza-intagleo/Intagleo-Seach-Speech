@@ -14,13 +14,14 @@ Rails.application.routes.draw do
 
   post 'google_speech_to_text' => 'home#google_speech_to_text', as: :google_speech_to_text
   get 'generate_signature' => 'home#generate_signature', as: :generate_signature
+  get 'search_text_into_site' => 'home#search_text_into_site', as: :search_text_into_site
   
   resources :users, only: :renew_api_keys do
     get :renew_api_keys
     resources :sites, only: :create do
       post :add_site_configuration
       get :get_site_configuration
-      get :search_text_into_site
+      # get :search_text_into_site
       post :convert_audio_to_text
       get :get_statistics
     end

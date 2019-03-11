@@ -136,22 +136,24 @@ function createDownloadLink(blob) {
     $('#search_data_table').html('')
 
     $.ajax({
-      url: '/google_speech_to_text',
+      url: '/users/7/sites/2/convert_audio_to_text',
       type: 'POST',
       data: data,
       contentType: false,
       processData: false,
       success: function(result) {
-        if(result['result'][0] != undefined){
-          $('#translated_text').html((result['result'][0].split(':')[1]))
-          var api_data = '';
-          $.each(result['search_data'], function(key, val){
-            api_data += '<tr>'
-            api_data += '<td>'+val.title+'</td>'
-            api_data += '<td><a href='+val.link+ '>'+val.link+'</a></td>'
-            api_data += '/<tr>'
-          })
-          $('#search_data_table').append(api_data)
+        if(result['results'][0] != undefined){
+          $('#converted_text').val((result['results'][0].split(':')[1]));
+          $('#speech_icon').addClass('d-none');
+          $('#speech_submit').removeClass('d-none');
+          // var api_data = '';
+          // $.each(result['search_data'], function(key, val){
+          //   api_data += '<tr>'
+          //   api_data += '<td>'+val.title+'</td>'
+          //   api_data += '<td><a href='+val.link+ '>'+val.link+'</a></td>'
+          //   api_data += '/<tr>'
+          // })
+          // $('#search_data_table').append(api_data)
           $('#error_message').addClass('d-none')
         } else {
           $('#error_message').removeClass('d-none')

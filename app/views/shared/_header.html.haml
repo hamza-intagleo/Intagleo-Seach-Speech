@@ -1,7 +1,7 @@
 %header
   %nav.navbar.navbar-expand-lg.fixed-top.navbar-white.bg-white.justify-content-between
     .navbar-header
-      %a.navbar-brand.scroll-home{:href => "#"}
+      = link_to root_path, class: "navbar-brand #{params[:controller] == 'home' && params[:action] == 'index' ? 'scroll-home' : ''}" do
         .logo.d-lg-block
           = image_tag "right-reply-logo.png"
       %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarSupportedContent", "data-toggle" => "collapse", :type => "button"}
@@ -11,7 +11,7 @@
           .bar3
     #navbarSupportedContent.collapse.navbar-collapse
       %ul.navigation.nav.navbar-nav.ml-auto
-        %li#link_1.d-inline-block.active
+        %li#link_1.d-inline-block
           %a{:href => "#about"} About
         %li#link_2.d-inline-block
           %a{:href => "#speech_widget"} Try it
