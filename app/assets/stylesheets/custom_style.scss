@@ -579,7 +579,7 @@ section#about {
     }
     img{
       opacity: 0.3;
-      width: 90%;
+      width: 75%;
     }
   }
 }
@@ -1302,9 +1302,7 @@ a:hover {
     font-size: 27px;
   }
   #speech_icon, #speech_submit {
-    position: unset;
-    margin: auto;
-    display: block;
+    
   }
   #speech_widget {
     .try-it {
@@ -1373,19 +1371,27 @@ a:hover {
     font-size: 27px;
   }
   #speech_icon, #speech_submit {
-    width: 74px;
-    height: 74px;
+    width: 45px;
+    height: 45px;
+    top: 3px;
+    right: 3px;
   }
   #speech_form input {
     font-weight: normal;
-    height: 60px;
-    font-size: 20px;
+    height: 50px;
+    font-size: 14px;
+    padding-right: 45px;
+    padding-left: 15px;
   }
   #speech_icon .fa-microphone, #speech_submit .fa-search {
-    font-size: 35px;
+    font-size: 20px;
+    line-height: 38px;
   }
   .text-with-image{
     margin-bottom: 30px;
+  }
+  .select-site a img{
+    width: 65%;
   }
   .navbar-brand{
     margin-top: 0;
@@ -1401,9 +1407,7 @@ a:hover {
   .navbar{
     min-height: 100px;
   }
-  div#content{
-    padding-top: 19px;
-  }
+  
   .navbar-header .navbar-toggler{
     float: inherit;
     padding-top: 0;

@@ -41,26 +41,25 @@
           = image_tag 'dashboard2.png'
 %section#speech_widget.wow.fadeInUp{"data-wow-duration" => "2s"}
   .container-fluid
-    .container
-      .row
-        .col-12.col-sm-12.col-md-12.col-xl-12
-          = form_tag search_text_into_site_path, id: "speech_form", method: :get do
-            %h1.text-center.try-it Try it for yourself
-            .position-relative
-              .form-group
-                = text_field_tag 'search_string', nil, id: 'converted_text', placeholder: "I am looking for black shoes", class: 'form-control'
-                = hidden_field_tag 'site_url', 'www.amazon.com'
-                = link_to 'javascript:void(0);', class: ' btn btn-primary wow fadeInRight d-none', id: 'speech_icon', onclick: "toggleRecording(this);" do
-                  %i.fas.fa-microphone
-                = button_tag(type: "submit", class: "btn btn-primary wow fadeInRight ", id: "speech_submit") do
-                  %i.fas.fa-search
-            .select-site
-              %a.active
-                = image_tag 'amazon.png'
-              %a
-                = image_tag 'imdb.png'
-              %a
-                = image_tag 'usa.png'                       
+    .row
+      .col-12.col-sm-12.col-md-12.col-xl-12
+        = form_tag search_text_into_site_path, id: "speech_form", method: :get do
+          %h1.text-center.try-it Try it for yourself
+          .position-relative
+            .form-group
+              = text_field_tag 'search_string', nil, id: 'converted_text', placeholder: "I am looking for black shoes", class: 'form-control'
+              = hidden_field_tag 'site_url', 'www.amazon.com'
+              = link_to 'javascript:void(0);', class: ' btn btn-primary wow fadeInRight d-none', id: 'speech_icon', onclick: "toggleRecording(this);" do
+                %i.fas.fa-microphone
+              = button_tag(type: "submit", class: "btn btn-primary wow fadeInRight ", id: "speech_submit") do
+                %i.fas.fa-search
+          .select-site
+            %a.active
+              = image_tag 'amazon.png'
+            %a
+              = image_tag 'imdb.png'
+            %a
+              = image_tag 'usa.png'                       
 %section#features.wow.fadeInUp.sections.features-bg{"data-wow-duration" => "3s"}
   .container
     .row

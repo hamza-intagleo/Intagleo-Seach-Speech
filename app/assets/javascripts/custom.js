@@ -177,8 +177,8 @@ $( window ).resize(function() {
  
 $(window).scroll(function() {
   var scrollPos = $(window).scrollTop();
-  var page1Top = $("#home").offset().top - 150;
-  var page2Top = $("#about").offset().top - 150;
+  var page1Top = $("#home").offset().top;
+  var page2Top = $("#about").offset().top;
   var page3Top = $("#features").offset().top - 150;
   var page4Top = $("#pricing").offset().top - 150;
   var page5Top = $("#contact").offset().top - 170;
