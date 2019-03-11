@@ -1,7 +1,7 @@
 %header
   %nav.navbar.navbar-expand-lg.fixed-top.navbar-white.bg-white.justify-content-between
     .navbar-header
-      %a.navbar-brand{:href => "#"}
+      %a.navbar-brand.scroll-home{:href => "#"}
         .logo.d-lg-block
           = image_tag "right-reply-logo.png"
       %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarSupportedContent", "data-toggle" => "collapse", :type => "button"}
@@ -12,9 +12,9 @@
     #navbarSupportedContent.collapse.navbar-collapse
       %ul.navigation.nav.navbar-nav.ml-auto
         %li#link_1.d-inline-block.active
-          %a{:href => "#home"} Home
-        %li#link_2.d-inline-block
           %a{:href => "#about"} About
+        %li#link_2.d-inline-block
+          %a{:href => "#speech_widget"} Try it
         %li#link_3.d-inline-block
           %a{:href => "#features"} Features
         %li#link_4.d-inline-block

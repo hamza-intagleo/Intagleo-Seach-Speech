@@ -1,12 +1,33 @@
+body{
+    font-family: 'Poppins', sans-serif;
+}
 .container {
   max-width: 1300px;
 }
 
 .slick-dots{
-  display: none !important;
+right: 0;
+    position: absolute;
+    left: 0;
+    text-align: right;
+    max-width: 640px;
+    bottom: 0px;
 }
 
+.slick-dots li button:before{
+  font-size: 16px;
+  color: #fff;
+  content: "\f111";
+    opacity: 1;
+    
 
+    font-family: 'Font Awesome 5 Free';
+}
+.slick-dots li.slick-active button:before{
+  color: #fff;
+  opacity: 1;
+   content: "\f192";
+}
 @font-face {
     font-family: 'Avenir';
     src: font-url('Avenir-Medium.eot');
@@ -213,17 +234,17 @@ button:focus {
   right: 6px;
   top: 6px;
   width: 168px;
-  background: #316cf2;
+  background: #1a1e28;
   text-align: center;
   border-radius: 35px;
-  border: 1px solid #316cf2;
+  border: 1px solid #1a1e28;
   height: 68px;
   border: transparent;
   &:hover {
     background: #fff;
-    border: 1px solid #316cf2;
+    border: 1px solid #1a1e28;
     i {
-      color: #316cf2;
+      color: #1a1e28;
     }
   }
 }
@@ -272,7 +293,7 @@ section#features {
 }
 
 footer .copyright {
-  color: #91999a;
+  color: #bbc0cd;
   font-family: 'Poppins', sans-serif;
   font-size: 16px;
   margin-bottom: 0;
@@ -283,15 +304,16 @@ footer .copyright {
 }
 
 footer {
-  background: #384344;
+  background: #1a1e28;
   padding-top: 55px;
+  font-size: 13px;
   padding-bottom: 50px;
 }
 
 .navigation-footer a {
-  color: #91999a;
+  color: #bbc0cd;
   font-family: 'Poppins', sans-serif;
-  font-size: 16px;
+  font-size: 13px;
 }
 
 .plan-with-price {
@@ -343,14 +365,14 @@ footer {
   h1 {
     color: #75858c;
     font-size: 20px;
-    font-family: Avenir;
     margin-bottom: 5px;
-    font-weight: 500;
+    font-weight: 600;
   }
   h2 {
     font-size: 16px;
     text-transform: capitalize;
     color: #75858c;
+    font-weight: 300;
     padding: 5px 0 0 0;
   }
 }
@@ -380,12 +402,14 @@ footer {
     font-weight: 500;
   }
 }
-
+.navbar-brand{
+  margin-top: 8px;
+}
 nav {
   padding: 9px 30px 11px 30px !important;
   background: white !important;
   height: 102px;
-  box-shadow: 5px -6px 25px 5px #e3e5ea;
+  box-shadow: 5px -6px 25px 2px #1a1e28;
 }
 
 .icon-with-text .icon {
@@ -394,7 +418,7 @@ nav {
   box-shadow: 3px 1px 11px 1px #e3e5ea00;
 }
 .icon-with-text .icon img{
-  margin-bottom: 15px;
+  margin-bottom: 30px;
 }
 .navigation li {
   padding: 0px 39px 0 5px;
@@ -481,7 +505,9 @@ section#about {
 }
 
 .plans-prices a:hover {
-  color: #316cf2;
+  color: #fff;
+  border-color: #fff;
+  background-color: transparent;
 }
 
 .navigation a:hover::after {
@@ -576,8 +602,8 @@ section#about {
 
 .banner-heading h3 {
   color: white;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 37px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 40px;
   font-weight: 300;
 }
 
@@ -606,10 +632,11 @@ img {
 }
 
 .plans-prices a {
-  background: #fff;
+  background: #1a1e28;
   border-radius: 28px;
   padding: 14px 30px 14px 30px;
-  color: #000;
+  color: #fff;
+  border: 2px solid #1a1e28; 
   font-size: 15px;
   display: inline-block;
   font-family: 'Poppins', sans-serif;
@@ -619,25 +646,31 @@ img {
 }
 
 .static-content p {
-  color: white;
-  font-family: 'Open Sans', sans-serif;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
   font-weight: 400;
-  font-size: 17px;
+  font-size: 18px;
 }
-
+.bg-white-color{
+  background: #fff !important;
+}
+.pricing-bg{
+  background: #ebf0fb !important;
+}
+.features-bg{
+  background: #f7f9fd !important;
+}
 .banner-heading {
+  padding: 120px 10px 80px 10px;
+  position: relative;
+  z-index: 999;
   h1 {
     color: white;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-weight: 600;
     font-size: 44px;
   }
-  padding-top: 120px;
-  padding-bottom: 65px;
-  padding-left: 10px;
-  padding-right: 10px;
-  position: relative;
-  z-index: 999;
+ 
 }
 
 .text-with-image img {
@@ -786,7 +819,7 @@ a:hover {
   box-shadow: none;
   margin-top: 26px;
   width: 395px;
-  background-color: #fbfcff;
+  background-color: #fff;
   padding: 25px;
   box-shadow: 0px 6px 20px 1px #575d6d45;
   right: 15px;
@@ -1002,6 +1035,10 @@ a:hover {
     padding: 13px 15px 3px 15px;
     min-height: 240px;
   }
+  .text-with-image img{
+    top: 16px;
+  }
+
   .icon-with-text .icon img{
     margin-bottom: 15px;
   }
@@ -1104,9 +1141,18 @@ a:hover {
 
 @media screen and (max-width: 1320px) {
 .icon-with-text{
-  min-height: 215px;
-  padding-top: 0px;
-  padding-bottom: 10px;
+  min-height: 180px;
+  padding-top: 5px;
+  padding-bottom: 0px;
+}
+.icon-with-text .icon img{
+  margin-bottom: 10px;
+}
+.feature-images .col-xl-3{
+  margin-bottom: 15px;
+}
+.icon-with-text .icon{
+  padding-top: 10px;
 }
 }
 @media screen and (max-width: 1024px) {
@@ -1123,9 +1169,7 @@ a:hover {
     left: 0;
     bottom: 27%;
   }
-  .navbar-header .navbar-toggler{
-    padding-right: 5px;
-  }
+
   .navbar-toggler-icon {
     display: inline-block;
     cursor: pointer;
@@ -1192,7 +1236,7 @@ a:hover {
   }
   .login-buttons {
     top: 20px;
-    right: 43px;
+    right: 64px;
   }
   .navigation li {
     padding-bottom: 8px;
@@ -1240,7 +1284,7 @@ a:hover {
     }
     .show-dropdown {
       right: 0 !important;
-      left: -100px;
+      left: -140px;
       width: 300px;
       padding-left: 10px;
       padding-right: 10px;
@@ -1253,7 +1297,8 @@ a:hover {
     display: none !important;
   }
   .login-buttons {
-    top: 25px;
+    top: 55px;
+    right: 0;
   }
   .navbar .login-buttons a {
     width: 78px;
@@ -1264,22 +1309,22 @@ a:hover {
   }
   .login-buttons .dropdown-menu {
     &:before {
-      right: 51%;
+      right: 37%;
     }
     &:after {
-      right: 50.5%;
+      right: 37%;
     }
   }
   .sign-up {
     .show-dropdown {
-      left: -183px;
+      left: -223px;
     }
     .dropdown-menu {
       &:before {
-        right: 22.5%;
+        right: 9.5%;
       }
       &:after {
-        right: 22%;
+        right: 9%;
       }
     }
   }
@@ -1298,14 +1343,45 @@ a:hover {
   #speech_icon .fa-microphone {
     font-size: 35px;
   }
-
+  .text-with-image{
+    margin-bottom: 30px;
+  }
   .navbar-brand{
+    margin-top: 0;
+    padding-top: 0;
+    width: 100%;
+    text-align: center;
     .logo{
       img{
-        width: 100px;
-        margin-bottom: 18px;
-        margin-top: 18px;
+        width: 150px;
       }
     }
+  }
+  .navbar{
+    min-height: 100px;
+  }
+  div#content{
+    padding-top: 19px;
+  }
+  .navbar-header .navbar-toggler{
+    float: inherit;
+    padding-top: 0;
+    position: relative;
+    top: -10px;
+  }
+  .form-signin input{
+    height: 40px;
+    font-size: 14px;
+  }
+  .submit-button{
+    height: 40px;
+    font-size: 16px;
+  }
+  .login-form .icon i{
+    left: 15px;
+    top: 12px;
+  }
+  .overlay{
+    top: 98px;
   }
 }

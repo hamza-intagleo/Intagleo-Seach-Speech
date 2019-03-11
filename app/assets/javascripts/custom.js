@@ -97,16 +97,30 @@ $(document).ready(function(){
 
     $('#login_dropdown').addClass('show-dropdown');
   })
+
+  $('.scroll-top').click(function () {
+      $("html, body").animate({
+          scrollTop: 0
+      }, 1000);
+      return false;
+  });	
+
+  $('.scroll-home').click(function () {
+      $("html, body").animate({
+          scrollTop: 0
+      }, 1000);
+      return false;
+  }); 
 	
 	$('.login-buttons .login-button').click(function () {
 		$(this).parent().toggleClass('show-overlay-login');
-		  if ($(".hover-effects-signup .dropdown-menu").hasClass("show-dropdown")) {
-        $('.hover-effects-signup .dropdown-menu').removeClass('show-dropdown');
-      }
-		  if ($(".login-hover").hasClass("show-overlay-signup")) {
-        $('.login-hover').removeClass('show-overlay-signup');
-      }
-	  });
+	  if ($(".hover-effects-signup .dropdown-menu").hasClass("show-dropdown")) {
+      $('.hover-effects-signup .dropdown-menu').removeClass('show-dropdown');
+    }
+	  if ($(".login-hover").hasClass("show-overlay-signup")) {
+      $('.login-hover').removeClass('show-overlay-signup');
+    }
+	 });
 
 	  $('.login-buttons .signup-button').click(function () {
 		  $(this).parent().toggleClass('show-overlay-signup');
