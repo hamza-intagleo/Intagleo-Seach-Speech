@@ -11,12 +11,13 @@
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
+    #page-loader{style: "display:none;"}
+      %h3
+        %i.fas.fa-circle-notch.fa-spin.fa-2x
     = render partial: "shared/header"
     #content.main-container
       #main.main-content{:role => "main"}
-        #page-loader{style: "display:none;"}
-          %h3
-            %i.fa.fa-circle-o-notch.fa-spin.fa-2x
+
         = yield
     %p.notice= notice
     %p.alert= alert

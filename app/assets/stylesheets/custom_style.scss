@@ -1,5 +1,7 @@
 body{
     font-family: 'Poppins', sans-serif;
+        position: relative;
+    height: 100%;
 }
 .container {
   max-width: 1300px;
@@ -292,12 +294,6 @@ section#features {
   padding: 0px 39px 0 5px;
 }
 
-footer .copyright {
-  color: #bbc0cd;
-  font-family: 'Poppins', sans-serif;
-  font-size: 16px;
-  margin-bottom: 0;
-}
 
 .navigation-footer {
   margin-bottom: 0;
@@ -308,12 +304,26 @@ footer {
   padding-top: 55px;
   font-size: 13px;
   padding-bottom: 50px;
+  .copyright {
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    margin-bottom: 0;
+  }
 }
 
+.navigation-footer{
+  a{
+    color: #fff;
+   font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    &:hover{
+      color: #bbc0cd;
+    }
+  }
+}
 .navigation-footer a {
-  color: #bbc0cd;
-  font-family: 'Poppins', sans-serif;
-  font-size: 13px;
+  
 }
 
 .plan-with-price {
@@ -387,6 +397,7 @@ footer {
 }
 
 .plan-with-price {
+  position: relative;
   p {
     color: white;
     font-size: 25px;
@@ -400,6 +411,13 @@ footer {
     font-size: 60px;
     font-family: Avenir;
     font-weight: 500;
+    small{
+      font-size: 12px;
+      position: absolute;
+      right: 73px;
+      top: 135px;
+      width: 110px;
+    }
   }
 }
 .navbar-brand{
@@ -505,9 +523,9 @@ section#about {
 }
 
 .plans-prices a:hover {
-  color: #fff;
-  border-color: #fff;
-  background-color: transparent;
+  color: #1a1e28;
+  border-color: #1a1e28;
+  background-color: #fff;
 }
 
 .navigation a:hover::after {
@@ -548,6 +566,23 @@ section#about {
   color: #1a1e28;
 }
 
+.select-site{
+  text-align: center;
+  a{
+    display: inline-block;
+    margin:15px 14px 10px 14px;
+    cursor: pointer;
+    &.active{
+      img{
+        opacity: 1;
+      }
+    }
+    img{
+      opacity: 0.3;
+      width: 90%;
+    }
+  }
+}
 .forgot-pass a {
   color: #1a1e28;
   font-family: 'Open Sans', sans-serif;
@@ -757,6 +792,9 @@ a:hover {
     background: #1a1e28;
     color: white;
   }
+}
+#page-loader{
+  position: fixed;
 }
 
 .bg-white {

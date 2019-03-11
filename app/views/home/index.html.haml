@@ -50,10 +50,17 @@
               .form-group
                 = text_field_tag 'search_string', nil, id: 'converted_text', placeholder: "I am looking for black shoes", class: 'form-control'
                 = hidden_field_tag 'site_url', 'www.amazon.com'
-                = link_to 'javascript:void(0);', class: ' btn btn-primary wow fadeInRight', id: 'speech_icon', onclick: "toggleRecording(this);" do
+                = link_to 'javascript:void(0);', class: ' btn btn-primary wow fadeInRight d-none', id: 'speech_icon', onclick: "toggleRecording(this);" do
                   %i.fas.fa-microphone
-                = button_tag(type: "submit", class: "btn btn-primary wow fadeInRight d-none", id: "speech_submit") do
+                = button_tag(type: "submit", class: "btn btn-primary wow fadeInRight ", id: "speech_submit") do
                   %i.fas.fa-search
+            .select-site
+              %a.active
+                = image_tag 'amazon.png'
+              %a
+                = image_tag 'imdb.png'
+              %a
+                = image_tag 'usa.png'                       
 %section#features.wow.fadeInUp.sections.features-bg{"data-wow-duration" => "3s"}
   .container
     .row
@@ -155,10 +162,12 @@
             %p Enterprise
             %h2
               %sub> $
-              0.004
+              89.99
+              %small
+                Incl. 25,000 Queries + $0.004 per query
           .weeks-with-queries
             %h1 Per Query
-            %h2 Unlimited Queries
+            %h2  Unlimited Queries 
             %a.subscribe-button{:href => "#"} Subscribe
 %section#contact.wow.fadeInUp.sections.bg-white-color{"data-wow-duration" => "2s"}
   .container
