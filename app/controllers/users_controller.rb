@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-
+  before_action :authenticate_user!, only: :dashboard
+  
   def renew_api_keys
     begin
       @user = User.find(params[:user_id])
@@ -12,5 +13,8 @@ class UsersController < ApplicationController
     rescue Exception => e
       render json: {success: false, error: true, message: e}, status: 500
     end
+  end
+
+  def dashboard
   end
 end

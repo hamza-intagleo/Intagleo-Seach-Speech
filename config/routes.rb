@@ -27,5 +27,9 @@ Rails.application.routes.draw do
     end
   end
 
+    resources :users, only: :dashboard do
+      get :dashboard
+    end
+
 
 end
