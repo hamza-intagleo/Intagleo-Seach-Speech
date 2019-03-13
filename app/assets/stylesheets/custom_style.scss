@@ -372,11 +372,18 @@ footer {
 }
 
 .weeks-with-queries {
+  .text-box{
+    min-height: 100px;
+  }
   h1 {
     color: #75858c;
     font-size: 20px;
     margin-bottom: 5px;
     font-weight: 600;
+  }
+ small{
+    width: 200px;
+    display: inline-block;
   }
   h2 {
     font-size: 16px;
@@ -393,7 +400,7 @@ footer {
 }
 
 .weeks-with-queries {
-  padding: 35px 0 35px 0;
+  padding: 15px 0 25px 0;
 }
 
 .plan-with-price {
@@ -786,7 +793,7 @@ a:hover {
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
   border-radius: 35px;
-  margin-top: 45px;
+/*  margin-top: 25px;*/
   border: 2px solid #1a1e28;
   &:hover {
     background: #1a1e28;
@@ -1068,6 +1075,9 @@ a:hover {
   }
    .icon img {
     width: 80px;
+  }
+  .plans-prices a{
+    top: -12px;
   }
 }
 
