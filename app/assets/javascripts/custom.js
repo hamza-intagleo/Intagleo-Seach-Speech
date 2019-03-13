@@ -161,6 +161,12 @@ $(document).ready(function(){
         }, 1000);
       });
 	  }
+
+    $('body').on('click', '.select-site a', function(){
+      $('.select-site a.active').removeClass('active');
+      $(this).toggleClass('active');
+      $('#site_url').val($(this).attr('data-site-url'))
+    })
 });
 
 

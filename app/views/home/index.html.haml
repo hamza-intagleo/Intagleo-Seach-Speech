@@ -48,17 +48,17 @@
           .position-relative
             .form-group
               = text_field_tag 'search_string', nil, id: 'converted_text', placeholder: "I am looking for black shoes", class: 'form-control'
-              = hidden_field_tag 'site_url', 'www.amazon.com'
-              = link_to 'javascript:void(0);', class: ' btn btn-primary wow fadeInRight d-none', id: 'speech_icon', onclick: "toggleRecording(this);" do
+              = hidden_field_tag 'site_url', 'https://www.amazon.com'
+              = link_to 'javascript:void(0);', class: ' btn btn-primary wow fadeInRight', id: 'speech_icon', onclick: "toggleRecording(this);" do
                 %i.fas.fa-microphone
-              = button_tag(type: "submit", class: "btn btn-primary wow fadeInRight ", id: "speech_submit") do
+              = button_tag(type: "submit", class: "btn btn-primary wow fadeInRight d-none", id: "speech_submit") do
                 %i.fas.fa-search
           .select-site
-            %a.active
+            %a.active{'data-site-url': 'https://www.amazon.com'}
               = image_tag 'amazon.png'
-            %a
+            %a{'data-site-url': 'https://www.imdb.com'}
               = image_tag 'imdb.png'
-            %a
+            %a{'data-site-url': 'https://www.visittheusa.com'}
               = image_tag 'usa.png'                       
 %section#features.wow.fadeInUp.sections.features-bg{"data-wow-duration" => "3s"}
   .container
