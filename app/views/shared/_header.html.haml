@@ -27,7 +27,7 @@
         %a#dropdownMenuButton.login-button.d-inline-block.buttons{:href => "javascript:void(0)"}
           = user_signed_in? ? current_user.first_name : 'login'
         .dropdown
-          .dropdown-menu.dropdown-menu-right#login_dropdown{"aria-labelledby" => "dropdownMenuButton"}
+          .dropdown-menu.dropdown-menu-right.custom-menu#login_dropdown{"aria-labelledby" => "dropdownMenuButton"}
             .row
               .col-12.col-sm-12.col-md-12.col-xl-12
                 - @user = User.new
@@ -50,7 +50,7 @@
                     Dont have an account?
                     %a#sign_up{:href => "javascript:void(0);"} Sign Up
         .dropdown
-          .dropdown-menu.dropdown-menu-right#forgot_password_dropdown{"aria-labelledby" => "dropdownMenuButton"}
+          .dropdown-menu.dropdown-menu-right.custom-menu#forgot_password_dropdown{"aria-labelledby" => "dropdownMenuButton"}
             .row
               .col-12.col-sm-12.col-md-12.col-xl-12
                 - @user = User.new
@@ -68,7 +68,7 @@
         .login-hover.hover-effects-signup
           %a#dropdownMenuButton.signup-button.d-inline-block.buttons{:href => "javascript:void(0)"} Sign Up
           .dropdown.sign-up
-            .dropdown-menu.dropdown-menu-right#signup_dropdown{"aria-labelledby" => "dropdownMenuButton"}
+            .dropdown-menu.dropdown-menu-right.custom-menu#signup_dropdown{"aria-labelledby" => "dropdownMenuButton"}
               .row
                 .col-12.col-sm-12.col-md-12.col-xl-12
                   = form_for(@user, url: registration_path(@user), html: {class: "form-signin login-form.sign_up parsley-validate"}) do |f|
