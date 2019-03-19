@@ -198,8 +198,9 @@ $( window ).resize(function() {
 
 });
 
- 
-$(window).scroll(function() {
+
+if ($('#home').length > 0) {
+  $(window).scroll(function() {
   var scrollPos = $(window).scrollTop();
   var page1Top = $("#home").offset().top;
   var page2Top = $("#about").offset().top;
@@ -232,7 +233,7 @@ $(window).scroll(function() {
   } else {
     $("#link_3").removeClass("active");
   }
-	
+  
   if (scrollPos >= page4Top) {
     $("#link_4").addClass("active");
     $("#link_1").removeClass("active");
@@ -251,6 +252,7 @@ $(window).scroll(function() {
     $("#link_5").removeClass("active");
   }
 });
+}
 
 function myFunction(x) {
   x.classList.toggle("change");

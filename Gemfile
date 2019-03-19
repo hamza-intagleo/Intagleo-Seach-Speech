@@ -23,6 +23,8 @@ gem 'jbuilder', '~> 2.5'
 gem "bootstrap", ">= 4.3.1"
 gem 'jquery-rails'
 gem 'google-api-client', '~> 0.11'
+gem "chartkick"
+gem 'groupdate'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password

@@ -31,12 +31,12 @@
             .row
               .col-12.col-sm-12.col-md-12.col-xl-12
                 - @user = User.new
-                = form_for(@user , url: session_path(@user), html: {class: "form-signin login-form parsley-validate"}) do |f|
+                = form_for(@user , url: session_path(@user), html: {class: "form-signin login-form parsley-validate", id: "user_signin"}) do |f|
                   .form-label-group.icon
-                    = f.email_field :email, placeholder: "Email", class: "form-control", data: {"parsley-required": true, "parsley-type": "email"}
+                    = f.email_field :email, placeholder: "Email", class: "form-control", id: "login_email", data: {"parsley-required": true, "parsley-type": "email"}
                     %i.fas.fa-envelope
                   .form-label-group.icon
-                    = f.password_field :password, placeholder: "Password", class: "form-control", data: {"parsley-required": true}
+                    = f.password_field :password, placeholder: "Password", class: "form-control", id: "login_password", data: {"parsley-required": true}
                     %i.fas.fa-lock
                   .custom-control.custom-checkbox.mb-3
                     .float-left
@@ -54,9 +54,9 @@
             .row
               .col-12.col-sm-12.col-md-12.col-xl-12
                 - @user = User.new
-                = form_for(@user , url: password_path(@user), html: {class: "form-signin login-form parsley-validate"}) do |f|
+                = form_for(@user , url: password_path(@user), html: {class: "form-signin login-form parsley-validate", id: "reset_password"}) do |f|
                   .form-label-group.icon
-                    = f.email_field :email, placeholder: "Email", class: "form-control", data: {"parsley-required": true, "parsley-type": "email"}
+                    = f.email_field :email, placeholder: "Email", class: "form-control", id: "reset_email",  data: {"parsley-required": true, "parsley-type": "email"}
                     %i.fas.fa-envelope
                   %button.btn.btn-lg.btn-primary.btn-block.submit-button{:type => "submit"} Send Instructions
                 .already-account

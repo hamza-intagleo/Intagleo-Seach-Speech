@@ -1,5 +1,5 @@
 - flash.each do |key, value|
-  - new_key = key == 'alert' ? 'danger' : key
+  - new_key = get_key(key)
   %div{:class => "alert alert-#{new_key} text-center mb-0"}
     %a.close{"data-dismiss" => "alert", :href => "#"} ×
     %p.mb-0

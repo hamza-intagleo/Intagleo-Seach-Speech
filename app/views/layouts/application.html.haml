@@ -14,7 +14,10 @@
     #page-loader{style: "display:none;"}
       %h3
         %i.fas.fa-circle-notch.fa-spin.fa-2x
-    = render partial: "shared/header"
+    - if user_signed_in?
+      = render partial: "shared/customer_header"
+    - else
+      = render partial: "shared/header"
     #content.main-container
       #main.main-content{:role => "main"}
         = render 'layouts/messages'

@@ -17,6 +17,8 @@
 //= require parsley
 //= require bootstrap
 //= require jparticle.jquery
+//= require Chart.bundle
+//= require chartkick
 //= require custom
 //= require wow
 //= require slick.min
