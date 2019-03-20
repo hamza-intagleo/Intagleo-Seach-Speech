@@ -4,6 +4,7 @@
     = render partial: 'sidebar_menu'
     #content-wrapper.pb-3
       .container-fluid
+        
         / Breadcrumbs
         %ol.breadcrumb
           %li.breadcrumb-item
@@ -12,56 +13,109 @@
         / Icon Cards
         .row
           .col-md-9
+            .row
+              .col-md-12
+                %ul.status-report
+                  %li
+                    = link_to '24 Hr'
+                  %li
+                    = link_to 'Week'
+                  %li
+                    = link_to 'Month'
+                  %li
+                    = link_to 'Year'
+                  %li
+                    = link_to 'All'
+                  %li.float-right
+                    .btn.btn-primary.btn-sm
+                      %i.fas.fa-download
             .card.mb-3
-              .card-header.text-center
-                %i.fas.fa-chart-area
-                Search Requests
+              .card-header
+                %h5
+                  Search Requests
               .card-body
                 = line_chart User.group_by_day(:created_at).count, download: {filename: "search_requests"}
 
             .card.mb-3
-              .card-header.text-center
-                %i.fas.fa-chart-area
-                Search Response Time
+              .card-header
+                %h5
+                  Search Response Time
               .card-body
                 = line_chart User.group_by_day(:created_at).count, download: {filename: "search_response_time"}
           
-          .col-md-3    
+          .col-md-3
             .row
               .col-md-12.mb-3
                 .card.text-white.bg-primary.o-hidden.h-100.text-center
                   .card-body
-                    .mr-5 Total Searches
+                    %h6 
+                      Total Searches
                   .card-footer.text-white.clearfix.small.z-1
-                    %span
-                    %b
+                    %h1
                       99
             .row
               .col-md-12.mb-3
                 .card.text-white.bg-primary.o-hidden.h-100.text-center
                   .card-body
-                    .mr-5 Average Searches per Min
+                    %h6 
+                      Average Searches per Min
                   .card-footer.text-white.clearfix.small.z-1
-                    %span
-                      %b
-                        29
+                    %h1
+                      29
             .row
               .col-md-12.mb-3
                 .card.text-white.bg-primary.o-hidden.h-100.text-center
                   .card-body
-                    .mr-5 Average Text Processing Time (Ms)
+                    %h6 
+                      Average Text Processing Time
                   .card-footer.text-white.clearfix.small.z-1
-                    %span 
-                      %b 
-                        3.01
+                    %h1 
+                      3.01
+                      %sub
+                        (Ms)
             .row
               .col-md-12.mb-3
                 .card.text-white.bg-primary.o-hidden.h-100.text-center
                   .card-body
-                    .mr-5 Average Search Response Time (Ms)
+                    %h6 
+                      Average Search Response Time
                   .card-footer.text-white.clearfix.small.z-1
-                    %span
-                      %b
-                        3.01
+                    %h1
+                      3.01
+                      %sub
+                        (Ms)
+            .row
+              .col-md-12.mb-3
+                .card.bg-default.o-hidden.h-100.text-center
+                  .card-header
+                    %h5.float-left
+                      Search History
+                    .float-right.mt-1
+                      %a
+                        %i.fas.fa-download
+                  .card-body.pb-0
+                    %ul.search-result
+                      %li
+                        Black Shoes Black Shoes Black Shoes Black Shoes Black Shoes Black Shoes
+                      %li
+                        Black Shoes
+                      %li
+                        Black Shoes
+                      %li
+                        Black Shoes
+                      %li
+                        Black Shoes
+                      %li
+                        Black Shoes
+                      %li
+                        Black Shoes
+                      %li
+                        Black Shoes
+                      %li
+                        Black Shoes
+                      %li
+                        Black Shoes                   
+                    
+                             
 
       
