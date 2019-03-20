@@ -25,6 +25,7 @@
 //= require activestorage
 //= require recorder
 //= require home
+//= require counter
 
     
 
