@@ -193,7 +193,7 @@ $(document).ready(function(){
         Counter: $(this).text()
     }, {
         // Speed of counter in ms, default animation style
-        duration: 1000,
+        duration: 500,
         // Easing function
         easing: 'swing',
         step: function (now) {

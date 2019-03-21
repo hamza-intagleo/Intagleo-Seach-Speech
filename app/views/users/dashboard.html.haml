@@ -12,7 +12,7 @@
           %li.breadcrumb-item.active Overview
         / Icon Cards
         .row
-          .col-md-9
+          .col-md-8
             .row
               .col-md-12
                 %ul.status-report
@@ -43,43 +43,43 @@
               .card-body
                 = line_chart User.group_by_day(:created_at).count, download: {filename: "search_response_time"}
           
-          .col-md-3
+          .col-md-4
             .row
               .col-md-12.mb-3
-                .card.text-white.bg-primary.o-hidden.h-100.text-center
-                  .card-body
-                    %h6 
+                .card.text-white.o-hidden.h-100.text-center
+                  .card-body.bg-primary
+                    %h5.mb-0 
                       Total Searches
-                  .card-footer.text-white.clearfix.small.z-1
+                  .card-footer.text-dark.clearfix.small.z-1.bg-footer
                     %h1
                       %span.count-this 99
             .row
               .col-md-12.mb-3
-                .card.text-white.bg-primary.o-hidden.h-100.text-center
-                  .card-body
-                    %h6 
+                .card.text-white.o-hidden.h-100.text-center
+                  .card-body.bg-primary
+                    %h5.mb-0 
                       Average Searches per Min
-                  .card-footer.text-white.clearfix.small.z-1
+                  .card-footer.text-dark.clearfix.small.z-1.bg-footer
                     %h1
                       %span.count-this 29
             .row
               .col-md-12.mb-3
-                .card.text-white.bg-primary.o-hidden.h-100.text-center
-                  .card-body
-                    %h6 
+                .card.text-white.o-hidden.h-100.text-center
+                  .card-body.bg-primary
+                    %h5.mb-0 
                       Average Text Processing Time
-                  .card-footer.text-white.clearfix.small.z-1
+                  .card-footer.text-dark.clearfix.small.z-1.bg-footer
                     %h1 
                       %span.count-this 3.1
                       %sub
                         (Ms)
             .row
               .col-md-12.mb-3
-                .card.text-white.bg-primary.o-hidden.h-100.text-center
-                  .card-body
-                    %h6 
+                .card.text-white.o-hidden.h-100.text-center
+                  .card-body.bg-primary
+                    %h5.mb-0 
                       Average Search Response Time
-                  .card-footer.text-white.clearfix.small.z-1
+                  .card-footer.text-dark.clearfix.small.z-1.bg-footer
                     %h1
                       %span.count-this 3.1
                       %sub
@@ -87,8 +87,8 @@
             .row
               .col-md-12.mb-3
                 .card.bg-default.o-hidden.h-100.text-center
-                  .card-header
-                    %h5.float-left
+                  .card-header.bg-primary.text-white
+                    %h5.float-left.mb-0
                       Search History
                     .float-right.mt-1
                       %a
