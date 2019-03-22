@@ -1,7 +1,7 @@
 %ul.sidebar.navbar-nav.pt-4
   %li.nav-item.active
     = link_to user_dashboard_path(current_user), class: "nav-link" do
-      %i.fas.fa-fw.fa-tachometer-alt
+      %i.fas.fa-cog
       %span Configuration
   %li.nav-item
     %a.nav-link{:href => "tables.html"}
@@ -9,5 +9,5 @@
       %span Widgets
   %li.nav-item
     %a.nav-link{:href => "charts.html"}
-      %i.fas.fa-fw.fa-chart-area
+      %i.fas.fa-share-alt
       %span Api
