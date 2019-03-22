@@ -136,7 +136,7 @@ function createDownloadLink(blob) {
     $('#search_data_table').html('')
 
     $.ajax({
-      url: '/users/7/sites/2/convert_audio_to_text',
+      url: '/convert_audio_to_text_free',
       type: 'POST',
       data: data,
       contentType: false,
