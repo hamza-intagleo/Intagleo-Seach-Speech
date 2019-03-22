@@ -442,7 +442,7 @@ nav {
 .profile-thum .dropdown-toggle:after{
   position: absolute;
   right: 0;
-  top: 50%;
+  top: 47%;
   color: #d0d1d3;
 }
 .profile-img{
@@ -453,6 +453,7 @@ nav {
   display: inline-block;
   border-radius: 100px;
   overflow: hidden;
+  background-color: #d0d1d3;
   margin-top: 5px;
   img{
     width: 38px;
@@ -1671,8 +1672,9 @@ a:hover {
 
 @media screen and (max-width: 767px) {
   .btn-slide{
-    position: absolute;
+    position: relative;
     left: 15px;
+    top: -5px;
     transition: all 0.3s ease 0s;
   }
   .sidebar{
@@ -1828,6 +1830,16 @@ a:hover {
   }
   .overlay{
     top: 98px;
+  }
+  .profile-thum{
+    right: 5px;
+    a{
+      padding-bottom: 0;
+      padding-top: 0;
+    }
+    .dropdown-menu{
+      position: absolute;
+    }
   }
 }
 
