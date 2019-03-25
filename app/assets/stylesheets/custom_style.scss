@@ -608,6 +608,7 @@ section#about {
 #wrapper #content-wrapper {
     overflow-x: hidden;
     padding-top: 2rem;
+    min-height: 700px;
 }
 .sidebar {
   width: 90px !important;
@@ -664,6 +665,7 @@ section#about {
   .sidebar {
     width: 250px !important;
     float: left;
+        min-height: calc(100vh - 100px);
   }
   .sidebar .nav-item .nav-link {
     display: block;
@@ -1669,7 +1671,36 @@ a:hover {
     transform: rotate(45deg) translate(-8px, -8px);
   }
 }
-
+.btn-admin-slide{
+  .navbar-toggler-icon{
+    float: right;
+    margin-right: 10px;
+  }
+  &:hover{
+    cursor: pointer;
+  }
+  i{
+    color: #fff;
+  }
+  float: right;
+  margin-bottom: 10px;
+  .bar1, .bar2, .bar3{
+    background-color: #fff;
+  }
+  .navbar-toggler-icon{
+    width: 20px;
+    height: 10px;
+  }
+}
+.sidebar-toggled{
+  i.fa-arrow-left:before{
+    content: "\f061";
+    font-family: 'Font Awesome 5 Free';
+  }
+}
+.sidebar .nav-item.active .nav-link{
+  color: #fff;
+}
 @media screen and (max-width: 767px) {
   .btn-slide{
     position: relative;
@@ -1681,6 +1712,7 @@ a:hover {
     width: 0px !important;
       position: absolute;
     z-index: 100;
+    display: none;
     transition: all 0.3s ease 0s;
   }
   .sidebar.toggled{
