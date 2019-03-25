@@ -5,6 +5,10 @@
       %i.fas.fa-arrow-left  
   %li.nav-item.active
     = link_to user_dashboard_path(current_user), class: "nav-link" do
+      %i.fas.fa-tachometer-alt
+      %span Dashboard
+  %li.nav-item
+    = link_to user_configuration_path(current_user), class: "nav-link" do
       %i.fas.fa-cog
       %span Configuration
   %li.nav-item

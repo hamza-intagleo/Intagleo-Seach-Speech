@@ -94,4 +94,70 @@ class HomeController < ApplicationController
   end
 
 
+  def convert_audio_to_text_free
+    begin
+      require 'base64'
+      require "google/cloud/speech"
+
+      if params[:audio_url].present?
+
+        save_path = Rails.root.join("public/audio")
+        unless File.exists?(save_path)
+          Dir::mkdir(Rails.root.join("public/audio"))
+        end
+
+        data=params[:audio_url]
+
+        audio_data=Base64.decode64(data.split(',').last)
+        File.open(save_path+"_audio", 'wb') do |f| f.write audio_data end
+
+        require 'wavefile'
+
+        files_to_append = ["public/audio/_audio"]
+
+        Writer.new("./public//audio/converted_audio.wav", Format.new(:mono, :pcm_16, 44100)) do |writer|
+          files_to_append.each do |file_name|
+            Reader.new(file_name).each_buffer do |buffer|
+              writer.write(buffer)
+            end
+          end
+        end
+        file_name = save_path+"converted_audio.wav"
+      else
+        file_name = params[:audio_file].tempfile
+      end
+
+      # ENV['GOOGLE_APPLICATION_CREDENTIALS'] = "#{Rails.root}/resources/speech_to_text.json"
+
+      processing_start_at = Time.now
+      speech = Google::Cloud::Speech.new
+      audio_file = File.binread file_name
+      config = { encoding:          :LINEAR16,
+                 sample_rate_hertz: 44100,
+                 language_code:     "en-US"   }
+      audio  = { content: audio_file }
+
+      response = speech.recognize config, audio
+      results = response.results
+      processing_ends_at = Time.now
+        
+      outputs = []
+      alternatives = results.present? ? results.first.alternatives : []
+      if alternatives.present?
+        alternatives.each do |alternative|
+          outputs << "Transcription: #{alternative.transcript}"
+        end
+      end
+      if outputs.present?
+        # analytics = @site.analytics.create!(search_string: outputs.first.split(':').last.strip, search_reponse_time: (processing_ends_at - processing_start_at))
+        return render json: {success: true, error: false,  results: outputs}, status: 200
+      else
+        return render json: {success: false, error: true,  message: "Audio is not recorded. Please check your mic settings"}, status: 422
+      end
+    rescue => e
+      render json: {success: false, error: true, message: e}, status: 500
+    end
+  end
+
+
 end
