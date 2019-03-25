@@ -3,11 +3,6 @@
     = link_to root_path, class: "navbar-brand #{params[:controller] == 'home' && params[:action] == 'index' ? 'scroll-home' : ''}" do
       .logo.d-lg-block
         = image_tag "right-reply-logo.png"
-    #sidebarToggle.btn-slide
-      .navbar-toggler-icon{:onclick => "myFunction(this)"}
-        .bar1
-        .bar2
-        .bar3  
     / Navbar Search
     %form.d-none.d-md-inline-block.form-inline.ml-auto.mr-0.mr-md-3.my-2.my-md-0
       .input-group.d-none

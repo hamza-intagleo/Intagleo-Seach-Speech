@@ -1669,6 +1669,30 @@ a:hover {
     transform: rotate(45deg) translate(-8px, -8px);
   }
 }
+.btn-admin-slide{
+  .navbar-toggler-icon{
+    float: right;
+    margin-right: 10px;
+  }
+  i{
+    color: #fff;
+  }
+  float: right;
+  margin-bottom: 10px;
+  .bar1, .bar2, .bar3{
+    background-color: #fff;
+  }
+  .navbar-toggler-icon{
+    width: 20px;
+    height: 10px;
+  }
+}
+.sidebar-toggled{
+  i.fa-arrow-left:before{
+    content: "\f061";
+    font-family: 'Font Awesome 5 Free';
+  }
+}
 
 @media screen and (max-width: 767px) {
   .btn-slide{
