@@ -152,7 +152,7 @@ class HomeController < ApplicationController
         # analytics = @site.analytics.create!(search_string: outputs.first.split(':').last.strip, search_reponse_time: (processing_ends_at - processing_start_at))
         return render json: {success: true, error: false,  results: outputs}, status: 200
       else
-        return render json: {success: false, error: true,  message: "Audio is not valid"}, status: 422
+        return render json: {success: false, error: true,  message: "Audio is not recorded. Please check your mic settings"}, status: 422
       end
     rescue => e
       render json: {success: false, error: true, message: e}, status: 500

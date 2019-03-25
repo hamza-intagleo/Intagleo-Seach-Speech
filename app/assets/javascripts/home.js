@@ -159,6 +159,10 @@ function createDownloadLink(blob) {
           $('#error_message').removeClass('d-none')
         }
         $('#page-loader').hide();
+      }, 
+      error: function(result) {
+        alert(result['responseJSON']['message'])
+        $('#page-loader').hide();
       }
     });
   }
