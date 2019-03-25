@@ -1,27 +1,40 @@
-%table.table.table-striped
-  %thead
-    %tr
-      %th{:scope => "col"} #
-      %th{:scope => "col"} Site Name
-      %th{:scope => "col"} Site URl
-      %th{:scope => "col"} Company number
-      %th{:scope => "col"} Actions
-  %tbody
-    %tr
-      %th{:scope => "row"} 1
-      %td Mark
-      %td Otto
-      %td @mdo
-      %td edit | delete
-    %tr
-      %th{:scope => "row"} 2
-      %td Jacob
-      %td Thornton
-      %td @fat
-      %td edit | delete
-    %tr
-      %th{:scope => "row"} 3
-      %td Larry
-      %td the Bird
-      %td @twitter
-      %td edit | delete
+#page-top
+  #wrapper
+    / Sidebar
+    = render partial: 'sidebar_menu'
+    #content-wrapper.pb-3
+      .container-fluid
+        
+        / Breadcrumbs
+        %ol.breadcrumb
+          %li.breadcrumb-item
+            = link_to 'Dashboard', user_dashboard_path(current_user)
+          %li.breadcrumb-item.active Overview
+        / Icon Cards
+        %table.table.table-striped
+          %thead
+            %tr
+              %th{:scope => "col"} #
+              %th{:scope => "col"} Site Name
+              %th{:scope => "col"} Site URl
+              %th{:scope => "col"} Company number
+              %th{:scope => "col"} Actions
+          %tbody
+            %tr
+              %th{:scope => "row"} 1
+              %td Mark
+              %td Otto
+              %td @mdo
+              %td edit | delete
+            %tr
+              %th{:scope => "row"} 2
+              %td Jacob
+              %td Thornton
+              %td @fat
+              %td edit | delete
+            %tr
+              %th{:scope => "row"} 3
+              %td Larry
+              %td the Bird
+              %td @twitter
+              %td edit | delete
