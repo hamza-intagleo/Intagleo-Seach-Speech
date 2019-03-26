@@ -10,17 +10,17 @@
           .bar2
           .bar3
     #navbarSupportedContent.collapse.navbar-collapse
-      %ul.navigation.nav.navbar-nav.ml-auto
+      %ul.navigation.nav.navbar-nav.ml-auto{class: "#{params[:controller] == 'home' && params[:action] == 'index' ? 'home-navigation' : ''}"}
         %li#link_1.d-inline-block
-          %a{:href => "#about"} About
+          = link_to 'About', (params[:controller] == 'home' && params[:action] == 'index' ? '#about' : root_path(anchor: 'about'))
         %li#link_2.d-inline-block
-          %a{:href => "#speech_widget"} Try it
+          = link_to 'Try it', (params[:controller] == 'home' && params[:action] == 'index' ? '#speech_widget' : root_path(anchor: 'speech_widget'))
         %li#link_3.d-inline-block
-          %a{:href => "#features"} Features
+          = link_to 'Features', (params[:controller] == 'home' && params[:action] == 'index' ? '#features' : root_path(anchor: 'features'))
         %li#link_4.d-inline-block
-          %a{:href => "#pricing"} Pricing
+          = link_to 'Pricing', (params[:controller] == 'home' && params[:action] == 'index' ? '#pricing' : root_path(anchor: 'pricing'))
         %li#link_5.d-inline-block
-          %a{:href => "#contact"} Contact
+          = link_to 'Contact', (params[:controller] == 'home' && params[:action] == 'index' ? '#contact' : root_path(anchor: 'contact'))
     
     .login-buttons
       .login-hover.hover-effects-login

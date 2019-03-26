@@ -55,7 +55,7 @@ $(document).ready(function(){
     }, 1000);
   });
  
-	$(".navigation").find("a").click(function(e) {
+	$(".home-navigation").find("a").click(function(e) {
     e.preventDefault();
     var section = $(this).attr("href");
     $("html, body").animate({
@@ -73,8 +73,8 @@ $(document).ready(function(){
 	
   new WOW().init();	
 	
-  $(".navigation li").click(function () {
-    $(".navigation li").removeClass("active");
+  $(".home-navigation li").click(function () {
+    $(".home-navigation li").removeClass("active");
     $(this).addClass("active");   
   });	
  
@@ -163,7 +163,7 @@ $(document).ready(function(){
 	  });
 	  
 	  if ($(window).width() < 1400) {
-      $(".navigation").find("a").click(function(e) {
+      $(".home-navigation").find("a").click(function(e) {
         e.preventDefault();
         var section = $(this).attr("href");
         $("html, body").animate({

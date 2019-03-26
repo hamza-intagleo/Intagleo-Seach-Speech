@@ -1,6 +1,25 @@
 .container.pt-5.pb-5
   .row
     .col-md-12
+      %p
+        = "Below results are fetched for the below converted audio. You can change or re record it below for"
+        %b= "#{params[:site_url]}:"
+  = form_tag search_text_into_site_path, class: 'search_result_form', method: :get do
+    .row.mb-5
+      .col-sm-12.col-md-10.col-xl-10
+        .form-group
+          = text_field_tag 'search_string', params[:search_string], placeholder: "I am looking for black shoes", class: 'form-control form-control-lg'
+          = hidden_field_tag 'site_url', 'https://www.amazon.com'
+      .col-sm-12.col-md-2.col-xl-2
+
+        = button_tag(class: "btn btn-primary", id: "search_speech_icon", onclick: "toggleRecording(this);") do
+          %i.fas.fa-microphone
+
+        = button_tag(type: "submit", class: "btn btn-primary", id: "search_speech_submit") do
+          %i.fas.fa-search
+      .col-sm-12.col-md-1.col-xl-1          
+  .row
+    .col-md-12
       %h5.mb-4
         %b Search Results:
       - if @response && @response.items.present?

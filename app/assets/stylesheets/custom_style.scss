@@ -1488,6 +1488,12 @@ a:hover {
 .bg-footer{
   background-color: #f3f3f3;
 }
+.search_result_form{
+  .btn{
+    height: 48px;
+    width: 50px;
+  }
+}
 @media screen and (min-width: 1200px) and (max-width: 1920px) {
   #about .container {
     padding-left: 10%;

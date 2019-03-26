@@ -143,9 +143,10 @@ function createDownloadLink(blob) {
       processData: false,
       success: function(result) {
         if(result['results'][0] != undefined){
-          $('#converted_text').val((result['results'][0].split(':')[1]));
-          $('#speech_icon').addClass('d-none');
-          $('#speech_submit').removeClass('d-none');
+          document.location.href = "/search_text_into_site?search_string="+(result['results'][0].split(':')[1]) + "&site_url="+ $('#site_url').val();
+          // $('#converted_text').val((result['results'][0].split(':')[1]));
+          // $('#speech_icon').addClass('d-none');
+          // $('#speech_submit').removeClass('d-none');
           // var api_data = '';
           // $.each(result['search_data'], function(key, val){
           //   api_data += '<tr>'
