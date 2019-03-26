@@ -51,7 +51,7 @@
               = hidden_field_tag 'site_url', 'https://www.amazon.com'
               = link_to 'javascript:void(0);', class: ' btn btn-primary wow fadeInRight', id: 'speech_icon', onclick: "toggleRecording(this);" do
                 %i.fas.fa-microphone
-              = button_tag(type: "submit", class: "btn btn-primary wow fadeInRight d-none", id: "speech_submit") do
+              = button_tag(type: "submit", class: "btn btn-primary d-none", id: "speech_submit") do
                 %i.fas.fa-search
           .select-site
             %a.active{'data-site-url': 'https://www.amazon.com'}
