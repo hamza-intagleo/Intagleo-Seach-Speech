@@ -12,7 +12,7 @@
           = hidden_field_tag 'site_url', 'https://www.amazon.com'
       .col-sm-12.col-md-2.col-xl-2
 
-        = button_tag(class: "btn btn-primary", id: "search_speech_icon", onclick: "toggleRecording(this);") do
+        = button_tag(class: "btn btn-primary mr-2", id: "search_speech_icon", onclick: "toggleRecording(this);") do
           %i.fas.fa-microphone
 
         = button_tag(type: "submit", class: "btn btn-primary", id: "search_speech_submit") do
