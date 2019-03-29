@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protected
     
   def after_sign_in_path_for(resource)
-    request.env['omniauth.origin'] || user_configuration_path(resource) || root_path
+    request.env['omniauth.origin'] || (resource.status == 'inactive' ? user_configuration_path(resource) : user_dashboard_path(resource)) || root_path
   end
 
   def redirect_on_admin

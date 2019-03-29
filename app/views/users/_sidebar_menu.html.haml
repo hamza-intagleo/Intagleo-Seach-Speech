@@ -3,11 +3,11 @@
   .sidebarToggle.btn-slide.btn-admin-slide.d-sm-none.d-lg-block.d-md-block
     .navbar-toggler-icon{:onclick => "myFunction(this)"}
       %i.fas.fa-arrow-left  
-  %li.nav-item.active
+  %li.nav-item{class: params[:controller] == 'users' && params[:action] == 'dashboard' ? 'active' : ''}
     = link_to user_dashboard_path(current_user), class: "nav-link" do
       %i.fas.fa-tachometer-alt
       %span Dashboard
-  %li.nav-item
+  %li.nav-item{class: params[:controller] == 'users' && params[:action] == 'configuration' ? 'active' : ''}
     = link_to user_configuration_path(current_user), class: "nav-link" do
       %i.fas.fa-cog
       %span Configuration
@@ -15,7 +15,7 @@
     %a.nav-link{:href => "tables.html"}
       %i.fas.fa-microphone.mr-1
       %span Widgets
-  %li.nav-item
-    = link_to rswag_ui_path, class: 'nav-link' do
+  %li.nav-item{class: params[:controller] == 'users' && params[:action] == 'api' ? 'active' : ''}
+    = link_to user_api_path(current_user), class: 'nav-link' do
       %i.fas.fa-share-alt
       %span Api

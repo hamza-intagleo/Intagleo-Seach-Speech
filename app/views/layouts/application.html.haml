@@ -22,7 +22,8 @@
       #main.main-content{:role => "main"}
         = render 'layouts/messages'
         = yield
-    //= render partial: "shared/footer"
+    - unless user_signed_in?
+      = render partial: "shared/footer"
     .back-to-top
       %button.btn.btn-primary.scroll-top{"data-scroll" => "up", :type => "button"}
         %i.fas.fa-arrow-up

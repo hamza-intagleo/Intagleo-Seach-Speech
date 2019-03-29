@@ -1,0 +1,15 @@
+#page-top
+  #wrapper
+    / Sidebar
+    = render partial: 'sidebar_menu'
+    #content-wrapper.pb-3
+      .container-fluid
+        
+        / Breadcrumbs
+        %ol.breadcrumb
+          %li.breadcrumb-item
+            = link_to 'Dashboard', user_dashboard_path(current_user)
+          %li.breadcrumb-item.active Overview
+        / Icon Cards
+        
+        %iframe{:src => "http://localhost:3000/api-docs/index.html"}

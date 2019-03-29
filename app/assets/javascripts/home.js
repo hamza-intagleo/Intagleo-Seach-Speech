@@ -46,7 +46,7 @@ function startRecording() {
         https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
     */
 
-    navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+    promise.then(function(stream) {
         console.log("getUserMedia() success, stream created, initializing Recorder.js ...");
 
         /*

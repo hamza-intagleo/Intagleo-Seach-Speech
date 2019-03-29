@@ -49,7 +49,7 @@
             .form-group
               = text_field_tag 'search_string', nil, id: 'converted_text', placeholder: "I am looking for black shoes", class: 'form-control'
               = hidden_field_tag 'site_url', 'https://www.amazon.com'
-              = link_to 'javascript:void(0);', class: ' btn btn-primary wow fadeInRight', id: 'speech_icon', onclick: "toggleRecording(this);" do
+              = link_to 'javascript:void(0);', class: ' btn btn-primary wow fadeInRight', id: 'speech_icon' do
                 %i.fas.fa-microphone
               = button_tag(type: "submit", class: "btn btn-primary d-none", id: "speech_submit") do
                 %i.fas.fa-search
@@ -194,3 +194,7 @@
               = image_tag 'message.png'
             %textarea.form-control{:placeholder => "Message", :rows => "5"}
           %button.btn.btn-default.float-right.btn-main{:type => "submit"} Submit
+
+:javascript
+  constraints = { audio: true, video:false }
+  var promise = navigator.mediaDevices.getUserMedia(constraints)

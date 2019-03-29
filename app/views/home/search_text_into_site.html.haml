@@ -11,8 +11,7 @@
           = text_field_tag 'search_string', params[:search_string], placeholder: "I am looking for black shoes", class: 'form-control form-control-lg'
           = hidden_field_tag 'site_url', 'https://www.amazon.com'
       .col-sm-12.col-md-2.col-xl-2
-
-        = button_tag(type: "button", class: "btn btn-primary mr-2", id: "search_speech_icon", onclick: "toggleRecording(this);") do
+        = button_tag(type: "button", class: "btn btn-primary mr-2", id: "search_speech_icon" ) do
           %i.fas.fa-microphone
 
         = button_tag(type: "submit", class: "btn btn-primary", id: "search_speech_submit") do
@@ -37,4 +36,7 @@
                   = link_to item.link, item.link, target: '_blank'
       - else
         %h3.text-danger.text-center No Response present
+:javascript
+  constraints = { audio: true, video:false }
+  var promise = navigator.mediaDevices.getUserMedia(constraints)
 

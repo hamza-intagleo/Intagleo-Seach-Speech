@@ -1,5 +1,13 @@
 $(document).ready(function(){
 
+  $('body').on('mousedown', '#speech_icon, #search_speech_icon', function(){
+    toggleRecording(this)
+  })
+
+  $('body').on('mouseup', '#speech_icon, #search_speech_icon', function(){
+    toggleRecording(this)
+  })
+
   // Toggle the side navigation
   $(".sidebarToggle").on('click', function(e) {
     e.preventDefault();

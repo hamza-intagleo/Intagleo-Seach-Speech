@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     resources :users, only: :dashboard do
       get :dashboard
       get :configuration
+      get :api
     end
 
 

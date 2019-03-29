@@ -12,7 +12,7 @@
   font-size: 36px;
 }
 
-#speech_icon.recording {
+#speech_icon.recording, #search_speech_icon.recording {
   background-color: #dc3545;
   border-color: #dc3545;
   box-shadow: none;
