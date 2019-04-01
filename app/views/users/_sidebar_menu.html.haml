@@ -4,7 +4,7 @@
     .navbar-toggler-icon{:onclick => "myFunction(this)"}
       = image_tag "bar-icon.png" 
   %li.nav-item{class: params[:controller] == 'users' && params[:action] == 'dashboard' ? 'active' : ''}
-    = link_to user_dashboard_path(current_user), class: "nav-link" do
+    = link_to user_dashboard_path(current_user, search_type: 'all'), class: "nav-link" do
       = image_tag "dashboard-icon.png", class: 'hide'
       = image_tag "dashboard-icon-hover.png", class: 'show'
       %span Dashboard
