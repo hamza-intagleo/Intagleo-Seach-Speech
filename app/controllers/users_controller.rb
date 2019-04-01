@@ -16,5 +16,26 @@ class UsersController < ApplicationController
   end
 
   def dashboard
+    @analytics = Analytic.all
+    case params[:search_type]
+    when '24_hours'
+      @analytics = @analytics.where(updated_at: 24.hours.ago..Time.now)
+    when 'week'
+      @analytics = @analytics.where(updated_at: 24.hours.ago..Time.now)
+    when 'month'
+      @analytics = @analytics.where(updated_at: 24.hours.ago..Time.now)
+    when 'year'
+      @analytics = @analytics.where(updated_at: 24.hours.ago..Time.now)
+    when 'all'
+      @analytics
+    else
+      @analytics
+    end
+
+    @total_searches = @analytics.count
+    @search_histories = @analytics
+    @avg_search_response = @analytics.average(:search_reponse_time)
+    @avg_processing_time = @analytics.average(:text_processing_time)
+    @avg_searches_per_min = 0
   end
 end

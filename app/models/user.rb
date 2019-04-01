@@ -20,4 +20,8 @@ class User < ApplicationRecord
   def assign_default_role
     self.add_role(:site_admin) if self.roles.blank?
   end
+
+  def fullname
+    "#{first_name} #{last_name}"
+  end
 end

@@ -4,16 +4,30 @@
     = render partial: 'sidebar_menu'
     #content-wrapper.pb-3
       .container-fluid
-        
-        / Breadcrumbs
-        %ol.breadcrumb
+        .row.mb-1
+          .col-md-12
+            %h4.float-left Overview
+            .float-right.select-date
+              %span.mr-2
+                View Record by
+              = link_to '24 hours', user_dashboard_path(current_user, search_type: '24_hour'), class: "btn btn-primary #{params[:search_type] == '24_hour' ? 'active' : ''}"
+
+              = link_to 'Week', user_dashboard_path(current_user, search_type: 'week'), class: "btn btn-primary #{params[:search_type] == 'week' ? 'active' : ''}"
+              = link_to 'Month', user_dashboard_path(current_user, search_type: 'month'), class: "btn btn-primary #{params[:search_type] == 'month' ? 'active' : ''}"
+              = link_to 'Year', user_dashboard_path(current_user, search_type: 'year'), class: "btn btn-primary #{params[:search_type] == 'year' ? 'active' : ''}"
+              = link_to 'All', user_dashboard_path(current_user, search_type: 'all'), class: "btn btn-primary #{params[:search_type] == 'all' ? 'active' : ''}"
+
+              %button.btn.btn-dark
+                = image_tag "download.png"
+                Download           
+        %ol.breadcrumb.d-none
           %li.breadcrumb-item
             = link_to 'Dashboard', user_dashboard_path(current_user)
           %li.breadcrumb-item.active Overview
         / Icon Cards
-        .row
-          .col-md-8
-            .row
+        .row.mobile-view
+          .col-xl-8.col-lg-12.col-md-12
+            .row.d-none
               .col-md-12
                 %ul.status-report
                   %li
@@ -29,92 +43,74 @@
                   %li.float-right
                     .btn.btn-primary.btn-sm
                       %i.fas.fa-download
-            .card.mb-3
+            .card.mb-bottom.graph-box
               .card-header
                 %h5
                   Search Requests
               .card-body
                 = line_chart User.group_by_day(:created_at).count, download: {filename: "search_requests"}
 
-            .card.mb-3
+            .card.mb-3.graph-box
               .card-header
                 %h5
                   Search Response Time
               .card-body
                 = line_chart User.group_by_day(:created_at).count, download: {filename: "search_response_time"}
           
-          .col-md-4
+          .col-md-12.col-xl-4.col-lg-12
+            .row
+              .col-lg-6.col-md-12.mb-bottom
+                .card.text-white.o-hidden.h-100.bg-37.search-box
+                  %h5 
+                    Total 
+                    %br
+                    Searches
+                  %h1
+                    %span.count-this
+                      = @total_searches
+              .col-lg-6.col-md-12.mb-bottom
+                .card.text-white.o-hidden.h-100.bg-2d5.search-box
+                  %h5 
+                    Average Searches
+                    %br per Min
+                  %h1
+                    %span.count-this
+                      = @avg_searches_per_min
+              .col-lg-6.col-md-12.mb-bottom
+                .card.text-white.o-hidden.h-100.bg-1a1.search-box
+                  %h5 
+                    Average Text
+                    %br 
+                    Processing Time (Ms)
+                  %h1 
+                    %span.count-this
+                      = @avg_processing_time
+                  
+              .col-lg-6.col-md-12.mb-bottom
+                .card.text-white.o-hidden.h-100.bg-5f6.search-box
+                  %h5 
+                    Average Search
+                    %br
+                    Response Time (Ms)
+                  %h1
+                    %span.count-this
+                      = @avg_search_response
+                      
             .row
               .col-md-12.mb-3
-                .card.text-white.o-hidden.h-100.text-center
-                  .card-body.bg-primary
-                    %h5.mb-0 
-                      Total Searches
-                  .card-footer.text-dark.clearfix.small.z-1.bg-footer
-                    %h1
-                      %span.count-this 99
-            .row
-              .col-md-12.mb-3
-                .card.text-white.o-hidden.h-100.text-center
-                  .card-body.bg-primary
-                    %h5.mb-0 
-                      Average Searches per Min
-                  .card-footer.text-dark.clearfix.small.z-1.bg-footer
-                    %h1
-                      %span.count-this 29
-            .row
-              .col-md-12.mb-3
-                .card.text-white.o-hidden.h-100.text-center
-                  .card-body.bg-primary
-                    %h5.mb-0 
-                      Average Text Processing Time
-                  .card-footer.text-dark.clearfix.small.z-1.bg-footer
-                    %h1 
-                      %span.count-this 3.1
-                      %sub
-                        (Ms)
-            .row
-              .col-md-12.mb-3
-                .card.text-white.o-hidden.h-100.text-center
-                  .card-body.bg-primary
-                    %h5.mb-0 
-                      Average Search Response Time
-                  .card-footer.text-dark.clearfix.small.z-1.bg-footer
-                    %h1
-                      %span.count-this 3.1
-                      %sub
-                        (Ms)
-            .row
-              .col-md-12.mb-3
-                .card.bg-default.o-hidden.h-100.text-center
-                  .card-header.bg-primary.text-white
+                .card.bg-default.o-hidden.h-100.text-center.graph-box
+                  .search-title
                     %h5.float-left.mb-0
                       Search History
-                    .float-right.mt-1
-                      %a
-                        %i.fas.fa-download
+                    .float-right
+                      %button.btn.btn-dark
+                        = image_tag "download.png"
+                        Download
                   .card-body.pb-0
                     %ul.search-result
-                      %li
-                        Black Shoes Black Shoes Black Shoes Black Shoes Black Shoes Black Shoes
-                      %li
-                        Black Shoes
-                      %li
-                        Black Shoes
-                      %li
-                        Black Shoes
-                      %li
-                        Black Shoes
-                      %li
-                        Black Shoes
-                      %li
-                        Black Shoes
-                      %li
-                        Black Shoes
-                      %li
-                        Black Shoes
-                      %li
-                        Black Shoes                   
+                      - @search_histories.each do |search_history|
+                        %li
+                          = search_history.search_string
                     
                              
 

@@ -1,21 +1,23 @@
 
-%ul.sidebar.navbar-nav.pt-4
+%ul.sidebar.navbar-nav
   .sidebarToggle.btn-slide.btn-admin-slide.d-sm-none.d-lg-block.d-md-block
     .navbar-toggler-icon{:onclick => "myFunction(this)"}
-      %i.fas.fa-arrow-left  
+      = image_tag "bar-icon.png" 
   %li.nav-item{class: params[:controller] == 'users' && params[:action] == 'dashboard' ? 'active' : ''}
     = link_to user_dashboard_path(current_user), class: "nav-link" do
-      %i.fas.fa-tachometer-alt
+      = image_tag "dashboard-icon.png", class: 'hide'
+      = image_tag "dashboard-icon-hover.png", class: 'show'
       %span Dashboard
   %li.nav-item{class: params[:controller] == 'users' && params[:action] == 'configuration' ? 'active' : ''}
     = link_to user_configuration_path(current_user), class: "nav-link" do
-      %i.fas.fa-cog
+      = image_tag "setting.png", class: 'show'
+      = image_tag "setting-hover.png", class: 'hide'
       %span Configuration
   %li.nav-item
-    %a.nav-link{:href => "tables.html"}
+    %a.nav-link{:href => "javascript:void(0);"}
       %i.fas.fa-microphone.mr-1
       %span Widgets
   %li.nav-item{class: params[:controller] == 'users' && params[:action] == 'api' ? 'active' : ''}
-    = link_to user_api_path(current_user), class: 'nav-link' do
+    = link_to rswag_ui_path, class: 'nav-link' do
       %i.fas.fa-share-alt
       %span Api
