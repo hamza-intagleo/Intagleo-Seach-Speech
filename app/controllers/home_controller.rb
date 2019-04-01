@@ -149,7 +149,7 @@ class HomeController < ApplicationController
         end
       end
       if outputs.present?
-        # analytics = @site.analytics.create!(search_string: outputs.first.split(':').last.strip, search_reponse_time: (processing_ends_at - processing_start_at))
+        analytics = Analytic.create!(search_string: outputs.first.split(':').last.strip, search_reponse_time: (processing_ends_at - processing_start_at))
         return render json: {success: true, error: false,  results: outputs}, status: 200
       else
         return render json: {success: false, error: true,  message: "Audio is not recorded. Please check your mic settings"}, status: 422
