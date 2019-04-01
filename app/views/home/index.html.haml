@@ -44,7 +44,8 @@
     .row
       .col-12.col-sm-12.col-md-12.col-xl-12
         = form_tag search_text_into_site_path, id: "speech_form", method: :get do
-          %h1.text-center.try-it Try it for yourself
+          %h1.text-center.try-it.pb-0 Try it for yourself
+          %p.text-white.text-center.mb-5 Press and hold the below button to record your audio.
           .position-relative
             .form-group
               = text_field_tag 'search_string', nil, id: 'converted_text', placeholder: "I am looking for black shoes", class: 'form-control'
