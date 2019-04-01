@@ -25,6 +25,7 @@ $(document).ready(function(){
     }
   });
   $('.sidebar').height($("#content-wrapper").height() + 25);
+  $('iframe').height($("#content-wrapper").height() - 22);
   $('.parsley-validate').parsley();
 
   $('body').on('click', '#sign_up', function(){

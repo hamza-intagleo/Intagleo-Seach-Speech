@@ -195,7 +195,7 @@
             "in": "query",
             "type": "string",
             "required": true,
-            "description": "Current Timestamp i.e 1551860382"
+            "description": "Current Timestamp i.e 1553839951"
           }
         ],
         "responses": {
@@ -477,7 +477,7 @@
             "in": "header",
             "type": "string",
             "required": true,
-            "description": "Current Timestamp i.e 1551860382"
+            "description": "Current Timestamp i.e 1553839951"
           },
           {
             "name": "user_id",

@@ -1,3 +1,6 @@
+iframe {
+  width: 100%;
+}
 .jumbotron{
   padding: 2rem !important;
 
