@@ -78,17 +78,32 @@ class Users::RegistrationsController < Devise::RegistrationsController
       if resource_updated
         # set_flash_message_for_update(resource, prev_unconfirmed_email)
         bypass_sign_in resource, scope: resource_name if sign_in_after_change_password?
-        render json: {success: true, error: false, message: "User is successfully updated", results: resource}, status: 200
+        respond_to do |format|
+          format.html {respond_with resource, location: after_update_path_for(resource), notice: "User is successfully updated"}
+          format.json { 
+            render json: {success: true, error: false, message: "User is successfully updated", results: resource}, status: 200
+          }
+        end
 
         # respond_with resource, location: after_update_path_for(resource)
       else
         clean_up_passwords resource
         set_minimum_password_length
-        render json: {success: false, error: true, message: resource.errors.full_messages.join(', ')}, status: 422
+        respond_to do |format|
+          format.html {respond_with resource}
+          format.json { 
+            render json: {success: false, error: true, message: resource.errors.full_messages.join(', ')}, status: 422
+          }
+        end
         # respond_with resource
       end
     rescue Exception => e
-      render json: {success: false, error: true, message: e}, status: 500
+      respond_to do |format|
+        format.html {respond_with resource, alert: e}
+        format.json { 
+          render json: {success: false, error: true, message: e}, status: 500
+        }
+      end
     end
   end
 

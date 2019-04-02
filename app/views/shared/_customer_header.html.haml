@@ -25,7 +25,7 @@
             %b
               = current_user.fullname 
         .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "userDropdown"}
-          %a.dropdown-item{:href => "#"} Profile
+          %a.dropdown-item{:href => "#{edit_user_registration_path}"} Profile
           .dropdown-divider
           = link_to('Logout', destroy_user_session_path, method: :delete, id: "dropdownMenuButton", class: "dropdown-item")
         
