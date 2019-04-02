@@ -19,20 +19,24 @@ Rails.application.routes.draw do
   post 'convert_audio_to_text_free' => 'home#convert_audio_to_text_free', as: :convert_audio_to_text_free
   resources :users, only: :renew_api_keys do
     get :renew_api_keys
-    resources :sites, only: :create do
+    resources :sites do
       post :add_site_configuration
       get :get_site_configuration
+      get :site_configuration_form
+      post :update_site_configuration
       # get :search_text_into_site
       post :convert_audio_to_text
       get :get_statistics
     end
   end
 
-    resources :users, only: :dashboard do
-      get :dashboard
-      get :configuration
-      get :api
-    end
+  resources :users, only: :dashboard do
+    get :dashboard
+    get :configuration
+    get :api
+  end
+
+  
 
 
 end

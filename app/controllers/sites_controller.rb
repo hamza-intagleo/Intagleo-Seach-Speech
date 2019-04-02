@@ -2,6 +2,17 @@ class SitesController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:create, :add_site_configuration, :convert_audio_to_text]
   # before_action :verify_client, only: [:search_text_into_site, :convert_audio_to_text, :get_statistics]
 
+  
+  def new
+    @user = User.find(params[:user_id])
+    @site = @user.sites.new
+  end
+
+  def edit
+    @user = User.find(params[:user_id])
+    @site = @user.sites.find(params[:id])
+  end
+
   def create
     begin
       @user = User.find(params[:user_id])
@@ -12,29 +23,178 @@ class SitesController < ApplicationController
       end
       @site.company_number = company_number
       if @site.save
-        render json: {success: true, error: false, message: "Site is successfully added", results: @site}, status: 200
+        respond_to do |format|
+          format.html {
+            redirect_to user_configuration_path(@user), notice: "Site is successfully added"
+          }
+          format.json { 
+            render json: {success: true, error: false, message: "Site is successfully added", results: @site}, status: 200
+          }
+        end
       else
-        render json: {success: false, error: true, message: @site.errors.full_messages.join(', ')}, status: 422
+        respond_to do |format|
+          format.html {redirect_to user_configuration_path(@user), alert: "#{@site.errors.full_messages.join(', ')}"}
+          format.json { 
+            render json: {success: false, error: true, message: @site.errors.full_messages.join(', ')}, status: 422
+          }
+        end
       end
     rescue Exception => e
-      render json: {success: false, error: true, message: e}, status: 500
+      respond_to do |format|
+        format.html {redirect_to user_configuration_path(@user), alert: "#{e}"}
+        format.json { 
+          render json: {success: false, error: true, message: e}, status: 500
+        }
+      end
     end
+  end
+
+  def update
+    begin
+      @user = User.find(params[:user_id])
+      @site = @user.sites.find(params[:id])
+
+      if @site.update(site_params)
+        respond_to do |format|
+          format.html {
+            redirect_to user_configuration_path(@user), notice: "Site is successfully updated"
+          }
+          format.json { 
+            render json: {success: true, error: false, message: "Site is successfully updated", results: @site}, status: 200
+          }
+        end
+      else
+        respond_to do |format|
+          format.html {redirect_to user_configuration_path(@user), alert: "#{@site.errors.full_messages.join(', ')}"}
+          format.json { 
+            render json: {success: false, error: true, message: @site.errors.full_messages.join(', ')}, status: 422
+          }
+        end
+      end
+    rescue Exception => e
+      respond_to do |format|
+        format.html {redirect_to user_configuration_path(@user), alert: "#{e}"}
+        format.json { 
+          render json: {success: false, error: true, message: e}, status: 500
+        }
+      end
+    end
+  end
+
+  def destroy
+    begin
+      @user = User.find(params[:user_id])
+      @site = @user.sites.find(params[:id])
+
+      if @site.destroy
+        respond_to do |format|
+          format.html {
+            redirect_to user_configuration_path(@user), notice: "Site is successfully destroyed"
+          }
+          format.json { 
+            render json: {success: true, error: false, message: "Site is successfully destroyed", results: @site}, status: 200
+          }
+        end
+      else
+        respond_to do |format|
+          format.html {redirect_to user_configuration_path(@user), alert: "#{@site.errors.full_messages.join(', ')}"}
+          format.json { 
+            render json: {success: false, error: true, message: @site.errors.full_messages.join(', ')}, status: 422
+          }
+        end
+      end
+    rescue Exception => e
+      respond_to do |format|
+        format.html {redirect_to user_configuration_path(@user), alert: "#{e}"}
+        format.json { 
+          render json: {success: false, error: true, message: e}, status: 500
+        }
+      end
+    end
+
+  end
+
+  
+  def site_configuration_form
+    @user = User.find params[:user_id]
+    @site = @user.sites.find(params[:site_id])
+    @site_configuration = @site.site_configuration.present? ? @site.site_configuration : @site.build_site_configuration
+
   end
 
   def add_site_configuration
     begin
-      @site = Site.find(params[:site_id])
+      @user = User.find(params[:user_id])
+      @site = @user.sites.find(params[:site_id])
       @site_conf = @site.build_site_configuration(site_configuration_params)
       if @site_conf.save
-        render json: {success: true, error: false, message: "Site configuration is added successfully", results: @site_conf}, status: 200
+        respond_to do |format|
+          format.html {
+            redirect_to user_configuration_path(@user), notice: "Site configuration is added successfully"
+          }
+          format.json { 
+            render json: {success: true, error: false, message: "Site configuration is added successfully", results: @site_conf}, status: 200
+          }
+        end
       else
-        render json: {success: false, error: true, message: @site_conf.errors.full_messages.join(', ')}, status: 422
+        respond_to do |format|
+          format.html {
+            redirect_to user_site_site_configuration_form_path(user_id: @user.id, site_id: @site.id), alert: "#{@site_conf.errors.full_messages.join(', ')}"
+          }
+          format.json { 
+            render json: {success: false, error: true, message: @site_conf.errors.full_messages.join(', ')}, status: 422
+          }
+        end
       end
     rescue Exception => e
-      render json: {success: false, error: true, message: e}, status: 500
+      respond_to do |format|
+          format.html {
+            redirect_to user_site_site_configuration_form_path(user_id: @user.id, site_id: @site.id), alert: e
+          }
+          format.json { 
+            render json: {success: false, error: true, message: e}, status: 500
+          }
+        end
 
     end
   end
+
+  def update_site_configuration
+  begin
+    @user = User.find(params[:user_id])
+    @site = @user.sites.find(params[:site_id])
+    @site_conf = @site.site_configuration
+    if @site_conf.update(site_configuration_params)
+      respond_to do |format|
+        format.html {
+          redirect_to user_configuration_path(@user), notice: "Site configuration is updated successfully"
+        }
+        format.json { 
+          render json: {success: true, error: false, message: "Site configuration is updated successfully", results: @site_conf}, status: 200
+        }
+      end
+    else
+      respond_to do |format|
+        format.html {
+          redirect_to user_site_site_configuration_form_path(user_id: @user.id, site_id: @site.id), alert: "#{@site_conf.errors.full_messages.join(', ')}"
+        }
+        format.json { 
+          render json: {success: false, error: true, message: @site_conf.errors.full_messages.join(', ')}, status: 422
+        }
+      end
+    end
+  rescue Exception => e
+    respond_to do |format|
+        format.html {
+          redirect_to user_site_site_configuration_form_path(user_id: @user.id, site_id: @site.id), alert: e
+        }
+        format.json { 
+          render json: {success: false, error: true, message: e}, status: 500
+        }
+      end
+
+  end
+end
 
   def get_site_configuration
     begin
@@ -167,7 +327,7 @@ class SitesController < ApplicationController
   end
 
   def site_configuration_params
-    params.permit(:return_results_on_rendered_page, :return_results_on_customer_webpage, :search_string_url, :search_icon_color, :search_icon_text, :search_box_size, :search_box_shape, :search_box_fill_color, :search_box_border_color, :search_box_placeholder_text)
+    params.permit(:site_id, :return_results_on_rendered_page, :return_results_on_customer_webpage, :custom_search_results_url, :search_icon_color, :search_icon_text, :search_box_size, :search_box_shape, :search_box_fill_color, :search_box_border_color, :search_box_placeholder_text)
   end
 
   def verify_client

@@ -11,6 +11,8 @@
             = link_to 'Dashboard', user_dashboard_path(current_user)
           %li.breadcrumb-item.active Overview
         / Icon Cards
+
+        = link_to 'Add New Site', new_user_site_path(current_user), class: "btn btn-primary"
         %table.table.table-striped
           %thead
             %tr
@@ -20,21 +22,19 @@
               %th{:scope => "col"} Company number
               %th{:scope => "col"} Actions
           %tbody
-            %tr
-              %th{:scope => "row"} 1
-              %td Mark
-              %td Otto
-              %td @mdo
-              %td edit | delete
-            %tr
-              %th{:scope => "row"} 2
-              %td Jacob
-              %td Thornton
-              %td @fat
-              %td edit | delete
-            %tr
-              %th{:scope => "row"} 3
-              %td Larry
-              %td the Bird
-              %td @twitter
-              %td edit | delete
+            - @sites.each_with_index do |site, index|
+              %tr
+                %th{:scope => "row"}
+                  = index+1
+                %td
+                  = site.site_name
+                %td
+                  = site.site_url
+                %td
+                  = site.company_number
+                %td
+                  = link_to "Manage Configuration", user_site_site_configuration_form_path(user_id: @user.id, site_id: site.id), class: 'btn btn-success btn-xs'
+                  |
+                  = link_to 'Edit Site',edit_user_site_path(user_id: @user.id, id: site.id), class: 'btn btn-primary btn-xs'
+                  |
+                  = link_to 'Delete Site', user_site_path(user_id: @user.id, id: site.id), method: :delete, class: 'btn btn-danger btn-xs'

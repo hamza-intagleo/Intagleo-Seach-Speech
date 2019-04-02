@@ -5,7 +5,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_and_belongs_to_many :sites, :join_table => :users_sites
+  # has_and_belongs_to_many :sites, :join_table => :users_sites
+  has_many :sites
   after_create :assign_default_role
 
   def generate_api_keys

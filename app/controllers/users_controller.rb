@@ -38,4 +38,10 @@ class UsersController < ApplicationController
     @avg_processing_time = @analytics.average(:text_processing_time)
     @avg_searches_per_min = 0
   end
+
+  def configuration
+    @user = User.find(params[:user_id])
+    @sites = @user.sites
+
+  end
 end
