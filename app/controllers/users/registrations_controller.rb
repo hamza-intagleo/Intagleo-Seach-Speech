@@ -133,6 +133,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
     params[:user].permit(:email, :password, :first_name, :last_name, :contact_number, :current_password)
   end
 
+  def after_update_path_for(resource)
+    user_dashboard_path(resource, search_type: 'all')
+  end
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_account_update_params
   #   devise_parameter_sanitizer.permit(:account_update, keys: [:attribute])
