@@ -18,6 +18,6 @@
       %i.fas.fa-microphone.mr-1
       %span Widgets
   %li.nav-item{class: params[:controller] == 'users' && params[:action] == 'api' ? 'active' : ''}
-    = link_to rswag_ui_path, class: 'nav-link' do
+    = link_to user_api_path(current_user), class: 'nav-link' do
       %i.fas.fa-share-alt
       %span Api
