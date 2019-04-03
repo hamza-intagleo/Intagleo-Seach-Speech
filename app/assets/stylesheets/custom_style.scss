@@ -547,6 +547,7 @@ ul.navigation {
 
 .dashboard img {
   width: 100%;
+      box-shadow: 5px 9px 37px 2px #d4d4d4;
 }
 
 section#about {
@@ -629,8 +630,7 @@ section#about {
 
 .sidebar .nav-item .nav-link {
   text-align: center;
-  padding: 0.75rem 1rem;
-  width: 90px;  
+  padding: 0.75rem 1rem; 
   border-left: 3px solid transparent;
   background-clip: padding-box, border-box;
   background-origin: padding-box, border-box;
@@ -738,7 +738,7 @@ h1, h2, h3, h4, h5, h6{
   }
   .sidebar.toggled .nav-item .nav-link {
     text-align: center;
-    padding: 0.75rem 5px;
+    padding: 1rem 5px;
     width: 97px;
     transition: all 0.4s ease 0s;
   }
@@ -913,7 +913,7 @@ img {
 }
 
 .text-with-image img {
-  top: 26px;
+  bottom: 45px;
   right: 0;
 }
 
@@ -1121,7 +1121,7 @@ a:hover {
 }
 .navbar-toggler-icon{
   width: 35px;
-  height: 30px;
+  height: 35px;
 }
 .card {
   position: relative;
@@ -1456,7 +1456,8 @@ a:hover {
     padding-right: 5%;
   }
   .text-with-image img {
-    bottom: -19px;
+    bottom: 45px;
+    width: 90%;
     top: auto !important;
   }
   .static-content {
@@ -1489,13 +1490,10 @@ a:hover {
   }
 }
 
-@media screen and (min-width: 1280px) and (max-width: 1400px) {
+@media screen and (min-width: 1200px) and (max-width: 1400px) {
   .icon-with-text {
     padding: 13px 15px 3px 15px;
     min-height: 240px;
-  }
-  .text-with-image img{
-    top: 16px;
   }
 
   .icon-with-text .icon img{
@@ -1510,8 +1508,8 @@ a:hover {
     min-height: 106px;
   }
   .banner-heading {
-    padding-top: 50PX;
-    padding-bottom: 22PX;
+    padding-top: 50px;
+    padding-bottom: 55px;
   }
   nav {
     height: 72px;
@@ -1553,6 +1551,18 @@ a:hover {
 .graph-box{
   box-shadow: 1px 0px 9px -1px #e4e4e4;
   border: none;
+  background-color: #fff;
+  border-radius: 5px;
+  label{
+    margin-left: 10px;
+    font-weight: 500;
+    margin-bottom: 2px;
+  }
+  .form-control{
+    font-size: 16px;
+    height: 45px;
+    padding-left: 20px
+  }
   .card-header{
     background-color: #fff;
     border: none;
@@ -1562,6 +1572,39 @@ a:hover {
       margin-bottom: 0;
     }
   }
+  table{
+    th{
+      background-color: #1a1e28;
+      color: #fff;
+      text-transform: capitalize;
+      &:first-child{
+        border-radius: 5px 0 0 0;
+      }
+      &:last-child{
+        border-radius: 0px 5px 0 0;
+      }
+    }
+  }
+}
+.btn-custom{
+  height: 45px;
+  min-width: 150px;
+}
+.btn-dark{
+  background-color: #1a1e28;
+}
+.btn-outline-dark{
+  border-color: #1a1e28;
+}
+.btn-dark:hover {
+  color: #1a1e28;
+  background-color: #fff;
+  border-color: #1a1e28;
+}
+.btn-outline-dark:hover {
+  color: #fff;
+  background-color: #1a1e28;
+  border-color: #1a1e28;
 }
 .bg-37{
   background-color: #3771f6;
@@ -1576,7 +1619,7 @@ a:hover {
   background-color: #5f677c;
 }
 .search-box{
-  padding: 20px 25px 22px 24px;
+  padding: 20px 25px 19px 24px;
   h5{
     font-size: 16px;
     margin-bottom: 20px;
@@ -1680,6 +1723,12 @@ a:hover {
   }
 }
 
+@media screen and (min-width: 1200px) and (max-width: 1240px){
+  .slick-dotted.slick-slider{
+    margin-bottom: 0;
+  }
+}
+
 @media screen and (max-width: 1200px) {
   .text-with-dashboard {
     padding-top: 0em;
@@ -1753,7 +1802,14 @@ a:hover {
     display: inline-block;
     cursor: pointer;
     width: 35px;
-    height: 30px;
+    height: 35px;
+        background-color: #1a1e28;
+    text-align: center;
+    line-height: 35px;
+    border-radius: 100%;
+    i{
+      color: #fff;
+    }
   }
   .bar1, .bar2, .bar3 {
     width: 30px;
@@ -1854,7 +1910,7 @@ a:hover {
     margin-top: -20px;
     height: 45px;
     text-align: center;
-    line-height: 40px;
+    line-height: 45px;
     bottom: 0;
     border-radius: 100%;
   }
@@ -1874,6 +1930,10 @@ a:hover {
     content: "\f0c9";
     font-family: 'Font Awesome 5 Free';
   }
+  i.fa-arrow-left:before{
+    content: "\f061";
+    font-family: 'Font Awesome 5 Free';
+  }
 }
 
 @media screen and (max-width: 767px) {
@@ -1882,6 +1942,9 @@ a:hover {
     left: 15px;
     top: -5px;
     transition: all 0.3s ease 0s;
+  }
+  .sidebar .nav-item .nav-link span{
+    margin-top: 10px;
   }
   .btn-admin-slide{
     display: none;

@@ -7,7 +7,7 @@ $(document).ready(function(){
   $('body').on('mouseup', '#speech_icon, #search_speech_icon', function(){
     toggleRecording(this)
   })
-
+$('[data-toggle="tooltip"]').tooltip()
   // Toggle the side navigation
   $(".sidebarToggle").on('click', function(e) {
     e.preventDefault();
