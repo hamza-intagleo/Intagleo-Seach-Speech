@@ -4,13 +4,10 @@
     = render partial: 'sidebar_menu'
     #content-wrapper.pb-3
       .container-fluid
-        
-        / Breadcrumbs
-        %ol.breadcrumb
-          %li.breadcrumb-item
-            = link_to 'Dashboard', user_dashboard_path(current_user)
-          %li.breadcrumb-item.active Overview
-        / Icon Cards
+        .row
+          .col-md-12
+            %h4.mb-4
+              Right Reply API
 
         %iframe{:src => "#{ENV['SWAGGER_HOST']}/api-docs/index.html"}
 

@@ -28,6 +28,7 @@ $('[data-toggle="tooltip"]').tooltip()
   if ($('#content-wrapper').height()<700) {
     $('body').css('overflow', 'hidden');
   }
+  //$('.apply-hight').height($(".get-height").height() + 45);
   $('.sidebar').height($("#content-wrapper").height() + 25);
   $('iframe').height($("#content-wrapper").height() - 22);
   $('.parsley-validate').parsley();
@@ -227,7 +228,7 @@ $( window ).resize(function() {
       color: "#405ec8"
 		});
 	});
-
+ $('.apply-hight').height($(".get-height").height() - 35);
 });
 
 

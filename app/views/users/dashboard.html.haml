@@ -25,7 +25,7 @@
             = link_to 'Dashboard', user_dashboard_path(current_user)
           %li.breadcrumb-item.active Overview
         / Icon Cards
-        .row.mobile-view
+        .row.mobile-view.row-eq-height
           .col-xl-8.col-lg-12.col-md-12.h-100
             .row.d-none
               .col-md-12
@@ -43,14 +43,14 @@
                   %li.float-right
                     .btn.btn-primary.btn-sm
                       %i.fas.fa-download
-            .card.mb-bottom.graph-box
+            .card.mb-bottom.graph-box.apply-hight
               .card-header
                 %h5
                   Search Requests
               .card-body
                 = line_chart User.group_by_day(:created_at).count, download: {filename: "search_requests"}
           
-          .col-md-12.col-xl-4.col-lg-12.h-100
+          .col-md-12.col-xl-4.col-lg-12.h-100.get-height
             .row
               .col-lg-6.col-md-12.mb-bottom
                 .card.text-white.o-hidden.h-100.bg-37.search-box
@@ -89,7 +89,7 @@
                     %span.count-this
                       = @avg_search_response
                       
-        .row.mobile-view
+        .row.mobile-view.row-eq-height
           .col-xl-8.col-lg-12.col-md-12.h-100
             .card.mb-3.graph-box
               .card-header
