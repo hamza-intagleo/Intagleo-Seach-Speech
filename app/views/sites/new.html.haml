@@ -1,6 +1,24 @@
-= form_for [@user, @site] do |f|
-  Site name: 
-  = f.text_field :site_name
-  Site URl:
-  = f.text_field :site_url
-  = f.submit
+#page-top
+  #wrapper
+    / Sidebar
+    = render partial: 'users/sidebar_menu'
+    #content-wrapper.pb-3
+      .container-fluid
+        .row
+          .col-md-6
+            %h4
+              Add New Site
+        .row.mt-4
+          .col-md-12
+            .graph-box.p-5
+              = form_for [@user, @site] do |f|
+                .form-group
+                  %label
+                    Site name: 
+                  = f.text_field :site_name, class: "form-control form-control-lg rounded-pill"
+                .form-group
+                  %label  
+                    Site URl:
+                  = f.text_field :site_url, class: "form-control form-control-lg rounded-pill"
+                .form-group.mt-4  
+                  = f.submit 'Create Site', :class => 'btn btn-dark rounded-pill pl-4 pr-4 btn-custom'

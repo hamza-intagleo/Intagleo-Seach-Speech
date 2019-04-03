@@ -2,7 +2,7 @@
 %ul.sidebar.navbar-nav
   .sidebarToggle.btn-slide.btn-admin-slide.d-sm-none.d-lg-block.d-md-block
     .navbar-toggler-icon{:onclick => "myFunction(this)"}
-      = image_tag "bar-icon.png" 
+      %i.fas.fa-arrow-left
   %li.nav-item{class: params[:controller] == 'users' && params[:action] == 'dashboard' ? 'active' : ''}
     = link_to user_dashboard_path(current_user, search_type: 'all'), class: "nav-link" do
       = image_tag "dashboard-icon.png", class: 'hide'

@@ -4,37 +4,40 @@
     = render partial: 'sidebar_menu'
     #content-wrapper.pb-3
       .container-fluid
-        
-        / Breadcrumbs
-        %ol.breadcrumb
-          %li.breadcrumb-item
-            = link_to 'Dashboard', user_dashboard_path(current_user)
-          %li.breadcrumb-item.active Overview
-        / Icon Cards
+        .row
+          .col-md-6
+            %h4
+              Configuration
+          .col-md-6
+            .text-right    
+              = link_to 'Add New Site', new_user_site_path(current_user), class: "btn btn-dark rounded-pill pl-4 pr-4 pt-2 pb-2"
 
-        = link_to 'Add New Site', new_user_site_path(current_user), class: "btn btn-primary"
-        %table.table.table-striped
-          %thead
-            %tr
-              %th{:scope => "col"} #
-              %th{:scope => "col"} Site Name
-              %th{:scope => "col"} Site URl
-              %th{:scope => "col"} Company number
-              %th{:scope => "col"} Actions
-          %tbody
-            - @sites.each_with_index do |site, index|
-              %tr
-                %th{:scope => "row"}
-                  = index+1
-                %td
-                  = site.site_name
-                %td
-                  = site.site_url
-                %td
-                  = site.company_number
-                %td
-                  = link_to "Manage Configuration", user_site_site_configuration_form_path(user_id: @user.id, site_id: site.id), class: 'btn btn-success btn-xs'
-                  |
-                  = link_to 'Edit Site',edit_user_site_path(user_id: @user.id, id: site.id), class: 'btn btn-primary btn-xs'
-                  |
-                  = link_to 'Delete Site', user_site_path(user_id: @user.id, id: site.id), method: :delete, class: 'btn btn-danger btn-xs'
+        .row.mt-4
+          .col-md-12
+            .graph-box
+              %table.table.table-striped
+                %thead
+                  %tr
+                    %th{:scope => "col"} #
+                    %th{:scope => "col"} Site Name
+                    %th{:scope => "col"} Site URl
+                    %th{:scope => "col"} Company number
+                    %th{:scope => "col", :width => "12%" } Actions
+                %tbody
+                  - @sites.each_with_index do |site, index|
+                    %tr
+                      %td
+                        = index+1
+                      %td
+                        = site.site_name
+                      %td
+                        = site.site_url
+                      %td
+                        = site.company_number
+                      %td
+                        = link_to user_site_site_configuration_form_path(user_id: @user.id, site_id: site.id), class: "btn btn-outline-success btn-sm mr-2 rounded-circle" do
+                          %i.fas.fa-cog
+                        = link_to edit_user_site_path(user_id: @user.id, id: site.id), class: "btn btn-outline-primary btn-sm mr-2 rounded-circle" do
+                          %i.fas.fa-pencil-alt
+                        = link_to user_site_path(user_id: @user.id, id: site.id), method: :delete, class: "btn btn-outline-danger btn-sm rounded-circle" do
+                          %i.far.fa-trash-alt                            
