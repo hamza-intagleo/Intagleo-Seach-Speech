@@ -24,6 +24,10 @@ $('[data-toggle="tooltip"]').tooltip()
       e.preventDefault();
     }
   });
+
+  if ($('#content-wrapper').height()<700) {
+    $('body').css('overflow', 'hidden');
+  }
   $('.sidebar').height($("#content-wrapper").height() + 25);
   $('iframe').height($("#content-wrapper").height() - 22);
   $('.parsley-validate').parsley();
