@@ -36,6 +36,15 @@ Rails.application.routes.draw do
     get :api
   end
 
+  namespace :widgets do
+    resources :site_widgets, only: [] do
+      collection do
+        get :site
+        get :site_widget
+      end
+    end
+  end
+
   
 
 

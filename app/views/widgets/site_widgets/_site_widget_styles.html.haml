@@ -1,0 +1,669 @@
+:css
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: "Lato", Helvetica, Arial, sans-serif;
+  }
+
+  .comencia-search-widget-bg {
+    padding: 14px 1% 30px 1%;
+    background-color: #{@header_menu};
+  }
+
+  .float-left{
+    float:left;
+  }
+
+  .float-right{
+    float:right;
+  }
+
+  .comencia-search-widget{}
+
+  .comencia-search-widget input, .form-input {
+    border: 1px solid #{@btn_clr};
+    background-color: #ffffff;
+    font-size: 13px;
+    height: 34px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-weight: 400;
+    text-align: left;
+    border-radius: 0;
+    width: 100%;
+  }
+  .comencia-search-widget .form-input{
+    display: inline-flex;
+  }
+  .comencia-search-widget .select-place {
+    clear: both;
+  }
+  .comencia-search-widget .check-in-out{
+    width: 49%;
+  }
+  .comencia-search-widget .search-label {
+    margin: 0;
+    font-size: 14px;
+    padding-top: 15px;
+    padding-bottom: 5px;
+    color: #ffffff;
+    font-weight: 300;
+  }
+  .comencia-search-widget .input-group {
+    position: relative;
+    display: table;
+    border-collapse: separate;
+    padding: 0;
+  }
+  .comencia-search-widget .input-group-addon {
+    border: 0px;
+    border-bottom: 2px solid #{@button_border}; 
+    color: #ffffff;
+    cursor: pointer;
+    border-radius: 0;
+    padding: 6px 8px 5px 8px;
+    position: absolute;
+    right: 0;
+    width: 30px;
+    height: 34px;
+    text-align: center;
+  }    
+  .input-group-addon i.icon-calender {
+    height: 19px !important;
+  }
+
+  .comencia-search-widget .submit-button{
+    background-color: #{@btn_clr};
+    font-size: 14px;
+    padding: 5px 23px;
+    color: #ffffff;
+    border: 0;
+    border-bottom: 2px solid #{@button_border};
+    font-weight: 400;
+    cursor: pointer;
+  }
+  .comencia-search-widget .submit-button:hover {
+    text-decoration: none;
+    background-color: #{@button_border};
+    color: #ffffff;
+  }
+
+  .comencia-search-widget .submit-button, .input-group-addon{
+    background-color: #{@btn_clr};
+  }
+  .comencia-search-widget .search-label-space-m{
+    padding-top: 25px;
+  }
+  .comencia-search-widget .open .dropdown-menu {
+    min-width: 120px !important;
+    margin-top: 10px;
+    display: block;
+  }
+  .comencia-search-widget .dropdown-menu:after{
+    content: "";
+    display: inline-block;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid #ffffff;
+    position: absolute;
+    top: -6px;
+    left: 7px;
+  }
+  .comencia-search-widget ul.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 160px;
+    padding: 5px 0;
+    margin: 7px 0 0;
+    font-size: 14px;
+    text-align: left;
+    border-radius: 0;
+    list-style: none;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0,0,0,.15);
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+  }
+  .comencia-search-widget ul.dropdown-menu li a{
+    max-width: 100%;
+    text-decoration: none;
+    font-weight: 400;
+    line-height: 1.42857143;
+    color: #333;
+    position: relative;
+  }
+
+  .comencia-search-widget ul.dropdown-menu li a.selected{
+    background: #{@btn_clr};
+    color: #ffffff;
+
+  }  
+  .comencia-search-widget ul.dropdown-menu li a:hover{
+    background: #{@btn_clr};
+    color: #ffffff;
+  }
+
+  .comencia-search-widget ul.dropdown-menu li a.selected:before {
+    content: "\e902";
+    font-family: 'icomoon' !important;
+    position: absolute;
+    left: 10px;
+    color: #fff;
+    top: 2px;
+    width: 12px;
+    height: 13px;
+    background-size: 100%;
+  }
+  .dropdown-toggle{}
+
+  .dropdown-toggle span.form-input{
+    padding: 8px 9px 7px 9px;
+    white-space: nowrap;
+    width: 101px;
+    overflow: hidden;
+  }
+  .comencia-search-widget .algolia-autocomplete{
+    width: 100%;
+    z-index: 999;
+  }
+  .comencia-search-widget .aa-input, .aa-hint{
+    height: 34px;
+  }
+  .comencia-search-widget .aa-hint {
+    color: #{@btn_clr};
+  }
+  .comencia-search-widget .search-icon i{
+    color: #{@btn_clr};
+    padding: 0 5px;
+  }
+  .comencia-search-widget .aa-dropdown-menu{ 
+    width: 100%;
+    background-color: #ffffff;
+    border: 1px solid #{@btn_clr};
+    border-top: none;
+    color: var(--main-color);
+    font-weight: 300;
+    margin-top: 3px;
+  }
+  .comencia-search-widget .aa-suggestion{
+    cursor: pointer;
+    padding: 5px 4px;
+    font-style: normal;
+    color: #{@btn_clr};
+  }
+
+  .comencia-search-widget .aa-suggestion span{
+    color: #{@btn_clr};
+  }
+  .comencia-search-widget .aa-suggestion:hover span{
+    color: #ffffff;
+  }
+
+  .comencia-search-widget .aa-suggestion:hover{
+    background-color: #{@btn_clr};
+    color: #ffffff;
+  }
+  .comencia-search-widget .aa-suggestion i{
+    font-size: 12px;
+  }
+  .comencia-search-widget .aa-suggestion:hover i{
+    color: #ffffff;
+  }
+  .comencia-search-widget .aa-suggestion em{
+    font-weight: bold;
+    font-style: normal;
+  }
+  .comencia-search-widget label.error {
+    color: #F34040;
+    margin-top: 5px;
+    font-weight: 500;
+  }
+  .comencia-search-widget .input-group{
+    width: 100%;
+  }
+
+  .input-group span.form-input{
+    width: 100%;
+  }
+  .datepicker-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 160px;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    font-size: 14px;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+  }
+  .datepicker table {
+    border-spacing: 3px;
+    border-collapse: inherit;
+    border-collapse-color: #{@btn_clr};
+    border-collapse-background-color: transparent;
+  }
+  .datepicker table thead > tr:first-child > th.datepicker-switch {
+    color: #{@btn_clr};
+  }
+  .datepicker table tr > th > i {
+    color: #{@btn_clr};
+  }
+  .datepicker td, .datepicker th {
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    border: none;
+  }
+  .datepicker table tr td.active{
+    background-color: #{@btn_clr} !important;
+    color: #ffffff;
+    background-image: none;
+    border-radius: 0;
+    boder: none;
+  }
+  .datepicker table tr td.disabled {
+    background: none;
+    color: #999999;
+    cursor: default;
+  }
+  .datepicker table .today.day {
+    font-weight: bold;
+    border-color: #ffffff;
+    background: none !important;
+  }
+  .datepicker table tr td.day .active{
+    color: #ffffff !important;
+    background: #{@btn_clr} !important;
+  } 
+  .datepicker table tr > td.day:hover, .datepicker table tr > td.today.day:hover {
+    color: white !important;
+    border: 1px solid #{@btn_clr};
+    color: #ffffff !important;
+    background: #{@btn_clr} !important;
+  }
+
+  .datepicker table .day.active {
+    border-color: #{@btn_clr} !important;
+  }
+  .datepicker table tr > td {
+    padding: 3px;
+    border: 1px solid #ffffff;
+    font-weight: 300;
+  }
+  .datepicker.datepicker-dropdown {
+    margin-top: 12px;
+    border: 1px solid #{@btn_clr};
+    border-radius: 0;
+  }
+  .datepicker-dropdown:after {
+    content: '';
+    display: inline-block;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid #ffffff;
+    position: absolute;
+    top: -6px;
+    left: 7px;
+  }
+  .datepicker table tr td.disabled, .datepicker table tr td.disabled:hover {
+    background: none !important;
+    color: #999999 !important;
+    cursor: default !important;
+    border: none !important;
+  }
+  .datepicker table tr > td.day:hover, .datepicker table tr > td.today.day:hover {
+    color: #ffffff;
+    border: 1px solid #{@btn_clr};
+    color: #ffffff;
+    background: #{@btn_clr};
+    cursor: pointer;
+    border-radius: 0;
+  }
+
+  .datepicker .datepicker-switch, .datepicker .next, .datepicker .prev, .datepicker tfoot tr th{
+    color: #{@btn_clr};
+  }
+  .table-condensed>tbody>tr>td, .table-condensed>tbody>tr>th, .table-condensed>tfoot>tr>td, .table-condensed>tfoot>tr>th, .table-condensed>thead>tr>td, .table-condensed>thead>tr>th{
+    padding: 5px;
+  }
+
+  .ar {}
+  .ar .comencia-search-widget .select-place {
+    text-align: right;
+  }
+  .ar .comencia-search-widget .input-group-addon{
+    left: 0;
+  }
+  .ar .dropdown-toggle span.form-input{
+    direction: rtl;
+  }
+  .ar .float-right {
+    float: left;
+  }
+  .ar .float-left {
+    float: right;
+  }
+  .ar .comencia-search-widget ul.dropdown-menu li a.selected:before{
+    right: 13px;
+    left: initial; 
+  }
+  .ar .comencia-search-widget ul.dropdown-menu li a{
+    direction: rtl;
+  }
+
+  .ar .comencia-search-widget .open .dropdown-menu{
+    right: 0;
+    left: inherit;
+  }
+  .ar .comencia-search-widget .dropdown-menu:after{
+    right: 7px;
+    left: inherit;
+  }
+  .datepicker.datepicker-rtl{
+    right: 15px !important;
+    left: inherit !important;
+  }
+  .datepicker.datepicker-rtl:before{
+    right: 7px;
+    left: inherit;
+  } 
+  .datepicker.datepicker-rtl:after{
+    right: 7px;
+    left: inherit;
+  }
+  .ar .comencia-search-widget .aa-input, .aa-hint{
+    text-align: right;
+  }
+  .ar .comencia-search-widget .aa-suggestion i{
+    float: right;
+    margin-top: 4px;
+  }
+  .ar .comencia-search-widget .form-input{
+    text-align: right;
+  }
+  .ar .room-guest-selector{
+    padding-right: 8px;
+  }
+  .ar .travelers-menu li span.text{
+    float: left;
+    margin-left: 0;
+  }
+  .ar ul.travelers-menu{
+    text-align: right;
+    padding-right: 8px;
+  }
+  .ar .select-room-drop li .mgr-b-10{
+    padding-right: 10px;
+  }  
+
+  .datepicker-rtl table tr th i.glyphicon-chevron-right:before{
+    font-family: 'icomoon' !important;
+    content: "\e907";
+    font-size: 12px;
+    font-style: normal;
+  }
+  .datepicker-rtl table tr th i.glyphicon-chevron-left:before{
+    font-family: 'icomoon' !important;
+    content: "\e905";
+    font-size: 12px;
+    font-style: normal;
+  }
+
+  .datepicker table tr th.next, .prev, .datepicker-switch{
+    background: none !important;
+  }
+  .datepicker table tr th.next .glyphicon-chevron-right:before{
+    font-family: 'icomoon';
+    content: "\e907";
+    font-size: 12px;
+    font-style: normal;
+  }
+  .datepicker table tr th.prev .glyphicon-chevron-left:before{
+    font-family: 'icomoon';
+    content: "\e905";
+    font-size: 12px;
+    font-style: normal;
+  }
+
+  .room-guest-selector{
+    background-color: #fff;
+    height: 33px;
+    padding-left: 10px;
+    line-height: 32px;
+    font-size: 13px;
+  }
+  .room-guest-selector .input-group-addon{
+    padding-top: 2px;
+  }
+
+  ul.travelers-menu{
+    width: 225px;
+    padding-top: 20px;
+    padding-bottom: 0;
+    z-index: 1005;
+    
+  }
+  .select-room-drop{
+    max-height: 500px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  ul.travelers-menu li{
+    padding-left: 15px;
+    color: #262626;
+    font-size: 12px;
+  }
+
+  ul.travelers-menu li a.add{
+    color: #{@btn_clr} !important;
+    text-decoration: underline !important;
+  }
+  ul.travelers-menu li a.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: default;
+  }
+  .room-guests-block a.last-room{
+    display: none;
+  }
+  .room-guests-block a.remove-room{
+    display: none;
+  }
+  .room-guests-block:hover a.last-room{
+    display: inline-block;
+    cursor: pointer;
+  }
+  ul.travelers-menu li .input-group {
+    width: 93%;
+    margin-bottom: 10px;
+  }
+  ul.travelers-menu li .input-group .input-group-btn {
+    width: 25px;
+    
+  }
+  ul.travelers-menu li .input-group .input-group-btn .btn-success{
+    background-color: #{@btn_clr};
+    border: none;
+    cursor: pointer;
+    padding: 5px 2px 6px 3px;
+    margin-left: -3px;
+    width: 25px;
+  }
+
+  ul.travelers-menu li .input-group input {
+    padding: 0;
+    text-align: center;
+    width: 26px;
+    margin-left: -3px;
+    height: 26px;
+  }
+  ul.travelers-menu li span.text{
+    margin-left: 12px;
+  }
+  ul.travelers-menu li a:hover{
+    background: transparent !important;
+    color: #262626 !important;
+  }
+  span.icon-plus-mins{
+    color: #FFF;
+  }
+
+  .btn.disabled, .btn[disabled], fieldset[disabled] .btn {
+    cursor: not-allowed !important;
+    opacity: .65;
+  }
+
+  @font-face {
+    font-family: 'icomoon';
+    src:  url('https://comencia-widgets.s3.amazonaws.com/search/fonts/calendar/icomoon.eot?r48cpq');
+    src:  url('https://comencia-widgets.s3.amazonaws.com/search/fonts/calendar/icomoon.eot?r48cpq#iefix') format('embedded-opentype'),
+      url('https://comencia-widgets.s3.amazonaws.com/search/fonts/calendar/icomoon.ttf?r48cpq') format('truetype'),
+      url('https://comencia-widgets.s3.amazonaws.com/search/fonts/calendar/icomoon.woff?r48cpq') format('woff'),
+      url('https://comencia-widgets.s3.amazonaws.com/search/fonts/calendar/icomoon.svg?r48cpq#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  [class^="icon-"], [class*=" icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .icon-icon-map-wide:before {
+    content: "\e90c";
+    font-family: 'icomoon';
+  }
+  .icon-map-signs:before {
+    content: "\e906";
+    font-family: 'icomoon';
+  }
+  .icon-binoculars:before {
+    content: "\e909";
+    font-family: 'icomoon';
+  }
+  .icon-map-pin:before {
+    content: "\e90a";
+    font-family: 'icomoon';
+  }
+  .icon-building:before {
+    content: "\e90b";
+    font-family: 'icomoon';
+  }
+  .icon-checked:before {
+    content: "\e908";
+    font-family: 'icomoon';
+  }
+  .icon-arrow-point-to-right:before {
+    content: "\e907";
+    font-family: 'icomoon';
+  }
+  .icon-arrowhead-thin-outline-to-the-left:before {
+    content: "\e905";
+    font-family: 'icomoon';
+  }
+  .icon-icon-map:before {
+    content: "\e900";
+    font-family: 'icomoon';
+  }
+  .icon-icon-calendar:before {
+    content: "\e901";
+    font-family: 'icomoon';
+  }
+  .icon-correct-symbol:before {
+    content: "\e902";
+    font-family: 'icomoon';
+  }
+  .icon-airplane-flight:before {
+    content: "\e903";
+    font-family: 'icomoon';
+  }
+  .icon-sort-down:before {
+    content: "\e904";
+    font-size: 12px;
+    font-family: 'icomoon';
+  }
+  .icon-bin:before {
+    content: "\e9ac";
+    color: #{@btn_clr};
+    font-family: 'icomoon';
+  }
+  .icon-plus:before {
+    content: "\ea0a";
+    color: #fff;
+    font-size: 11px;
+    font-family: 'icomoon';
+  }
+  .icon-minus:before {
+    content: "\ea0b";
+    color: #fff;
+    font-size: 11px;
+    font-family: 'icomoon';
+  }
+  #aws_suggestions {
+    background: #fff;
+    position: absolute;
+    width: 97%;
+    z-index: 10;
+  }
+  #aws_suggestions ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+  }
+  #aws_suggestions ul li {
+      padding: 7px 15px;
+      font-weight: 400;
+  }
+  #aws_suggestions ul li:hover {
+    background: #{@btn_clr};
+    cursor: pointer;
+  }
+  #aws_suggestions ul li a{
+    color: #{@btn_clr};
+    text-decoration: none;
+  }
+  #aws_suggestions ul li:hover a {
+    color: #fff;
+  }
+  #aws_suggestions ul li.active {
+    background: #{@btn_clr};
+    cursor: pointer;
+  }
+  #aws_suggestions ul li.active:hover a {
+    color: #fff;
+  }
+  #aws_suggestions ul li.active a {
+    color: #fff;    
+  }
+          

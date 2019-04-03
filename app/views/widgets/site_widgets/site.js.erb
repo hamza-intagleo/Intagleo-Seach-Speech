@@ -1,0 +1,38 @@
+// var hostUrl = "<%= @request_url %>";
+var hostUrl = "http://localhost:3000/";
+
+function appendJSLibrary( url, callback ) {
+  var script = document.createElement( "script" )
+  script.type = "text/javascript"; 
+  if(script.readyState) {  //IE
+    script.onreadystatechange = function() {
+      if ( script.readyState === "loaded" || script.readyState === "complete" ) {
+        script.onreadystatechange = null;
+        callback();
+      }
+    };
+  } else {  //Others
+    script.onload = function() {
+      callback();
+    };
+  }
+
+  script.src = url;
+  document.body.appendChild( script );
+}
+
+var callMainWidget = function(searchWidget) {
+  call_main_widget_url = hostUrl + "/widgets/site_widgets/site_widget.js?site_id="+
+                         searchWidget.site_id+"&target="+searchWidget.target
+
+  appendJSLibrary(call_main_widget_url, function() {
+    //console.log('bootstrap js ready!');
+  });
+}
+
+/* Load widget on page load */
+if( document.addEventListener ) {
+  document.addEventListener('load', callMainWidget(searchWidget))
+} else {
+  document.attachEvent('onload', callMainWidget(searchWidget))
+}
