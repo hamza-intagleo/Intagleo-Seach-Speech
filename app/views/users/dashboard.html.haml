@@ -26,7 +26,7 @@
           %li.breadcrumb-item.active Overview
         / Icon Cards
         .row.mobile-view
-          .col-xl-8.col-lg-12.col-md-12
+          .col-xl-8.col-lg-12.col-md-12.h-100
             .row.d-none
               .col-md-12
                 %ul.status-report
@@ -49,15 +49,8 @@
                   Search Requests
               .card-body
                 = line_chart User.group_by_day(:created_at).count, download: {filename: "search_requests"}
-
-            .card.mb-3.graph-box
-              .card-header
-                %h5
-                  Search Response Time
-              .card-body
-                = line_chart User.group_by_day(:created_at).count, download: {filename: "search_response_time"}
           
-          .col-md-12.col-xl-4.col-lg-12
+          .col-md-12.col-xl-4.col-lg-12.h-100
             .row
               .col-lg-6.col-md-12.mb-bottom
                 .card.text-white.o-hidden.h-100.bg-37.search-box
@@ -96,6 +89,17 @@
                     %span.count-this
                       = @avg_search_response
                       
+        .row.mobile-view
+          .col-xl-8.col-lg-12.col-md-12.h-100
+            .card.mb-3.graph-box
+              .card-header
+                %h5
+                  Search Response Time
+              .card-body
+                = line_chart User.group_by_day(:created_at).count, download: {filename: "search_response_time"}
+          
+          .col-md-12.col-xl-4.col-lg-12.h-100
+                 
             .row
               .col-md-12.mb-3
                 .card.bg-default.o-hidden.h-100.text-center.graph-box
@@ -111,6 +115,7 @@
                       - @search_histories.each do |search_history|
                         %li
                           = search_history.search_string
+
                     
                              
 
