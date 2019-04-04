@@ -165,6 +165,12 @@ class SitesController < ApplicationController
     @site = @user.sites.find(params[:site_id])
     @site_conf = @site.site_configuration
     if @site_conf.update(site_configuration_params)
+      render_options = params[:render_options]
+      if render_options == 'return_results_on_rendered_page'
+        @site_conf.update(return_results_on_rendered_page: true, return_results_on_customer_webpage: false)
+      else
+        @site_conf.update(return_results_on_rendered_page: false, return_results_on_customer_webpage: true)
+      end
       respond_to do |format|
         format.html {
           redirect_to user_configuration_path(@user), notice: "Site configuration is updated successfully"

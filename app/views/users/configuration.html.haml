@@ -7,7 +7,7 @@
         .row
           .col-md-6
             %h4
-              Configuration
+              Sites
           .col-md-6
             .text-right    
               = link_to 'Add New Site', new_user_site_path(current_user), class: "btn btn-dark rounded-pill pl-4 pr-4 pt-2 pb-2"
@@ -39,5 +39,6 @@
                           %i.fas.fa-cog
                         = link_to edit_user_site_path(user_id: @user.id, id: site.id), class: "btn btn-outline-primary btn-sm mr-2 rounded-circle" do
                           %i.fas.fa-pencil-alt
-                        = link_to user_site_path(user_id: @user.id, id: site.id), method: :delete, class: "btn btn-outline-danger btn-sm rounded-circle" do
+                        
+                        = link_to user_site_path(user_id: @user.id, id: site.id), method: :delete, class: "btn btn-outline-danger btn-sm rounded-circle", :data => {:confirm => 'Are you sure?'} do
                           %i.far.fa-trash-alt                            

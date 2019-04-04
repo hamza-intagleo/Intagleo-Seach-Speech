@@ -1,5 +1,12 @@
 $(document).ready(function(){
 
+  check_config_radio_buttons()
+
+  $('body').on('click' ,'.render-options', function(){
+    check_config_radio_buttons()
+    
+  })
+
   $('body').on('mousedown', '#speech_icon, #search_speech_icon', function(){
     toggleRecording(this)
   })
@@ -290,7 +297,14 @@ if ($('#home').length > 0) {
 function myFunction(x) {
   x.classList.toggle("change");
 }
- 
+
+function check_config_radio_buttons() {
+  if($('#return_results_on_customer_webpage').is(':checked')) { 
+    $('#custom_search_results_url').parent('.form-group').removeClass('d-none')
+  } else {
+    $('#custom_search_results_url').parent('.form-group').addClass('d-none')
+  }
+}
 
 
 

@@ -21,4 +21,5 @@
                     Site URl:
                   = f.text_field :site_url, class: "form-control form-control-lg rounded-pill"
                 .form-group.mt-4   
-                  = f.submit 'Update Site', :class => 'btn btn-dark rounded-pill btn-custom'
+                  = f.submit 'Update Site', :class => 'btn btn-dark rounded-pill btn-custom float-right'
+                  = link_to 'Cancel', user_configuration_path(current_user), :class => 'btn btn-primary rounded-pill pl-4 pr-4 btn-custom'

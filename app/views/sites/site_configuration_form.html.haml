@@ -7,7 +7,7 @@
         .row
           .col-md-6
             %h4
-              Configuration
+              Site Configuration
 
         .row.mt-4
           .col-md-12
@@ -18,13 +18,15 @@
                 .row
                   .col-md-6
                     .form-group
-                      = label_tag :return_results_on_rendered_page
-                      = check_box_tag 'return_results_on_rendered_page', (@site_configuration.present? ? @site_configuration.return_results_on_rendered_page : false), (@site_configuration.present? ? @site_configuration.return_results_on_rendered_page : false)
+                      = label_tag :return_results_on_rendered_page, class: 'radio-inline' do
+                        = radio_button_tag 'render_options', 'return_results_on_rendered_page', (@site_configuration.id.present? ? @site_configuration.return_results_on_rendered_page : true), id: 'return_results_on_rendered_page', class: 'render-options'
+                        Return results on rendered page
                   .col-md-6    
-                    .form-group  
-                      = label_tag :return_results_on_customer_webpage
-                      = check_box_tag 'return_results_on_customer_webpage', (@site_configuration.present? ? @site_configuration.return_results_on_customer_webpage : false), (@site_configuration.present? ? @site_configuration.return_results_on_customer_webpage : false)
-                .form-group
+                    .form-group
+                      = label_tag :return_results_on_customer_webpage, class: 'radio-inline' do
+                        = radio_button_tag 'render_options', 'return_results_on_customer_webpage', (@site_configuration.id.present? ? @site_configuration.return_results_on_customer_webpage : false), id: 'return_results_on_customer_webpage', class: 'render-options'
+                        Return results on customer webpage
+                .form-group.d-none
                   = label_tag :custom_search_results_url
                   = text_field_tag :custom_search_results_url, (@site_configuration.present? ? @site_configuration.custom_search_results_url : nil), class: "form-control form-control-lg rounded-pill"
                 .form-group
@@ -49,4 +51,5 @@
                   = label_tag :search_box_placeholder_text
                   = text_field_tag :search_box_placeholder_text, (@site_configuration.present? ? @site_configuration.search_box_placeholder_text : nil), class: "form-control form-control-lg rounded-pill"
                 .form-group.mt-4
-                  = submit_tag 'Submit', :class => 'btn btn-dark rounded-pill btn-custom'
+                  = submit_tag "#{@site.site_configuration.id.present? ? 'Update' : 'Submit'}", :class => 'btn btn-dark rounded-pill btn-custom  float-right'
+                  = link_to 'Cancel', user_configuration_path(current_user), :class => 'btn btn-primary rounded-pill pl-4 pr-4 btn-custom'
