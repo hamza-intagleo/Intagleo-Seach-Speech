@@ -182,19 +182,20 @@
     .row
       .col-sm-12.col-md-10.col-xl-8.offset-md-1.offset-xl-2
         %form.contact-from
+        = form_tag contact_us_path, class: 'contact-from' do
           .form-group
             %i
               = image_tag 'your-name.png'
-            %input.form-control{:placeholder => "Name", :type => "text"}
+            = text_field_tag 'name', nil, placeholder: 'Name', class: 'form-control'
           .form-group
             %i
               = image_tag 'your-email.png'
-            %input.form-control{:placeholder => "Email", :type => "text"}
+            = text_field_tag 'email', nil, placeholder: 'Email', class: 'form-control'
           .form-group
             %i
               = image_tag 'message.png'
-            %textarea.form-control{:placeholder => "Message", :rows => "5"}
-          %button.btn.btn-default.float-right.btn-main{:type => "submit"} Submit
+            = text_area_tag 'message', nil, placeholder: 'Message', class: 'form-control', rows: "5"
+          = submit_tag 'Submit', class: 'btn btn-default float-right btn-main'
 
 :javascript
   constraints = { audio: true, video:false }

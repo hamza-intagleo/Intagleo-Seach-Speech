@@ -159,5 +159,14 @@ class HomeController < ApplicationController
     end
   end
 
+  def contact_us
+    uname = params[:name]
+    uemail = params[:email]
+    umessage = params[:message]
+    ApplicationMailer.send_contact_message_to_site_admin(uname, uemail, umessage).deliver
+    ApplicationMailer.send_contact_message_to_sender(uname, uemail, umessage).deliver
+    redirect_to root_path, notice: 'Email is sent successfully.'
+  end
+
 
 end
