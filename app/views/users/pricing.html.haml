@@ -1,0 +1,103 @@
+%section#pricing.wow.fadeInUp.sections.pricing-bg{"data-wow-duration" => "2s"}
+  .container
+    .row
+      %h3 Please Confirm your plan
+      .col-12.col-sm-12.col-md-12.col-xl-12
+        %h1.text-center.grow-buss Grow Your Business
+    .row.pricing
+      .col-12.col-sm-12.col-md-6.col-xl-3
+        .plans-queries.text-center{class: "#{current_user.present? && current_user.has_free_plan? ? 'active-tile free-trial-tile' : ''}"}
+          .plan-with-price
+            %p Free
+            %h2
+              %sub> $
+              0
+          .weeks-with-queries
+            .text-box
+              %h1 Free Trial 2 Weeks
+              %h2 maximum 250 queries
+            = link_to 'Start Free Trial', 'javascript:void(0);', class: 'subscribe-button', id: 'free-trail'
+      .col-12.col-sm-12.col-md-6.col-xl-3
+        .plans-queries.text-center{class: "#{current_user.present? && current_user.has_basic_plan? ? 'active-tile free-trial-tile' : ''}"}
+          .plan-with-price
+            %p Basic Plan
+            %h2
+              %sub> $
+              19.99
+          .weeks-with-queries
+            .text-box
+              %h1 Per Month
+              %h2 Up to 5,000 Queries
+            = link_to 'Subscribe', 'javascript:void(0);', class: 'subscribe-button'
+      .col-12.col-sm-12.col-md-6.col-xl-3
+        .plans-queries.text-center{class: "#{current_user.present? && current_user.has_standard_plan? ? 'active-tile free-trial-tile' : ''}"}
+          .plan-with-price
+            %p Standard Plan
+            %h2
+              %sub> $
+              39.99
+          .weeks-with-queries
+            .text-box
+              %h1 Per Month
+              %h2 Up to 10,000 Queries
+            = link_to 'Subscribe', 'javascript:void(0);', class: 'subscribe-button'
+      .col-12.col-sm-12.col-md-6.col-xl-3
+        .plans-queries.text-center{class: "#{current_user.present? && current_user.has_enterprise_plan? ? 'active-tile free-trial-tile' : ''}"}
+          .plan-with-price
+            %p Enterprise
+            %h2
+              %sub> $
+              89.99
+
+          .weeks-with-queries
+            .text-box
+              %h1 Per Query
+              %small
+                Incl. 25,000 Queries + $0.004 per additional query
+              %h2  Unlimited Queries 
+            = link_to 'Subscribe', 'javascript:void(0);', class: 'subscribe-button'
+
+    = link_to 'Continue', "#{current_user.has_free_plan? ? user_configuration_path(current_user) : 'javascript:void(0);'}", class: "btn btn-warning float-right #{current_user.has_free_plan? ? '' : 'stripe-button'}"
+
+:javascript
+  var handler = StripeCheckout.configure({
+    key: "#{ENV['STRIPE_PUBLISHABLE_KEY']}",
+    image: 'https://s3.amazonaws.com/stripe-uploads/acct_18Je0UInzU6UC7fvmerchant-icon-1465303803861-comencia_icon-01.png',
+    locale: 'auto',
+    token: function(token) {
+      // You can access the token ID with `token.id`.
+      // Get the token ID to your server-side code for use.
+      $('#page-loader').show();
+
+      $.ajax({
+        url: '/customer',
+        type: 'POST',
+        dataType: 'json',
+        data: { stripe_token: token.id, plan: $("#plan").val()},
+        success: function(result){
+          debugger
+          $('#page-loader').hide();
+          if(result.success)
+            document.location.href = result.location_path
+          else
+            alert(result.message)
+        }
+      });
+    }
+  });
+
+  $('.stripe-button').on('click', function(e) {
+    $('#page-loader h4').text("Upgrading...");
+    $('#plan').val($(this).data('planid'))
+    // Open Checkout with further options:
+    handler.open({
+      name: 'Right Reply.',
+      description: 'Payment'
+    });
+    e.preventDefault();
+  });
+
+  // Close Checkout on page navigation:
+  $(window).on('popstate', function() {
+    handler.close();
+  });

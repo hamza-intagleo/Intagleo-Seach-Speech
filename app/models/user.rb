@@ -7,6 +7,7 @@ class User < ApplicationRecord
 
   # has_and_belongs_to_many :sites, :join_table => :users_sites
   has_many :sites
+  belongs_to :plan, dependent: :destroy
   after_create :assign_default_role
 
   def generate_api_keys
@@ -24,5 +25,51 @@ class User < ApplicationRecord
 
   def fullname
     "#{first_name} #{last_name}"
+  end
+
+  def has_free_plan?
+    plan_id != nil && plan_id == 1
+  end
+
+  def has_basic_plan?
+    plan_id != nil && plan_id == 2
+  end
+
+  def has_standard_plan?
+    plan_id != nil && plan_id == 3
+  end
+
+  def has_enterprise_plan?
+    plan_id != nil && plan_id == 4
+  end
+
+  def has_plan?
+    plan_id != nil
+  end
+
+  def create_subscription!(token, plan_id)
+    customer = message = nil 
+    begin
+      customer = Stripe::Customer.create(
+        :source => token, # obtained from Stripe
+        :plan => plan_id,
+        :email => email
+      )
+      
+    rescue => e
+      errors.add(:credit_card, e.message)
+      message = e.message
+    end
+    {customer: customer, message: message }
+  end
+
+  def save_subscription_details!(stripe_token, customer_id, sub_id, trial_end_date, plan_id, is_plan_confirm)
+    active_until = (plan_id == '01' ? (Time.now.utc + 2.weeks) : (Time.now.utc + 1.month))
+    update_columns(stripe_token: stripe_token,
+                  customer_id: customer_id,
+                  subscription_id: sub_id,
+                  active_until: active_until,
+                  plan_id: plan_id,
+                  is_plan_confirm: is_plan_confirm)
   end
 end

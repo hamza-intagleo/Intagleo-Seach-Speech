@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   root 'home#index'
   get 'demo' => 'home#demo', as: :demo
   post 'contact_us' => 'home#contact_us', as: :contact_us
+  get 'users/pricing'
+  post 'customer' => 'subscriptions#create_customer', as: :customer
 
   post 'google_speech_to_text' => 'home#google_speech_to_text', as: :google_speech_to_text
   get 'generate_signature' => 'home#generate_signature', as: :generate_signature

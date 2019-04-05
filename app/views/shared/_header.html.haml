@@ -72,6 +72,7 @@
               .row
                 .col-12.col-sm-12.col-md-12.col-xl-12
                   = form_for(@user, url: registration_path(@user), html: {class: "form-signin login-form.sign_up parsley-validate"}) do |f|
+                    = f.hidden_field :plan_id, value: 1
                     .row
                       .col-sm-6
                         .form-label-group

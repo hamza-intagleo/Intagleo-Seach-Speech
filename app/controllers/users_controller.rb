@@ -42,6 +42,5 @@ class UsersController < ApplicationController
   def configuration
     @user = User.find(params[:user_id])
     @sites = @user.sites
-
   end
 end
