@@ -23,6 +23,7 @@ class SitesController < ApplicationController
       end
       @site.company_number = company_number
       if @site.save
+        @user.update(status: 'active')
         respond_to do |format|
           format.html {
             redirect_to user_configuration_path(@user), notice: "Site is successfully added"
