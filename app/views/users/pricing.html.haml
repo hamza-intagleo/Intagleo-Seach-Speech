@@ -3,7 +3,7 @@
     .row
       .col-12.col-sm-12.col-md-12.col-xl-12
         %h1.text-center.grow-buss Please Confirm your plan
-    .row.pricing
+    .row.user-pricing
       .col-12.col-sm-12.col-md-6.col-xl-3
         .plans-queries.text-center{class: "#{current_user.present? && current_user.has_free_plan? ? 'active-tile free-trial-tile' : ''}"}
           .plan-with-price
@@ -27,7 +27,7 @@
             .text-box
               %h1 Per Month
               %h2 Up to 5,000 Queries
-            = link_to 'Subscribe', 'javascript:void(0);', class: 'subscribe-button'
+            = link_to 'Select', 'javascript:void(0);', class: 'subscribe-button'
       .col-12.col-sm-12.col-md-6.col-xl-3
         .plans-queries.text-center{class: "#{current_user.present? && current_user.has_standard_plan? ? 'active-tile free-trial-tile' : ''}"}
           .plan-with-price
@@ -39,7 +39,7 @@
             .text-box
               %h1 Per Month
               %h2 Up to 10,000 Queries
-            = link_to 'Subscribe', 'javascript:void(0);', class: 'subscribe-button'
+            = link_to 'Select', 'javascript:void(0);', class: 'subscribe-button'
       .col-12.col-sm-12.col-md-6.col-xl-3
         .plans-queries.text-center{class: "#{current_user.present? && current_user.has_enterprise_plan? ? 'active-tile free-trial-tile' : ''}"}
           .plan-with-price
@@ -54,7 +54,7 @@
               %small
                 Incl. 25,000 Queries + $0.004 per additional query
               %h2  Unlimited Queries 
-            = link_to 'Subscribe', 'javascript:void(0);', class: 'subscribe-button'
+            = link_to 'Select', 'javascript:void(0);', class: 'subscribe-button'
 
     = link_to 'Continue', "#{current_user.has_free_plan? ? customer_path : 'javascript:void(0);'}", class: "btn btn-warning float-right #{current_user.has_free_plan? ? '' : 'stripe-button'}", method: :post
 

@@ -103,10 +103,15 @@ $('[data-toggle="tooltip"]').tooltip()
     $(".active-tile").removeClass("active-tile"); 
   });
 
-  $(".plans-queries").hover(function () {
-    $(this).toggleClass("active_hover");
-    $('.free-trial-tile').toggleClass("result_hover");
+  $(document).on("click", ".subscribe-button", function() {
+    $('.plans-queries').removeClass('free-trial-tile').removeClass('result_hover')
+    $(this).closest('.plans-queries').addClass('free-trial-tile').removeClass('result_hover')
   });
+
+  // $(".plans-queries").hover(function () {
+  //   $(this).toggleClass("active_hover");
+  //   $('.free-trial-tile').toggleClass("result_hover");
+  // });
  
   $(window).scroll(function () {
     if ($(this).scrollTop() > 100) {

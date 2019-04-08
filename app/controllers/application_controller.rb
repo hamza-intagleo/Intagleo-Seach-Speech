@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
 
   def redirect_on_admin
     if user_signed_in? && (request.url.include?("/users/sign_up") || (params[:controller] == 'home' && params[:action] == 'index'))
-      redirect_to user_dashboard_path(current_user) and return
+      redirect_to user_dashboard_path(current_user, search_type: 'all') and return
     end
   end
 end
