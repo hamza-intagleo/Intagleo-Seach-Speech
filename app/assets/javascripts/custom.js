@@ -235,7 +235,7 @@ $( window ).resize(function() {
       color: "#405ec8"
 		});
 	});
- $('.apply-hight').height($(".get-height").height() - 35);
+ $('.apply-hight').height($(".get-height").height() - 30);
 });
 
 

@@ -31,22 +31,45 @@
                   = text_field_tag :custom_search_results_url, (@site_configuration.present? ? @site_configuration.custom_search_results_url : nil), class: "form-control form-control-lg rounded-pill"
                 .form-group
                   = label_tag :search_icon_color
-                  = text_field_tag :search_icon_color, (@site_configuration.present? ? @site_configuration.search_icon_color : nil), class: "form-control form-control-lg rounded-pill"
+                  .input-group.mb-2.icon-left
+                    .input-group-prepend
+                      .input-group-text
+                        %i.fas.fa-eye-dropper
+                    = text_field_tag :search_icon_color, (@site_configuration.present? ? @site_configuration.search_icon_color : nil), class: "form-control form-control-lg"
                 .form-group  
                   = label_tag :search_icon_text
                   = text_field_tag :search_icon_text, (@site_configuration.present? ? @site_configuration.search_icon_text : nil), class: "form-control form-control-lg rounded-pill"
                 .form-group
                   = label_tag :search_box_size
-                  = text_field_tag :search_box_size, (@site_configuration.present? ? @site_configuration.search_box_size : nil), class: "form-control form-control-lg rounded-pill"
+                  = text_field_tag :search_box_size, (@site_configuration.present? ? @site_configuration.search_box_size : nil), class: "form-control form-control-lg rounded-pill d-none"
+                  %select.custom-select.mr-sm-2.form-control.form-control-lg.rounded-pill
+                    %option{:selected => "selected"} Choose...
+                    %option{:value => "1"} One
+                    %option{:value => "2"} Two
+                    %option{:value => "3"} Three
+
                 .form-group
                   = label_tag :search_box_shape
-                  = text_field_tag :search_box_shape, (@site_configuration.present? ? @site_configuration.search_box_shape : nil), class: "form-control form-control-lg rounded-pill"
+                  = text_field_tag :search_box_shape, (@site_configuration.present? ? @site_configuration.search_box_shape : nil), class: "form-control form-control-lg rounded-pill d-none"
+                  %select.custom-select.mr-sm-2.form-control.form-control-lg.rounded-pill
+                    %option{:selected => "selected"} Choose...
+                    %option{:value => "1"} One
+                    %option{:value => "2"} Two
+                    %option{:value => "3"} Three
                 .form-group
                   = label_tag :search_box_fill_color
-                  = text_field_tag :search_box_fill_color, (@site_configuration.present? ? @site_configuration.search_box_fill_color : nil), class: "form-control form-control-lg rounded-pill"
+                  .input-group.mb-2.icon-left
+                    .input-group-prepend
+                      .input-group-text
+                        %i.fas.fa-eye-dropper
+                    = text_field_tag :search_box_fill_color, (@site_configuration.present? ? @site_configuration.search_box_fill_color : nil), class: "form-control form-control-lg rounded-pill"
                 .form-group
                   = label_tag :search_box_border_color
-                  = text_field_tag :search_box_border_color, (@site_configuration.present? ? @site_configuration.search_box_border_color : nil), class: "form-control form-control-lg rounded-pill"
+                  .input-group.mb-2.icon-left
+                    .input-group-prepend
+                      .input-group-text
+                        %i.fas.fa-eye-dropper
+                    = text_field_tag :search_box_border_color, (@site_configuration.present? ? @site_configuration.search_box_border_color : nil), class: "form-control form-control-lg rounded-pill"
                 .form-group  
                   = label_tag :search_box_placeholder_text
                   = text_field_tag :search_box_placeholder_text, (@site_configuration.present? ? @site_configuration.search_box_placeholder_text : nil), class: "form-control form-control-lg rounded-pill"
