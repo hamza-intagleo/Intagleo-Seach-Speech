@@ -37,6 +37,7 @@ Rails.application.routes.draw do
     get :dashboard
     get :configuration
     get :api
+    get :widgets
   end
 
   namespace :widgets do

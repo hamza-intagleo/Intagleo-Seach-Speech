@@ -13,8 +13,8 @@
       = image_tag "setting.png", class: 'show'
       = image_tag "setting-hover.png", class: 'hide'
       %span Configuration
-  %li.nav-item
-    %a.nav-link{:href => "javascript:void(0);"}
+  %li.nav-item{class: params[:controller] == 'users' && params[:action] == 'widgets' ? 'active' : ''}
+    = link_to user_widgets_path(current_user), class: 'nav-link' do
       %i.fas.fa-microphone.mr-1
       %span Widgets
   %li.nav-item{class: params[:controller] == 'users' && params[:action] == 'api' ? 'active' : ''}
