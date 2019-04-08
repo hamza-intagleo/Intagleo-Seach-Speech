@@ -35,41 +35,32 @@
                     .input-group-prepend
                       .input-group-text
                         %i.fas.fa-eye-dropper
-                    = text_field_tag :search_icon_color, (@site_configuration.present? ? @site_configuration.search_icon_color : nil), class: "form-control form-control-lg"
+                    = text_field_tag :search_icon_color, (@site_configuration.present? ? @site_configuration.search_icon_color : nil), class: "form-control form-control-lg jscolor"
+
                 .form-group  
                   = label_tag :search_icon_text
                   = text_field_tag :search_icon_text, (@site_configuration.present? ? @site_configuration.search_icon_text : nil), class: "form-control form-control-lg rounded-pill"
                 .form-group
                   = label_tag :search_box_size
-                  = text_field_tag :search_box_size, (@site_configuration.present? ? @site_configuration.search_box_size : nil), class: "form-control form-control-lg rounded-pill d-none"
-                  %select.custom-select.mr-sm-2.form-control.form-control-lg.rounded-pill
-                    %option{:selected => "selected"} Choose...
-                    %option{:value => "1"} One
-                    %option{:value => "2"} Two
-                    %option{:value => "3"} Three
+                  = select_tag "search_box_size", options_for_select([ "small width", "medium width", "large width" ], "#{(@site_configuration.present? ? @site_configuration.search_box_size : 'snall width')}"), class: "custom-select mr-sm-2 form-control form-control-lg rounded-pill"
 
                 .form-group
                   = label_tag :search_box_shape
-                  = text_field_tag :search_box_shape, (@site_configuration.present? ? @site_configuration.search_box_shape : nil), class: "form-control form-control-lg rounded-pill d-none"
-                  %select.custom-select.mr-sm-2.form-control.form-control-lg.rounded-pill
-                    %option{:selected => "selected"} Choose...
-                    %option{:value => "1"} One
-                    %option{:value => "2"} Two
-                    %option{:value => "3"} Three
+                  = select_tag "search_box_shape", options_for_select([ "Rectangle", "Rounded" ], "#{(@site_configuration.present? ? @site_configuration.search_box_shape : 'Rectangle')}"), class: "custom-select mr-sm-2 form-control form-control-lg rounded-pill"
                 .form-group
                   = label_tag :search_box_fill_color
                   .input-group.mb-2.icon-left
                     .input-group-prepend
                       .input-group-text
                         %i.fas.fa-eye-dropper
-                    = text_field_tag :search_box_fill_color, (@site_configuration.present? ? @site_configuration.search_box_fill_color : nil), class: "form-control form-control-lg rounded-pill"
+                    = text_field_tag :search_box_fill_color, (@site_configuration.present? ? @site_configuration.search_box_fill_color : nil), class: "form-control form-control-lg rounded-pill jscolor"
                 .form-group
                   = label_tag :search_box_border_color
                   .input-group.mb-2.icon-left
                     .input-group-prepend
                       .input-group-text
                         %i.fas.fa-eye-dropper
-                    = text_field_tag :search_box_border_color, (@site_configuration.present? ? @site_configuration.search_box_border_color : nil), class: "form-control form-control-lg rounded-pill"
+                    = text_field_tag :search_box_border_color, (@site_configuration.present? ? @site_configuration.search_box_border_color : nil), class: "form-control form-control-lg rounded-pill jscolor"
                 .form-group  
                   = label_tag :search_box_placeholder_text
                   = text_field_tag :search_box_placeholder_text, (@site_configuration.present? ? @site_configuration.search_box_placeholder_text : nil), class: "form-control form-control-lg rounded-pill"

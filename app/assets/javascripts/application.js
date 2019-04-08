@@ -26,6 +26,7 @@
 //= require recorder
 //= require home
 //= require counter
+//= require jscolor
 
     
 
