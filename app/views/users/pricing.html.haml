@@ -3,7 +3,7 @@
     .row
       .col-12.col-sm-12.col-md-12.col-xl-12
         %h1.text-center.grow-buss Please Confirm your plan
-    .row.user-pricing
+    .row.pricing.pb-3
       .col-12.col-sm-12.col-md-6.col-xl-3
         .plans-queries.text-center{class: "#{current_user.present? && current_user.has_free_plan? ? 'active-tile free-trial-tile' : ''}"}
           .plan-with-price
@@ -56,7 +56,7 @@
               %h2  Unlimited Queries 
             = link_to 'Select', 'javascript:void(0);', class: 'subscribe-button'
 
-    = link_to 'Continue', "#{current_user.has_free_plan? ? customer_path : 'javascript:void(0);'}", class: "btn btn-warning float-right #{current_user.has_free_plan? ? '' : 'stripe-button'}", method: :post
+    = link_to 'Continue', "#{current_user.has_free_plan? ? customer_path : 'javascript:void(0);'}", class: "btn btn-dark rounded-pill btn-custom float-right #{current_user.has_free_plan? ? '' : 'stripe-button'}", method: :post
 
 :javascript
   var handler = StripeCheckout.configure({
