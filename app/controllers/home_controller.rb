@@ -1,5 +1,6 @@
 include WaveFile
 class HomeController < ApplicationController
+  skip_before_action :verify_authenticity_token, only: [:convert_audio_to_text_free]
 
 
   def google_speech_to_text
@@ -98,7 +99,7 @@ class HomeController < ApplicationController
     begin
       require 'base64'
       require "google/cloud/speech"
-
+      @site = Site.find(params[:site_id])
       if params[:audio_url].present?
 
         save_path = Rails.root.join("public/audio")
@@ -149,6 +150,7 @@ class HomeController < ApplicationController
         end
       end
       if outputs.present?
+        analytics = @site.analytics.create!(search_string: outputs.first.split(':').last.strip, search_reponse_time: (processing_ends_at - processing_start_at)) if @site.present?
         analytics = Analytic.create!(search_string: outputs.first.split(':').last.strip, search_reponse_time: (processing_ends_at - processing_start_at))
         return render json: {success: true, error: false,  results: outputs, analytics_id: analytics.id}, status: 200
       else

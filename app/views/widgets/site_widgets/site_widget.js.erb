@@ -157,7 +157,7 @@ function createDownloadLink(blob) {
     $('#search_data_table').html('')
 
     $.ajax({
-      url: 'http://localhost:3000/convert_audio_to_text_free',
+      url: 'http://localhost:3000/convert_audio_to_text_free?site_id=1',
       type: 'POST',
       data: data,
       contentType: false,
