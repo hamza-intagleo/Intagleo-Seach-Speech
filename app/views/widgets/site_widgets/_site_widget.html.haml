@@ -1,3 +1,9 @@
 = render 'site_widget_styles'
 
-%h1 Hello
+#right-reply-widget
+  = link_to 'javascript:void(0);', class: ' btn btn-primary wow fadeInRight', id: 'speech_icon' do
+    .widget-circle#show
+      %i.fas.fa-2x.fa-microphone
+  .widget-text
+    = text_field_tag 'text', nil, placeholder: 'Speak Now..', readonly: true
+    = hidden_field_tag 'site_name', 'www.amazon.com'

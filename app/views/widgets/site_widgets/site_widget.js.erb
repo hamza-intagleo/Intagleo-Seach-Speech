@@ -1,6 +1,18 @@
-var hostUrl = "http://localhost:3000/";
 var libraries = 0;
-var widget_date_format = 'MM/dd/yyyy'
+
+
+URL = window.URL || window.webkitURL;
+
+var gumStream;                      //stream from getUserMedia()
+var rec;                            //Recorder.js object
+var input;                          //MediaStreamAudioSourceNode we'll be recording
+
+// shim for AudioContext when it's not avb. 
+var AudioContext = window.AudioContext || window.webkitAudioContext;
+var audioContext //audio context to help us record
+
+constraints = { audio: true, video:false }
+var promise = navigator.mediaDevices.getUserMedia(constraints)
 
 function appendJSLibrary( url, callback ) {
   var script = document.createElement( "script" )
@@ -27,10 +39,181 @@ function libraryAdded(){
 }
 
 function allLibrariesAdded(){
-  if(libraries >= 6){
+  if(libraries >= 2){
     return true;
   }
   return false;
+}
+
+function toggleRecording( e ) {
+
+  if (e.classList.contains("recording")) {
+      // stop recording
+      stopRecording();
+      e.classList.remove("recording");
+      $('#page-loader').show();
+  } else {
+    // start recording
+    e.classList.add("recording");
+    startRecording();
+  }
+}
+
+function startRecording() {
+    console.log("recordButton clicked");
+
+    /*
+        Simple constraints object, for more advanced audio features see
+        https://addpipe.com/blog/audio-constraints-getusermedia/
+    */
+    
+    constraints = { audio: true, video:false }
+
+    /*
+        Disable the record button until we get a success or fail from getUserMedia() 
+    */
+    // $("#recordButton").attr('disabled', true);
+    // $("#stopButton").removeAttr('disabled');
+    // $("#pauseButton").removeAttr('disabled');
+
+    /*
+        We're using the standard promise based getUserMedia() 
+        https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
+    */
+
+    promise.then(function(stream) {
+        console.log("getUserMedia() success, stream created, initializing Recorder.js ...");
+
+        /*
+            create an audio context after getUserMedia is called
+            sampleRate might change after getUserMedia is called, like it does on macOS when recording through AirPods
+            the sampleRate defaults to the one set in your OS for your playback device
+
+        */
+        audioContext = new AudioContext();
+
+        //update the format 
+        $("#formats").innerHTML="Format: 1 channel pcm @ "+audioContext.sampleRate/1000+"kHz"
+
+        /*  assign to gumStream for later use  */
+        gumStream = stream;
+        
+        /* use the stream */
+        input = audioContext.createMediaStreamSource(stream);
+
+        /* 
+            Create the Recorder object and configure to record mono sound (1 channel)
+            Recording 2 channels  will double the file size
+        */
+        rec = new Recorder(input,{numChannels:1})
+
+        //start the recording process
+        rec.record()
+
+        console.log("Recording started");
+
+    }).catch(function(err) {
+        //enable the record button if getUserMedia() fails
+        // $("#recordButton").removeAttr('disabled');
+        // $("#stopButton").attr('disabled', true);
+        // $("#pauseButton").attr('disabled', true);
+        alert('Please make sure to run application with https protocol')
+    });
+}
+
+function stopRecording() {
+  console.log("stopButton clicked");
+
+  //disable the stop button, enable the record too allow for new recordings
+  // $("#stopButton").attr('disabled', true);
+  // $("#recordButton").removeAttr('disabled');
+  // $("#pauseButton").attr('disabled', true);
+
+  //reset button just in case the recording is stopped while paused
+  $("#pauseButton").innerHTML="Pause";
+  
+  //tell the recorder to stop the recording
+  rec.stop();
+
+  //stop microphone access
+  gumStream.getAudioTracks()[0].stop();
+
+  //create the wav blob and pass it on to createDownloadLink
+  rec.exportWAV(createDownloadLink);
+}
+
+function createDownloadLink(blob) {
+
+  var reader  = new window.FileReader();
+  reader.readAsDataURL(blob); 
+  reader.onloadend = function() {
+    var base64data = reader.result;
+    var savedWAVBlob=base64data
+    var site = $('#site_name').val();
+    console.log(savedWAVBlob );
+    data = new FormData(), 
+    data.append("audio_url", savedWAVBlob)
+    data.append("site", site)
+    $('#search_data_table').html('')
+
+    $.ajax({
+      url: 'http://localhost:3000/convert_audio_to_text_free',
+      type: 'POST',
+      data: data,
+      contentType: false,
+      processData: false,
+      success: function(result) {
+        if(result['results'][0] != undefined){
+          document.location.href = "http://localhost:3000/search_text_into_site?search_string="+(result['results'][0].split(':')[1]) + "&site_url="+ $('#site_url').val() + "&analytics_id=" + result["analytics_id"];
+          // $('#converted_text').val((result['results'][0].split(':')[1]));
+          // $('#speech_icon').addClass('d-none');
+          // $('#speech_submit').removeClass('d-none');
+          // var api_data = '';
+          // $.each(result['search_data'], function(key, val){
+          //   api_data += '<tr>'
+          //   api_data += '<td>'+val.title+'</td>'
+          //   api_data += '<td><a href='+val.link+ '>'+val.link+'</a></td>'
+          //   api_data += '/<tr>'
+          // })
+          // $('#search_data_table').append(api_data)
+          $('#error_message').addClass('d-none')
+        } else {
+          $('#error_message').removeClass('d-none')
+        }
+        $('#page-loader').hide();
+      }, 
+      error: function(result) {
+        alert(result['responseJSON']['message'])
+        $('#page-loader').hide();
+      }
+    });
+  }
+
+  // var url = (window.URL || window.webkitURL).createObjectURL(blob);
+  // var link = document.getElementById("save");
+  // link.href = url;
+  // link.download = filename || 'output.wav';
+}
+
+function customJavascripts() {
+  if(allLibrariesAdded()){
+    // $('body').on('click', '#show', function(){
+    //   $(".widget-text").toggle().css("width", "370px");
+    //   $(".widget-circle").toggleClass("apply-class");
+    // });
+
+    $('body').on('mousedown', '#speech_icon, #search_speech_icon', function(){
+      $(".widget-text").toggle().css("width", "370px");
+      $(".widget-circle").toggleClass("apply-class");
+      toggleRecording(this)
+    })
+
+    $('body').on('mouseup', '#speech_icon, #search_speech_icon', function(){
+      $(".widget-text").toggle().css("width", "370px");
+      $(".widget-circle").toggleClass("apply-class");
+      toggleRecording(this)
+    })
+  }
 }
 
 var addCSSLibrary = function(url){
@@ -68,6 +251,12 @@ var setJSLibraries = function() {
       // Load Bootstrap JS
       appendJSLibrary("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js", function() {
         libraryAdded();
+        customJavascripts();
+      });
+
+      appendJSLibrary("https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js", function() {
+        libraryAdded();
+        customJavascripts();
       });
     });
   });
@@ -77,6 +266,7 @@ var setCSSLibraries = function() {
 
   // Load Font Family CSS
   addCSSLibrary("https://fonts.googleapis.com/css?family=Lato:400,700,300");
+  addCSSLibrary("https://use.fontawesome.com/releases/v5.0.1/css/all.css");
 }
 
 var getWidget = function(searchWidget) {

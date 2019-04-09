@@ -242,7 +242,7 @@ end
 
         files_to_append = ["public/audio/_audio"]
 
-        Writer.new("./public//audio/converted_audio.wav", Format.new(:mono, :pcm_16, 44100)) do |writer|
+        Writer.new("./public/audio/converted_audio.wav", Format.new(:mono, :pcm_16, 44100)) do |writer|
           files_to_append.each do |file_name|
             Reader.new(file_name).each_buffer do |buffer|
               writer.write(buffer)
