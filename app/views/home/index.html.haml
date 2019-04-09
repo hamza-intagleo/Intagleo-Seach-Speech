@@ -196,7 +196,11 @@
               = image_tag 'message.png'
             = text_area_tag 'message', nil, placeholder: 'Message', class: 'form-control', rows: "5"
           = submit_tag 'Submit', class: 'btn btn-default float-right btn-main'
-
+#right-reply-widget
+  .widget-circle#show
+    = image_tag "microphone.png"
+  .widget-text
+    = text_field_tag 'text', nil, placeholder: 'Speak Now..'
 :javascript
   constraints = { audio: true, video:false }
   var promise = navigator.mediaDevices.getUserMedia(constraints)

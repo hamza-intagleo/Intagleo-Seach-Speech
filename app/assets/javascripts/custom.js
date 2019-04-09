@@ -1,5 +1,12 @@
 $(document).ready(function(){
 
+
+  $("#show").click(function(){
+    $(".widget-text").toggle().css("width", "370px");
+     //$(".widget-text").css("width", "370px");
+    $(".widget-circle").toggleClass("apply-class");
+  });
+
   check_config_radio_buttons()
 
   $('body').on('click' ,'.render-options', function(){
@@ -229,7 +236,6 @@ $('[data-toggle="tooltip"]').tooltip()
     });
   });
 });
-
 
 
 
