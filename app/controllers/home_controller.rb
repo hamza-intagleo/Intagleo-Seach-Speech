@@ -63,7 +63,7 @@ class HomeController < ApplicationController
   def search_text_into_site
     # begin
       # @site = Site.find(params[:site_id])
-      # site_analytics = @site.analytics.find(params[:analytics_id])
+      site_analytics = Analytic.find(params[:analytics_id])
       require 'google/apis/customsearch_v1'
       processing_start_at = Time.now
       search = Google::Apis::CustomsearchV1
@@ -71,12 +71,12 @@ class HomeController < ApplicationController
       search_client.key = ENV['GOOGLE_SEARCH_API_KEY']
       @response = search_client.list_cses("site:#{params[:site_url]} #{params['search_string']}", {cx: ENV['GOOGLE_CUSTOM_SEARCH_ENGINE_ID']})
       processing_end_at = Time.now
-      # if @response.items.present?
-      #   # site_analytics.update(text_processing_time: (processing_end_at - processing_start_at))
+      if @response.items.present?
+        site_analytics.update(text_processing_time: (processing_end_at - processing_start_at))
       #   # render json: {success: true, error: false,  results: response.items}, status: 200 
       # else
       #   # render json: {success: false, error: true,  message: "Not found any thing"}, status: 404 
-      # end
+      end
     # rescue => e
     #   render json: {success: false, error: true, message: e}, status: 500
     # end
@@ -150,7 +150,7 @@ class HomeController < ApplicationController
       end
       if outputs.present?
         analytics = Analytic.create!(search_string: outputs.first.split(':').last.strip, search_reponse_time: (processing_ends_at - processing_start_at))
-        return render json: {success: true, error: false,  results: outputs}, status: 200
+        return render json: {success: true, error: false,  results: outputs, analytics_id: analytics.id}, status: 200
       else
         return render json: {success: false, error: true,  message: "Audio is not recorded. Please check your mic settings"}, status: 422
       end

@@ -26,6 +26,7 @@ gem 'google-api-client', '~> 0.11'
 gem "chartkick"
 gem 'groupdate'
 gem 'stripe'
+gem 'clipboard-rails'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password

@@ -1553,9 +1553,14 @@ a:hover {
   background-color: #fff;
   border-radius: 5px;
   .copy-site{
-    min-height: 150px;
+    
     border-radius: 20px !important;
     position: relative;
+    .form-control{
+      min-height: 150px;
+      border-radius: 20px !important;
+      height: auto;
+    }
     .btn-custom{
       position: absolute;
       right: 15px;

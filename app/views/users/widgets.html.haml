@@ -9,26 +9,18 @@
             %h4
               Widgets section
         .row.pt-3
-          .col-md-12      
-            .graph-box.p-5.mb-4
-              .row
-                .col-md-12
-                  %h5
-                    Site Name
-              .row
-                .col-md-12
-                  .form-group
-                    .form-control.form-control-lg.rounded-pill.copy-site
-                      %button.btn.btn-primary.rounded-pill.btn-custom
+          .col-md-12 
+            - @sites.each do |site|    
+              .graph-box.p-5.mb-4
+                .row
+                  .col-md-12
+                    %h5
+                      = site.site_name
+                .row
+                  .col-md-12
+                    .form-group.copy-site
+                      .form-control.form-control-lg.rounded-pill
+                        ="<div id='widget_area_#{site.id}'>&lt;section id='widget'&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;article id='siteWidgetWrapper'&gt;&lt;/article&gt;<br>&lt;/section&gt;<br>&lt;script type='text/javascript'&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;&nbsp;searchWidget=&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widgetTarget:&nbsp;&nbsp;'siteWidgetWrapper',<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;site_id:&nbsp;&nbsp;'#{site.id}',<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;widgetType:&nbsp;&nbsp;'search',<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;target:&nbsp;&nbsp;'_blank'<br>&nbsp;&nbsp;&nbsp;&nbsp;};<br>&lt;/script&gt;<br>&lt;script type='text/javascript' src='http://localhost:3000/widgets/site_widgets/site.js?site_id=#{site.id}'&gt;&lt;/script&gt;</div>".html_safe
+
+                      %button.btn.btn-primary.rounded-pill.btn-custom.clipboard-btn{"data-clipboard-action" => "copy", "data-clipboard-target" => "#widget_area_#{site.id}"}
                         Click to copy
-            .graph-box.p-5.mb-4
-              .row
-                .col-md-12
-                  %h5
-                    Site Name 2
-              .row
-                .col-md-12
-                  .form-group
-                    .form-control.form-control-lg.rounded-pill.copy-site
-                      %button.btn.btn-primary.rounded-pill.btn-custom
-                        Click to copy      

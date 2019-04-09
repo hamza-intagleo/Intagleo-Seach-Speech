@@ -48,7 +48,7 @@
                 %h5
                   Search Requests
               .card-body
-                = line_chart User.group_by_day(:created_at).count, download: {filename: "search_requests"}
+                = line_chart @analytics.group_by_day(:created_at).count, ytitle: "Count", download: {filename: "search_requests"}
           
           .col-md-12.col-xl-4.col-lg-12.h-100.get-height
             .row
@@ -96,7 +96,7 @@
                 %h5
                   Search Response Time
               .card-body
-                = line_chart User.group_by_day(:created_at).count, download: {filename: "search_response_time"}
+                = line_chart @analytics.group_by_day(:created_at).sum(:search_reponse_time), ytitle: "Ms", download: {filename: "search_response_time"}
           
           .col-md-12.col-xl-4.col-lg-12.h-100
                  

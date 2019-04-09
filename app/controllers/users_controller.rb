@@ -21,11 +21,11 @@ class UsersController < ApplicationController
     when '24_hours'
       @analytics = @analytics.where(updated_at: 24.hours.ago..Time.now)
     when 'week'
-      @analytics = @analytics.where(updated_at: 24.hours.ago..Time.now)
+      @analytics = @analytics.where(updated_at: 1.week.ago..Time.now)
     when 'month'
-      @analytics = @analytics.where(updated_at: 24.hours.ago..Time.now)
+      @analytics = @analytics.where(updated_at: 1.month.ago..Time.now)
     when 'year'
-      @analytics = @analytics.where(updated_at: 24.hours.ago..Time.now)
+      @analytics = @analytics.where(updated_at: 1.year.ago..Time.now)
     when 'all'
       @analytics
     else
@@ -40,6 +40,11 @@ class UsersController < ApplicationController
   end
 
   def configuration
+    @user = User.find(params[:user_id])
+    @sites = @user.sites
+  end
+
+  def widgets
     @user = User.find(params[:user_id])
     @sites = @user.sites
   end

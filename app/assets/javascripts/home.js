@@ -143,7 +143,7 @@ function createDownloadLink(blob) {
       processData: false,
       success: function(result) {
         if(result['results'][0] != undefined){
-          document.location.href = "/search_text_into_site?search_string="+(result['results'][0].split(':')[1]) + "&site_url="+ $('#site_url').val();
+          document.location.href = "/search_text_into_site?search_string="+(result['results'][0].split(':')[1]) + "&site_url="+ $('#site_url').val() + "&analytics_id=" + result["analytics_id"];
           // $('#converted_text').val((result['results'][0].split(':')[1]));
           // $('#speech_icon').addClass('d-none');
           // $('#speech_submit').removeClass('d-none');
