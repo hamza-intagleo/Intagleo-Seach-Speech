@@ -5,6 +5,7 @@
     .widget-circle#show
       %i.fas.fa-2x.fa-microphone
   .widget-text
-    = text_field_tag 'text', nil, placeholder: "#{@site.site_configuration.widget_placeholder_text}", readonly: true
-    = hidden_field_tag 'site_name', 'Amazon'
-    = hidden_field_tag 'site_url', 'www.amazon.com'
+    = text_field_tag 'text', nil, placeholder: "#{@site.site_configuration.present? ? @site.site_configuration.widget_placeholder_text : 'Speak now...'}", readonly: true
+    = hidden_field_tag 'site_id', @site.id
+    = hidden_field_tag 'site_name', @site.site_name
+    = hidden_field_tag 'site_url', @site.site_url

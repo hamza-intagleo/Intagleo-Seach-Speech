@@ -19,29 +19,29 @@
     display: inline-flex;
     align-items: center;
     color: #fff;
-    border-radius: #{@site.site_configuration.widget_shape == 'Rounded' ? '100%' : '0'};
+    border-radius: #{@site.site_configuration.present? && @site.site_configuration.widget_shape.present? ? @site.site_configuration.widget_shape == 'Rounded' ? '100%' : '0' : '100%'};
     width: 80px;
     position: absolute;
     right: 0;
     bottom: 0;
     z-index: 1000;
     height: 80px;
-    background-color: ##{@site.site_configuration.widget_fill_color};
-    border-color: ##{@site.site_configuration.widget_border_color};
+    background-color: ##{@site.site_configuration.present? ? @site.site_configuration.widget_fill_color : '0062cc'};
+    border-color: ##{@site.site_configuration.present? ? @site.site_configuration.widget_border_color : '005cbf'};
   }
   #right-reply-widget .widget-circle.apply-class {
-    background-color: ##{@site.site_configuration.widget_fill_color_active} !important;
-    border-color: ##{@site.site_configuration.widget_border_color_active} !important;
+    background-color: ##{@site.site_configuration.present? ? @site.site_configuration.widget_fill_color_active : 'dc3545'} !important;
+    border-color: ##{@site.site_configuration.present? ? @site.site_configuration.widget_border_color_active : 'dc3545'} !important;
     cursor: pointer;
   }
   #right-reply-widget .widget-circle.apply-class i {
-    color: ##{@site.site_configuration.widget_icon_color_active} !important;
+    color: ##{@site.site_configuration.present? ? @site.site_configuration.widget_icon_color_active : 'ffffff'} !important;
   }
   #right-reply-widget .widget-circle.apply-class:hover {
     cursor: pointer;
   }
   #right-reply-widget .widget-circle:hover {
-    background-color: ##{@site.site_configuration.widget_fill_color_hover};
+    background-color: ##{@site.site_configuration.present? ? @site.site_configuration.widget_fill_color_hover : '1a1e28'};
     cursor: pointer;
   }
   #right-reply-widget .widget-circle img {
@@ -49,12 +49,12 @@
     margin: auto;
   }
   #right-reply-widget .widget-circle i {
-    color: ##{@site.site_configuration.widget_icon_color};
+    color: ##{@site.site_configuration.present? ? @site.site_configuration.widget_icon_color : 'ffffff'};
     width: 35px;
     margin: auto;
   }
   #right-reply-widget .widget-circle i:hover {
-    color: ##{@site.site_configuration.widget_icon_color_hover};
+    color: ##{@site.site_configuration.present? ? @site.site_configuration.widget_icon_color_hover : 'ffffff'};
     width: 35px;
     margin: auto;
   }
