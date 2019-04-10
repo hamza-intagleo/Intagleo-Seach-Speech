@@ -16,7 +16,8 @@ class UsersController < ApplicationController
   end
 
   def dashboard
-    @analytics = Analytic.all
+    site_ids = current_user.sites.pluck(:id)
+    @analytics = Analytic.where(site_id: site_ids)
     case params[:search_type]
     when '24_hours'
       @analytics = @analytics.where(updated_at: 24.hours.ago..Time.now)

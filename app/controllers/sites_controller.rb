@@ -334,7 +334,7 @@ end
   end
 
   def site_configuration_params
-    params.permit(:site_id, :return_results_on_rendered_page, :return_results_on_customer_webpage, :custom_search_results_url, :search_icon_color, :search_icon_text, :search_box_size, :search_box_shape, :search_box_fill_color, :search_box_border_color, :search_box_placeholder_text)
+    params.permit(:site_id, :return_results_on_rendered_page, :return_results_on_customer_webpage, :custom_search_results_url, :widget_fill_color, :widget_border_color, :widget_shape, :widget_fill_color_hover, :widget_icon_color, :widget_icon_color_hover, :widget_fill_color_active, :widget_icon_color_active, :widget_border_color_active, :widget_placeholder_text, :widget_placeholder_text_color, :widget_text_border_color)
   end
 
   def verify_client

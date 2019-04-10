@@ -73,7 +73,7 @@ class HomeController < ApplicationController
       @response = search_client.list_cses("site:#{params[:site_url]} #{params['search_string']}", {cx: ENV['GOOGLE_CUSTOM_SEARCH_ENGINE_ID']})
       processing_end_at = Time.now
       if @response.items.present?
-        site_analytics.update(text_processing_time: (processing_end_at - processing_start_at))
+        site_analytics.update(text_processing_time: (processing_end_at - processing_start_at), search_string: params['search_string'])
       #   # render json: {success: true, error: false,  results: response.items}, status: 200 
       # else
       #   # render json: {success: false, error: true,  message: "Not found any thing"}, status: 404 
@@ -99,7 +99,7 @@ class HomeController < ApplicationController
     begin
       require 'base64'
       require "google/cloud/speech"
-      @site = Site.find(params[:site_id])
+      @site = Site.find_by(id:params[:site_id])
       if params[:audio_url].present?
 
         save_path = Rails.root.join("public/audio")
@@ -150,8 +150,11 @@ class HomeController < ApplicationController
         end
       end
       if outputs.present?
-        analytics = @site.analytics.create!(search_string: outputs.first.split(':').last.strip, search_reponse_time: (processing_ends_at - processing_start_at)) if @site.present?
-        analytics = Analytic.create!(search_string: outputs.first.split(':').last.strip, search_reponse_time: (processing_ends_at - processing_start_at))
+        if @site.present?
+          analytics = @site.analytics.create!(search_string: outputs.first.split(':').last.strip, search_reponse_time: (processing_ends_at - processing_start_at))
+        else
+          analytics = Analytic.create!(search_string: outputs.first.split(':').last.strip, search_reponse_time: (processing_ends_at - processing_start_at))
+        end
         return render json: {success: true, error: false,  results: outputs, analytics_id: analytics.id}, status: 200
       else
         return render json: {success: false, error: true,  message: "Audio is not recorded. Please check your mic settings"}, status: 422

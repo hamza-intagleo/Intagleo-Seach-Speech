@@ -19,26 +19,29 @@
     display: inline-flex;
     align-items: center;
     color: #fff;
-    border-radius: 100%;
+    border-radius: #{@site.site_configuration.widget_shape == 'Rounded' ? '100%' : '0'};
     width: 80px;
     position: absolute;
     right: 0;
     bottom: 0;
     z-index: 1000;
     height: 80px;
-    background-color: #0062cc;
-    border-color: #005cbf;
+    background-color: ##{@site.site_configuration.widget_fill_color};
+    border-color: ##{@site.site_configuration.widget_border_color};
   }
   #right-reply-widget .widget-circle.apply-class {
-    background-color: #dc3545 !important;
-    border-color: #dc3545 !important;
+    background-color: ##{@site.site_configuration.widget_fill_color_active} !important;
+    border-color: ##{@site.site_configuration.widget_border_color_active} !important;
     cursor: pointer;
+  }
+  #right-reply-widget .widget-circle.apply-class i {
+    color: ##{@site.site_configuration.widget_icon_color_active} !important;
   }
   #right-reply-widget .widget-circle.apply-class:hover {
     cursor: pointer;
   }
   #right-reply-widget .widget-circle:hover {
-    background-color: #1a1e28;
+    background-color: ##{@site.site_configuration.widget_fill_color_hover};
     cursor: pointer;
   }
   #right-reply-widget .widget-circle img {
@@ -46,6 +49,12 @@
     margin: auto;
   }
   #right-reply-widget .widget-circle i {
+    color: ##{@site.site_configuration.widget_icon_color};
+    width: 35px;
+    margin: auto;
+  }
+  #right-reply-widget .widget-circle i:hover {
+    color: ##{@site.site_configuration.widget_icon_color_hover};
     width: 35px;
     margin: auto;
   }
