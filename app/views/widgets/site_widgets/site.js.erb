@@ -1,4 +1,4 @@
-var hostUrl = "<%= @request_url %>";
+// var hostUrl = "<%= @request_url %>";
 // var hostUrl = "http://localhost:3000/";
 
 function appendJSLibrary( url, callback ) {
@@ -22,7 +22,7 @@ function appendJSLibrary( url, callback ) {
 }
 
 var callMainWidget = function(searchWidget) {
-  call_main_widget_url = hostUrl + "/widgets/site_widgets/site_widget.js?site_id="+
+  call_main_widget_url = searchWidget.hostUrl + "/widgets/site_widgets/site_widget.js?site_id="+
                          searchWidget.site_id+"&target="+searchWidget.target
 
   appendJSLibrary(call_main_widget_url, function() {

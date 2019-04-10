@@ -157,14 +157,14 @@ function createDownloadLink(blob) {
     data.append("site", site)
     $('#search_data_table').html('')
     $.ajax({
-      url: hostUrl+'/convert_audio_to_text_free?site_id='+site_id,
+      url: searchWidget.hostUrl+'/convert_audio_to_text_free?site_id='+site_id,
       type: 'POST',
       data: data,
       contentType: false,
       processData: false,
       success: function(result) {
         if(result['results'][0] != undefined){
-          document.location.href = hostUrl+"/search_text_into_site?search_string="+(result['results'][0].split(':')[1]) + "&site_url="+ $('#site_url').val() + "&analytics_id=" + result["analytics_id"];
+          document.location.href = searchWidget.hostUrl+"/search_text_into_site?search_string="+(result['results'][0].split(':')[1]) + "&site_url="+ $('#site_url').val() + "&analytics_id=" + result["analytics_id"];
           // $('#converted_text').val((result['results'][0].split(':')[1]));
           // $('#speech_icon').addClass('d-none');
           // $('#speech_submit').removeClass('d-none');
