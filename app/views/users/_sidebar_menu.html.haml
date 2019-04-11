@@ -21,6 +21,14 @@
     = link_to user_api_path(current_user), class: 'nav-link' do
       %i.fas.fa-share-alt
       %span Api
+  %li.nav-item{class: params[:controller] == 'users' && params[:action] == 'contact_us' ? 'active' : ''}
+    = link_to user_contact_us_path(current_user), class: 'nav-link' do
+      %i.fas.fa-envelope-open-text
+      %span Contact Us
+  %li.nav-item{class: params[:controller] == 'users' && params[:action] == 'subscription' ? 'active' : ''}
+    = link_to user_subscription_path(current_user), class: 'nav-link' do
+      %i.fas.fa-key
+      %span Subscription
 
 
   %p.copy-right.text-center

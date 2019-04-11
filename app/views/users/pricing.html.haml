@@ -15,7 +15,7 @@
             .text-box
               %h1 Free Trial 2 Weeks
               %h2 maximum 250 queries
-            = link_to 'Start Free Trial', 'javascript:void(0);', class: 'subscribe-button', id: 'free-trail'
+            = link_to 'Start Free Trial', 'javascript:void(0);', class: 'subscribe-button', id: 'free-trail', data: {plan: '1'}
       .col-12.col-sm-12.col-md-6.col-xl-3
         .plans-queries.text-center{class: "#{current_user.present? && current_user.has_basic_plan? ? 'active-tile free-trial-tile' : ''}"}
           .plan-with-price
@@ -27,7 +27,7 @@
             .text-box
               %h1 Per Month
               %h2 Up to 5,000 Queries
-            = link_to 'Select', 'javascript:void(0);', class: 'subscribe-button'
+            = link_to 'Select', 'javascript:void(0);', class: 'subscribe-button', data: {plan: '2'}
       .col-12.col-sm-12.col-md-6.col-xl-3
         .plans-queries.text-center{class: "#{current_user.present? && current_user.has_standard_plan? ? 'active-tile free-trial-tile' : ''}"}
           .plan-with-price
@@ -39,7 +39,7 @@
             .text-box
               %h1 Per Month
               %h2 Up to 10,000 Queries
-            = link_to 'Select', 'javascript:void(0);', class: 'subscribe-button'
+            = link_to 'Select', 'javascript:void(0);', class: 'subscribe-button', data: {plan: '3'}
       .col-12.col-sm-12.col-md-6.col-xl-3
         .plans-queries.text-center{class: "#{current_user.present? && current_user.has_enterprise_plan? ? 'active-tile free-trial-tile' : ''}"}
           .plan-with-price
@@ -54,9 +54,10 @@
               %small
                 Incl. 25,000 Queries + $0.004 per additional query
               %h2  Unlimited Queries 
-            = link_to 'Select', 'javascript:void(0);', class: 'subscribe-button'
+            = link_to 'Select', 'javascript:void(0);', class: 'subscribe-button', data: {plan: '4'}
 
-    = link_to 'Continue', "#{current_user.has_free_plan? ? customer_path : 'javascript:void(0);'}", class: "btn btn-dark rounded-pill btn-custom float-right #{current_user.has_free_plan? ? '' : 'stripe-button'}", method: :post
+    = link_to 'Continue', "#{current_user.has_free_plan? ? 'javascript:void(0);' : customer_path}", class: "btn btn-dark rounded-pill btn-custom float-right #{current_user.has_free_plan? ? 'stripe-button' : ''}", id: 'subscription', method: :post, data: {planid: '1'}
+    = hidden_field_tag 'plan', current_user.plan_id
 
 :javascript
   var handler = StripeCheckout.configure({

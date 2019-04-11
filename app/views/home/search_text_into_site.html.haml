@@ -10,7 +10,7 @@
       .col-sm-12.col-md-10.col-xl-10
         .form-group
           = text_field_tag 'search_string', params[:search_string], placeholder: "I am looking for black shoes", class: 'form-control form-control-lg'
-          = hidden_field_tag 'site_url', 'https://www.amazon.com'
+          = hidden_field_tag 'site_url', params[:site_url]
           = hidden_field_tag 'analytics_id', params['analytics_id']
       .col-sm-12.col-md-2.col-xl-2
         = button_tag(type: "button", class: "btn btn-primary mr-2", id: "search_speech_icon" ) do

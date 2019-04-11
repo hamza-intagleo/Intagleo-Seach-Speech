@@ -211,7 +211,8 @@ function customJavascripts() {
     $('body').on('mouseup', '#speech_icon, #search_speech_icon', function(){
       $(".widget-text").toggle().css("width", "370px");
       $(".widget-circle").toggleClass("apply-class");
-      toggleRecording(this)
+      var thiss = this;
+      setTimeout(function(){ toggleRecording(thiss); }, 2000);
     })
   }
 }

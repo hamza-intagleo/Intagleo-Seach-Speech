@@ -38,6 +38,8 @@ Rails.application.routes.draw do
     get :configuration
     get :api
     get :widgets
+    get :contact_us
+    get :subscription
   end
 
   namespace :widgets do

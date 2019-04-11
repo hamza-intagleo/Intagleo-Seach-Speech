@@ -11,7 +11,8 @@ $(document).ready(function(){
   })
 
   $('body').on('mouseup', '#speech_icon, #search_speech_icon', function(){
-    toggleRecording(this)
+    var thiss = this;
+    setTimeout(function(){ toggleRecording(thiss); }, 2000);
   })
 $('[data-toggle="tooltip"]').tooltip()
   // Toggle the side navigation
@@ -105,6 +106,7 @@ $('[data-toggle="tooltip"]').tooltip()
   $(document).on("click", ".subscribe-button", function() {
     $('.plans-queries').removeClass('free-trial-tile').removeClass('result_hover')
     $(this).closest('.plans-queries').addClass('free-trial-tile').removeClass('result_hover')
+    $('#subscription').attr('data-planid', $(this).data('plan'))
   });
 
   // $(".plans-queries").hover(function () {

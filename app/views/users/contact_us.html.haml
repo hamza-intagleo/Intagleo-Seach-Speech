@@ -1,0 +1,27 @@
+#page-top
+  #wrapper
+    / Sidebar
+    = render partial: 'sidebar_menu'
+    #content-wrapper.pb-3
+      .container-fluid
+        .row
+          .col-md-12
+            %h4.mb-4
+              Contact Us
+            .col-sm-12.col-md-10.col-xl-8.offset-md-1.offset-xl-2
+              %form.contact-from
+              = form_tag contact_us_path, class: 'contact-from' do
+                .form-group
+                  %i
+                    = image_tag 'your-name.png'
+                  = text_field_tag 'name', current_user.fullname, placeholder: 'Name', class: 'form-control', readonly: true
+                .form-group
+                  %i
+                    = image_tag 'your-email.png'
+                  = text_field_tag 'email', current_user.email, placeholder: 'Email', class: 'form-control', readonly: true
+                .form-group
+                  %i
+                    = image_tag 'message.png'
+                  = text_area_tag 'message', nil, placeholder: 'Message', class: 'form-control', rows: "5"
+                = submit_tag 'Submit', class: 'btn btn-default float-right btn-main'
+
