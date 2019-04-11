@@ -10,7 +10,7 @@
               Site Configuration
 
         .row.mt-4
-          .col-md-12
+          .col-md-8
             .graph-box.p-5
               = form_tag(@site.site_configuration.id.present? ? user_site_update_site_configuration_path(user_id: @user.id, site_id: @site.id) : user_site_add_site_configuration_path(user_id: @user.id, site_id: @site.id), method: "#{@site.site_configuration.present? ? 'post' : 'new'}") do
                 = hidden_field_tag 'user_id', @user.id
@@ -18,98 +18,110 @@
                 .row
                   .col-md-6
                     .form-group
-                      = label_tag :return_results_on_rendered_page, class: 'radio-inline' do
-                        = radio_button_tag 'render_options', 'return_results_on_rendered_page', (@site_configuration.id.present? ? @site_configuration.return_results_on_rendered_page : true), id: 'return_results_on_rendered_page', class: 'render-options'
-                        Return results on rendered page
+                      = label_tag :return_results_on
+                      = select_tag "return_results_on", options_for_select([ "Rendered Page", "Customer Webpage" ], "Rendered Page"), class: "custom-select mr-sm-2 form-control form-control-lg rounded-pill"
                   .col-md-6    
+                    .form-group.d-block
+                      = label_tag :custom_search_results_url
+                      = text_field_tag :custom_search_results_url, (@site_configuration.present? ? @site_configuration.custom_search_results_url : nil), class: "form-control form-control-lg rounded-pill"
+                .row
+                  .col-md-12
                     .form-group
-                      = label_tag :return_results_on_customer_webpage, class: 'radio-inline' do
-                        = radio_button_tag 'render_options', 'return_results_on_customer_webpage', (@site_configuration.id.present? ? @site_configuration.return_results_on_customer_webpage : false), id: 'return_results_on_customer_webpage', class: 'render-options'
-                        Return results on customer webpage
-                .form-group.d-none
-                  = label_tag :custom_search_results_url
-                  = text_field_tag :custom_search_results_url, (@site_configuration.present? ? @site_configuration.custom_search_results_url : nil), class: "form-control form-control-lg rounded-pill"
+                      = label_tag :widget_shape
+                      = select_tag "widget_shape", options_for_select([ "Rectangle", "Rounded" ], "#{(@site_configuration.present? ? @site_configuration.widget_shape : 'Rectangle')}"), class: "custom-select mr-sm-2 form-control form-control-lg rounded-pill"
 
-                .form-group
-                  = label_tag :widget_shape
-                  = select_tag "widget_shape", options_for_select([ "Rectangle", "Rounded" ], "#{(@site_configuration.present? ? @site_configuration.widget_shape : 'Rectangle')}"), class: "custom-select mr-sm-2 form-control form-control-lg rounded-pill"
+                .row      
+                  .col-md-6
+                    .form-group
+                      = label_tag :widget_fill_color
+                      .input-group.mb-2.icon-left
+                        .input-group-prepend
+                          .input-group-text
+                            %i.fas.fa-eye-dropper
+                        = text_field_tag :widget_fill_color, (@site_configuration.present? ? @site_configuration.widget_fill_color : nil), class: "form-control form-control-lg jscolor"
+                        
+                  .col-md-6
+                    .form-group
+                      = label_tag :widget_fill_color_hover
+                      .input-group.mb-2.icon-left
+                        .input-group-prepend
+                          .input-group-text
+                            %i.fas.fa-eye-dropper
+                        = text_field_tag :widget_fill_color_hover, (@site_configuration.present? ? @site_configuration.widget_fill_color_hover : nil), class: "form-control form-control-lg rounded-pill jscolor"
 
-                .form-group  
-                  = label_tag :widget_placeholder_text
-                  = text_field_tag :widget_placeholder_text, (@site_configuration.present? ? @site_configuration.widget_placeholder_text : nil), class: "form-control form-control-lg rounded-pill"
+                .row        
+                  .col-md-6
+                    .form-group 
+                      = label_tag :widget_icon_color
+                      .input-group.mb-2.icon-left
+                        .input-group-prepend
+                          .input-group-text
+                            %i.fas.fa-eye-dropper
+                        = text_field_tag :widget_icon_color, (@site_configuration.present? ? @site_configuration.widget_icon_color : nil), class: "form-control form-control-lg rounded-pill jscolor"
+
+                  .col-md-6
+                    .form-group 
+                      = label_tag :widget_icon_color_hover
+                      .input-group.mb-2.icon-left
+                        .input-group-prepend
+                          .input-group-text
+                            %i.fas.fa-eye-dropper
+                        = text_field_tag :widget_icon_color_hover, (@site_configuration.present? ? @site_configuration.widget_icon_color_hover : nil), class: "form-control form-control-lg rounded-pill jscolor"    
+
+                .row
+                  .col-md-12      
+                    .form-group  
+                      = label_tag :widget_placeholder_text
+                      = text_field_tag :widget_placeholder_text, (@site_configuration.present? ? @site_configuration.widget_placeholder_text : nil), class: "form-control form-control-lg rounded-pill"
+                  / .col-md-6
+                  /   .form-group
+                  /     = label_tag :widget_placeholder_text_color
+                  /     .input-group.mb-2.icon-left
+                  /       .input-group-prepend
+                  /         .input-group-text
+                  /           %i.fas.fa-eye-dropper
+                  /       = text_field_tag :widget_placeholder_text_color, (@site_configuration.present? ? @site_configuration.widget_placeholder_text_color : nil), class: "form-control form-control-lg rounded-pill jscolor"
+                
+                
                   
-                .form-group
-                  = label_tag :widget_fill_color
-                  .input-group.mb-2.icon-left
-                    .input-group-prepend
-                      .input-group-text
-                        %i.fas.fa-eye-dropper
-                    = text_field_tag :widget_fill_color, (@site_configuration.present? ? @site_configuration.widget_fill_color : nil), class: "form-control form-control-lg jscolor"
-                .form-group
-                  = label_tag :widget_border_color
-                  .input-group.mb-2.icon-left
-                    .input-group-prepend
-                      .input-group-text
-                        %i.fas.fa-eye-dropper
-                    = text_field_tag :widget_border_color, (@site_configuration.present? ? @site_configuration.widget_border_color : nil), class: "form-control form-control-lg jscolor"
 
-                .form-group
-                  = label_tag :widget_fill_color_hover
-                  .input-group.mb-2.icon-left
-                    .input-group-prepend
-                      .input-group-text
-                        %i.fas.fa-eye-dropper
-                    = text_field_tag :widget_fill_color_hover, (@site_configuration.present? ? @site_configuration.widget_fill_color_hover : nil), class: "form-control form-control-lg rounded-pill jscolor"
-                .form-group
-                  = label_tag :widget_icon_color
-                  .input-group.mb-2.icon-left
-                    .input-group-prepend
-                      .input-group-text
-                        %i.fas.fa-eye-dropper
-                    = text_field_tag :widget_icon_color, (@site_configuration.present? ? @site_configuration.widget_icon_color : nil), class: "form-control form-control-lg rounded-pill jscolor"
-                .form-group
-                  = label_tag :widget_icon_color_hover
-                  .input-group.mb-2.icon-left
-                    .input-group-prepend
-                      .input-group-text
-                        %i.fas.fa-eye-dropper
-                    = text_field_tag :widget_icon_color_hover, (@site_configuration.present? ? @site_configuration.widget_icon_color_hover : nil), class: "form-control form-control-lg rounded-pill jscolor"
+                
+                
+                
 
-                .form-group
-                  = label_tag :widget_fill_color_active
-                  .input-group.mb-2.icon-left
-                    .input-group-prepend
-                      .input-group-text
-                        %i.fas.fa-eye-dropper
-                    = text_field_tag :widget_fill_color_active, (@site_configuration.present? ? @site_configuration.widget_fill_color_active : nil), class: "form-control form-control-lg rounded-pill jscolor"
-                .form-group
-                  = label_tag :widget_icon_color_active
-                  .input-group.mb-2.icon-left
-                    .input-group-prepend
-                      .input-group-text
-                        %i.fas.fa-eye-dropper
-                    = text_field_tag :widget_icon_color_active, (@site_configuration.present? ? @site_configuration.widget_icon_color_active : nil), class: "form-control form-control-lg rounded-pill jscolor"
-                .form-group
-                  = label_tag :widget_border_color_active
-                  .input-group.mb-2.icon-left
-                    .input-group-prepend
-                      .input-group-text
-                        %i.fas.fa-eye-dropper
-                    = text_field_tag :widget_border_color_active, (@site_configuration.present? ? @site_configuration.widget_border_color_active : nil), class: "form-control form-control-lg rounded-pill jscolor"
-                .form-group
-                  = label_tag :widget_placeholder_text_color
-                  .input-group.mb-2.icon-left
-                    .input-group-prepend
-                      .input-group-text
-                        %i.fas.fa-eye-dropper
-                    = text_field_tag :widget_placeholder_text_color, (@site_configuration.present? ? @site_configuration.widget_placeholder_text_color : nil), class: "form-control form-control-lg rounded-pill jscolor"
-                .form-group
-                  = label_tag :widget_text_border_color
-                  .input-group.mb-2.icon-left
-                    .input-group-prepend
-                      .input-group-text
-                        %i.fas.fa-eye-dropper
-                    = text_field_tag :widget_text_border_color, (@site_configuration.present? ? @site_configuration.widget_text_border_color : nil), class: "form-control form-control-lg rounded-pill jscolor"
+                / .form-group
+                /   = label_tag :widget_fill_color_active
+                /   .input-group.mb-2.icon-left
+                /     .input-group-prepend
+                /       .input-group-text
+                /         %i.fas.fa-eye-dropper
+                /     = text_field_tag :widget_fill_color_active, (@site_configuration.present? ? @site_configuration.widget_fill_color_active : nil), class: "form-control form-control-lg rounded-pill jscolor"
+                / .form-group
+                /   = label_tag :widget_icon_color_active
+                /   .input-group.mb-2.icon-left
+                /     .input-group-prepend
+                /       .input-group-text
+                /         %i.fas.fa-eye-dropper
+                /     = text_field_tag :widget_icon_color_active, (@site_configuration.present? ? @site_configuration.widget_icon_color_active : nil), class: "form-control form-control-lg rounded-pill jscolor"
+                / .form-group
+                /   = label_tag :widget_border_color_active
+                /   .input-group.mb-2.icon-left
+                /     .input-group-prepend
+                /       .input-group-text
+                /         %i.fas.fa-eye-dropper
+                /     = text_field_tag :widget_border_color_active, (@site_configuration.present? ? @site_configuration.widget_border_color_active : nil), class: "form-control form-control-lg rounded-pill jscolor"
+                
+                / .form-group
+                /   = label_tag :widget_text_border_color
+                /   .input-group.mb-2.icon-left
+                /     .input-group-prepend
+                /       .input-group-text
+                /         %i.fas.fa-eye-dropper
+                /     = text_field_tag :widget_text_border_color, (@site_configuration.present? ? @site_configuration.widget_text_border_color : nil), class: "form-control form-control-lg rounded-pill jscolor"
                 .form-group.mt-4
                   = submit_tag "#{@site.site_configuration.id.present? ? 'Update' : 'Submit'}", :class => 'btn btn-dark rounded-pill btn-custom  float-right'
                   = link_to 'Cancel', user_configuration_path(current_user), :class => 'btn btn-primary rounded-pill pl-4 pr-4 btn-custom'
+
+          .col-md-4
+            .graph-box.p-5
+              %p widget goes here

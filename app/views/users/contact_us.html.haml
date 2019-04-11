@@ -8,20 +8,30 @@
           .col-md-12
             %h4.mb-4
               Contact Us
-            .col-sm-12.col-md-10.col-xl-8.offset-md-1.offset-xl-2
-              %form.contact-from
-              = form_tag contact_us_path, class: 'contact-from' do
-                .form-group
-                  %i
-                    = image_tag 'your-name.png'
-                  = text_field_tag 'name', current_user.fullname, placeholder: 'Name', class: 'form-control', readonly: true
-                .form-group
-                  %i
-                    = image_tag 'your-email.png'
-                  = text_field_tag 'email', current_user.email, placeholder: 'Email', class: 'form-control', readonly: true
-                .form-group
-                  %i
-                    = image_tag 'message.png'
-                  = text_area_tag 'message', nil, placeholder: 'Message', class: 'form-control', rows: "5"
-                = submit_tag 'Submit', class: 'btn btn-default float-right btn-main'
+            .col-sm-12.col-md-12.col-xl-12
+              .graph-box.p-5
+                = form_tag contact_us_path, class: 'contact-form-2' do
+                  .row
+                    .col-md-6.col-sm-12
+                      .form-group
+                        %i
+                          = image_tag 'your-name.png'
+                        %label Username
+                        = text_field_tag 'name', current_user.fullname, placeholder: 'Name', class: 'form-control form-control-lg rounded-pill', readonly: true
+                    .col-md-6.col-sm-12
+                      .form-group
+                        %i
+                          = image_tag 'your-email.png'
+                        %label Email
+                        = text_field_tag 'email', current_user.email, placeholder: 'Email', class: 'form-control form-control-lg rounded-pill', readonly: true
+                  .row
+                    .col-md-12.col-sm-12
+                      .form-group
+                        %i
+                          = image_tag 'message.png'
+                        %label Message  
+                        = text_area_tag 'message', nil, placeholder: 'Enter Message Here..', class: 'form-control message-area', rows: "5"
+                  .row
+                    .col-md-12.col-sm-12
+                      = submit_tag 'Submit', class: 'btn btn-default float-right btn-main'
 
