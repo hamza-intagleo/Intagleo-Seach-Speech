@@ -29,6 +29,15 @@
                 .form-group.d-none
                   = label_tag :custom_search_results_url
                   = text_field_tag :custom_search_results_url, (@site_configuration.present? ? @site_configuration.custom_search_results_url : nil), class: "form-control form-control-lg rounded-pill"
+
+                .form-group
+                  = label_tag :widget_shape
+                  = select_tag "widget_shape", options_for_select([ "Rectangle", "Rounded" ], "#{(@site_configuration.present? ? @site_configuration.widget_shape : 'Rectangle')}"), class: "custom-select mr-sm-2 form-control form-control-lg rounded-pill"
+
+                .form-group  
+                  = label_tag :widget_placeholder_text
+                  = text_field_tag :widget_placeholder_text, (@site_configuration.present? ? @site_configuration.widget_placeholder_text : nil), class: "form-control form-control-lg rounded-pill"
+                  
                 .form-group
                   = label_tag :widget_fill_color
                   .input-group.mb-2.icon-left
@@ -44,9 +53,6 @@
                         %i.fas.fa-eye-dropper
                     = text_field_tag :widget_border_color, (@site_configuration.present? ? @site_configuration.widget_border_color : nil), class: "form-control form-control-lg jscolor"
 
-                .form-group
-                  = label_tag :widget_shape
-                  = select_tag "widget_shape", options_for_select([ "Rectangle", "Rounded" ], "#{(@site_configuration.present? ? @site_configuration.widget_shape : 'Rectangle')}"), class: "custom-select mr-sm-2 form-control form-control-lg rounded-pill"
                 .form-group
                   = label_tag :widget_fill_color_hover
                   .input-group.mb-2.icon-left
@@ -90,9 +96,6 @@
                       .input-group-text
                         %i.fas.fa-eye-dropper
                     = text_field_tag :widget_border_color_active, (@site_configuration.present? ? @site_configuration.widget_border_color_active : nil), class: "form-control form-control-lg rounded-pill jscolor"
-                .form-group  
-                  = label_tag :widget_placeholder_text
-                  = text_field_tag :widget_placeholder_text, (@site_configuration.present? ? @site_configuration.widget_placeholder_text : nil), class: "form-control form-control-lg rounded-pill"
                 .form-group
                   = label_tag :widget_placeholder_text_color
                   .input-group.mb-2.icon-left
