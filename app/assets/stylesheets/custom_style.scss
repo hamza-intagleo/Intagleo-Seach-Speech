@@ -618,7 +618,7 @@ section#about {
 .sidebar {
   width: 90px !important;
   background-color: #fff;
-  box-shadow: 1px 0px 9px -1px #e4e4e4;
+  box-shadow: 0px 0 20px -5px #d2d7e0;
   transition: all 0.3s ease 0s;
   border: 1px solid #efefef;
 }
@@ -1548,7 +1548,7 @@ a:hover {
   }
 }
 .graph-box{
-  box-shadow: 1px 0px 9px -1px #e4e4e4;
+  box-shadow: 0px 6px 30px -5px #d2d7e0;
   border: none;
   background-color: #fff;
   border-radius: 5px;
@@ -2189,4 +2189,23 @@ a:hover {
   border-radius: 17px;
   height: auto !important;
   padding: 8px 19px;
+}
+.customer_nav{
+    padding: 9px 30px 11px 30px !important;
+    background: white !important;
+    height: 85px !important;
+    box-shadow: 5px -8px 13px 3px #d2d7e0 !important
+}
+.logo-2{
+  max-width: 80%;
+}
+
+.profile-thum{
+  .dropdown-toggle::after{
+    border-top: 0.4em solid;
+    top:59%;
+  }
+}
+.container_m_top+.main-container{
+  margin-top: 85px !important;
 }

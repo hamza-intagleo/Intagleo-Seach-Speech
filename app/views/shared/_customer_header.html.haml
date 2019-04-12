@@ -1,8 +1,8 @@
-%header
-  %nav.navbar.navbar-expand-lg.fixed-top.navbar-white.bg-white.justify-content-between
+%header.container_m_top
+  %nav.navbar.navbar-expand-lg.fixed-top.navbar-white.bg-white.justify-content-between.customer_nav
     = link_to root_path, class: "navbar-brand #{params[:controller] == 'home' && params[:action] == 'index' ? 'scroll-home' : ''}" do
       .logo.d-lg-block
-        = image_tag "right-reply-logo.png"
+        = image_tag "right-reply-logo.png", class: "logo-2"
     .sidebarToggle.btn-slide.d-md-none.d-lg-none
       .navbar-toggler-icon{:onclick => "myFunction(this)"}
         %i.fas.fa-arrow-left

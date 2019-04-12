@@ -15,19 +15,26 @@
       %span Configuration
   %li.nav-item{class: params[:controller] == 'users' && params[:action] == 'widgets' ? 'active' : ''}
     = link_to user_widgets_path(current_user), class: 'nav-link' do
-      %i.fas.fa-microphone.mr-1
+      = image_tag "mic.png", class: 'show'
+      = image_tag "mic_hover.png", class: 'hide'
       %span Widgets
   %li.nav-item{class: params[:controller] == 'users' && params[:action] == 'api' ? 'active' : ''}
     = link_to user_api_path(current_user), class: 'nav-link' do
-      %i.fas.fa-share-alt
+      / %i.fas.fa-share-alt
+      = image_tag "api.png", class: 'show'
+      = image_tag "api_hover.png", class: 'hide'
       %span Api
   %li.nav-item{class: params[:controller] == 'users' && params[:action] == 'contact_us' ? 'active' : ''}
     = link_to user_contact_us_path(current_user), class: 'nav-link' do
-      %i.fas.fa-envelope-open-text
+      / %i.fas.fa-envelope-open-text
+      = image_tag "contact.png", class: 'show'
+      = image_tag "contact_hover.png", class: 'hide'
       %span Contact Us
   %li.nav-item{class: params[:controller] == 'users' && params[:action] == 'subscription' ? 'active' : ''}
     = link_to user_subscription_path(current_user), class: 'nav-link' do
-      %i.fas.fa-key
+      / %i.fas.fa-key
+      = image_tag "plans.png", class: 'show'
+      = image_tag "plans_hover.png", class: 'hide'
       %span Subscription
 
 
