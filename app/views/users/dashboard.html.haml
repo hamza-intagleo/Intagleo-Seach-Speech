@@ -10,7 +10,7 @@
             .float-right.select-date
               %span.mr-2
                 View Record by
-              = link_to '24 hours', user_dashboard_path(current_user, search_type: '24_hour'), class: "btn btn-primary #{params[:search_type] == '24_hour' ? 'active' : ''}"
+              = link_to '24 hours', user_dashboard_path(current_user, search_type: '24_hours'), class: "btn btn-primary #{params[:search_type] == '24_hours' ? 'active' : ''}"
 
               = link_to 'Week', user_dashboard_path(current_user, search_type: 'week'), class: "btn btn-primary #{params[:search_type] == 'week' ? 'active' : ''}"
               = link_to 'Month', user_dashboard_path(current_user, search_type: 'month'), class: "btn btn-primary #{params[:search_type] == 'month' ? 'active' : ''}"
