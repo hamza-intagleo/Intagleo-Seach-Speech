@@ -27,18 +27,21 @@
     z-index: 1000;
     height: 80px;
     background-color: ##{@site.site_configuration.present? ? @site.site_configuration.widget_fill_color : '0062cc'};
-    border-color: ##{@site.site_configuration.present? ? @site.site_configuration.widget_border_color : '005cbf'};
+    border-color: ##{@site.site_configuration.present? ? @site.site_configuration.widget_fill_color : '0062cc'};
   }
   #right-reply-widget .widget-circle.apply-class {
-    background-color: ##{@site.site_configuration.present? ? @site.site_configuration.widget_fill_color_active : 'dc3545'} !important;
-    border-color: ##{@site.site_configuration.present? ? @site.site_configuration.widget_border_color_active : 'dc3545'} !important;
+    background-color: #dc3545;
+    border-color: #dc3545;
     cursor: pointer;
   }
   #right-reply-widget .widget-circle.apply-class i {
-    color: ##{@site.site_configuration.present? ? @site.site_configuration.widget_icon_color_active : 'ffffff'} !important;
+    color: ##{@site.site_configuration.present? ? @site.site_configuration.widget_icon_color : 'ffffff'} !important;
   }
   #right-reply-widget .widget-circle.apply-class:hover {
     cursor: pointer;
+    background-color: #dc3545;
+    border-color: #dc3545;
+
   }
   #right-reply-widget .widget-circle:hover {
     background-color: ##{@site.site_configuration.present? ? @site.site_configuration.widget_fill_color_hover : '1a1e28'};

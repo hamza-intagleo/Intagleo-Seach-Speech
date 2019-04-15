@@ -5,8 +5,8 @@ class SubscriptionsController < ApplicationController
 
 
   def create_customer
-    unless current_user.has_free_plan?
-    subscription = current_user.create_subscription!(params[:stripe_token], @plan.stripe_id)
+    unless @plan.plan_name == 'free' || (current_user.plan.id == params['plan'].to_i)
+      subscription = current_user.create_subscription!(params[:stripe_token], @plan.stripe_id)
       if subscription[:customer].present?
         customer = subscription[:customer]
         current_user.save_subscription_details!( params[:stripe_token], 
@@ -22,7 +22,7 @@ class SubscriptionsController < ApplicationController
         return render :json => { :success => false, message: subscription[:message], location_path: users_pricing_path}
       end
     else
-      if current_user.update(is_plan_confirm: true)
+      if current_user.update(is_plan_confirm: true, plan_id: @plan.id)
         redirect_to user_configuration_path(current_user)
       end
     end  

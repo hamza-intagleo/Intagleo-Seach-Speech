@@ -56,7 +56,7 @@
               %h2  Unlimited Queries 
             = link_to 'Select', 'javascript:void(0);', class: 'subscribe-button', data: {plan: '4'}
 
-    = link_to 'Continue', "#{current_user.has_free_plan? ? 'javascript:void(0);' : customer_path}", class: "btn btn-dark rounded-pill btn-custom float-right #{current_user.has_free_plan? ? 'stripe-button' : ''}", id: 'subscription', method: :post, data: {planid: '1'}
+    = link_to 'Continue', "#{current_user.has_free_plan? ? customer_path(plan: current_user.plan_id) : customer_path(plan: current_user.plan_id)}", class: "btn btn-dark rounded-pill btn-custom float-right #{current_user.has_free_plan? ? '' : ''}", id: 'subscription', method: :post, data: {planid: current_user.plan_id}
     = hidden_field_tag 'plan', current_user.plan_id
 
 :javascript
@@ -85,7 +85,8 @@
     }
   });
 
-  $('.stripe-button').on('click', function(e) {
+  $('body').on('click', '.stripe-button', function(e){
+
     $('#page-loader h4').text("Upgrading...");
     $('#plan').val($(this).data('planid'))
     // Open Checkout with further options:

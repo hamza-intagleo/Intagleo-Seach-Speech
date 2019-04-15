@@ -24,18 +24,20 @@
       = image_tag "api.png", class: 'show'
       = image_tag "api_hover.png", class: 'hide'
       %span Api
-  %li.nav-item{class: params[:controller] == 'users' && params[:action] == 'contact_us' ? 'active' : ''}
-    = link_to user_contact_us_path(current_user), class: 'nav-link' do
-      / %i.fas.fa-envelope-open-text
-      = image_tag "contact.png", class: 'show'
-      = image_tag "contact_hover.png", class: 'hide'
-      %span Contact Us
   %li.nav-item{class: params[:controller] == 'users' && params[:action] == 'subscription' ? 'active' : ''}
     = link_to user_subscription_path(current_user), class: 'nav-link' do
       / %i.fas.fa-key
       = image_tag "plans.png", class: 'show'
       = image_tag "plans_hover.png", class: 'hide'
       %span Subscription
+      
+  %li.nav-item{class: params[:controller] == 'users' && params[:action] == 'contact_us' ? 'active' : ''}
+    = link_to user_contact_us_path(current_user), class: 'nav-link' do
+      / %i.fas.fa-envelope-open-text
+      = image_tag "contact.png", class: 'show'
+      = image_tag "contact_hover.png", class: 'hide'
+      %span Contact Us
+  
 
 
   %p.copy-right.text-center

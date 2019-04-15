@@ -23,7 +23,7 @@
                   .col-md-6    
                     .form-group.d-block
                       = label_tag :custom_search_results_url
-                      = text_field_tag :custom_search_results_url, (@site_configuration.present? ? @site_configuration.custom_search_results_url : nil), class: "form-control form-control-lg rounded-pill"
+                      = text_field_tag :custom_search_results_url, (@site_configuration.present? ? @site_configuration.custom_search_results_url : nil), class: "form-control form-control-lg rounded-pill", readonly: true
                 .row
                   .col-md-12
                     .form-group
@@ -38,7 +38,7 @@
                         .input-group-prepend
                           .input-group-text
                             %i.fas.fa-eye-dropper
-                        = text_field_tag :widget_fill_color, (@site_configuration.present? ? @site_configuration.widget_fill_color : nil), class: "form-control form-control-lg jscolor"
+                        = text_field_tag :widget_fill_color, (@site_configuration.present? ? @site_configuration.widget_fill_color : nil), class: "form-control form-control-lg jscolor  {onFineChange:'update_widget_fill_color(this)'}"
                         
                   .col-md-6
                     .form-group
@@ -57,7 +57,7 @@
                         .input-group-prepend
                           .input-group-text
                             %i.fas.fa-eye-dropper
-                        = text_field_tag :widget_icon_color, (@site_configuration.present? ? @site_configuration.widget_icon_color : nil), class: "form-control form-control-lg rounded-pill jscolor"
+                        = text_field_tag :widget_icon_color, (@site_configuration.present? ? @site_configuration.widget_icon_color : nil), class: "form-control form-control-lg rounded-pill jscolor {onFineChange:'update_widget_icon_color(this)'}"
 
                   .col-md-6
                     .form-group 
@@ -123,5 +123,36 @@
                   = link_to 'Cancel', user_configuration_path(current_user), :class => 'btn btn-primary rounded-pill pl-4 pr-4 btn-custom'
 
           .col-md-4
-            .graph-box.p-5
-              %p widget goes here
+            .graph-box.p-5.custom-padding
+              %label
+                Widget Preview
+              #right-reply-widget
+                = link_to 'javascript:void(0);', class: ' btn btn-primary wow fadeInRight', id: 'speech_icon' do
+                  .widget-circle#show.round-widget
+                    %i.fas.fa-2x.fa-microphone
+                .widget-text
+                  = text_field_tag 'text', nil, placeholder: "#{@site.site_configuration.present? ? @site.site_configuration.widget_placeholder_text : 'Speak now...'}", readonly: true
+
+:javascript
+  
+  $('#show').css('background', '#'+$('#widget_fill_color').val())
+  $('#show i').css('color', '#'+$('#widget_icon_color').val())
+  $('.widget-text #text').attr('placeholder', $('#widget_placeholder_text').val())
+
+  if ($('#widget_shape').val() == 'Rounded'){
+    $('#show').addClass('round-widget').removeClass('rectangle-widget')
+  } else {
+    $('#show').addClass('rectangle-widget').removeClass('round-widget')
+  }
+
+  function update_widget_fill_color(jscolor){
+    $('#show').css('background', '#'+jscolor)
+  }
+
+  function update_widget_icon_color(jscolor){
+    $('#show i').css('color', '#'+jscolor)
+  }
+
+  $('body').on('keyup', '#widget_placeholder_text', function(){
+    $('.widget-text #text').attr('placeholder', $(this).val())
+  })

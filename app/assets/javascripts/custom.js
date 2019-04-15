@@ -1,7 +1,16 @@
 $(document).ready(function(){
   check_config_radio_buttons()
+  
 
-  $('body').on('click' ,'.render-options', function(){
+  $('body').on('change', '#widget_shape', function(){
+    if ($(this).val() == 'Rounded') {
+      $('#show').addClass('round-widget').removeClass('rectangle-widget')
+    } else {
+      $('#show').addClass('rectangle-widget').removeClass('round-widget')
+    }
+  })
+
+  $('body').on('change' ,'#return_results_on', function(){
     check_config_radio_buttons()
     
   })
@@ -32,9 +41,9 @@ $('[data-toggle="tooltip"]').tooltip()
     }
   });
 
-  if ($('#content-wrapper').height()<700) {
-    $('body').css('overflow', 'hidden');
-  }
+  // if ($('#content-wrapper').height()<700) {
+  //   $('body').css('overflow', 'hidden');
+  // }
   //$('.apply-hight').height($(".get-height").height() + 45);
   $('.sidebar').height($("#content-wrapper").height() + 25);
   $('iframe').height($("#content-wrapper").height() - 22);
@@ -104,9 +113,24 @@ $('[data-toggle="tooltip"]').tooltip()
   });
 
   $(document).on("click", ".subscribe-button", function() {
+    current_plan_id = $('#plan').val();
     $('.plans-queries').removeClass('free-trial-tile').removeClass('result_hover')
     $(this).closest('.plans-queries').addClass('free-trial-tile').removeClass('result_hover')
     $('#subscription').attr('data-planid', $(this).data('plan'))
+
+    if($(this).data('plan') == current_plan_id){
+      $('#subscription').attr('href', '/customer?plan='+current_plan_id)
+      $('#subscription').removeClass('stripe-button')
+    }
+    else if($(this).data('plan') == 1){
+      $('#subscription').attr('href', '/customer?plan=1')
+      $('#subscription').removeClass('stripe-button')
+
+    } else {
+      $('#subscription').attr('href', 'javascript:void(0);')
+      $('#subscription').addClass('stripe-button')
+    }
+
   });
 
   // $(".plans-queries").hover(function () {
@@ -304,6 +328,12 @@ function myFunction(x) {
 }
 
 function check_config_radio_buttons() {
+  if ($('#return_results_on').val() == 'Customer Webpage') {
+      $('#custom_search_results_url').removeAttr('readonly')
+    } else {
+      $('#custom_search_results_url').attr('readonly', true)
+    }
+
   if($('#return_results_on_customer_webpage').is(':checked')) { 
     $('#custom_search_results_url').parent('.form-group').removeClass('d-none')
   } else {
