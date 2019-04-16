@@ -21,7 +21,7 @@ $(document).ready(function(){
 
   $('body').on('mouseup', '#speech_icon, #search_speech_icon', function(){
     var thiss = this;
-    setTimeout(function(){ toggleRecording(thiss); }, 2000);
+    setTimeout(function(){ toggleRecording(thiss); }, 1000);
   })
 $('[data-toggle="tooltip"]').tooltip()
   // Toggle the side navigation

@@ -10,6 +10,14 @@ class User < ApplicationRecord
   belongs_to :plan, dependent: :destroy
   after_create :assign_default_role
 
+  validate :password_complexity
+
+  def password_complexity
+    if password.present? and not password.match("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$")
+      errors.add :password, "must include at least one lowercase letter, one uppercase letter, and one number"
+    end
+  end
+
   def generate_api_keys
     api_key = SecureRandom.urlsafe_base64
 

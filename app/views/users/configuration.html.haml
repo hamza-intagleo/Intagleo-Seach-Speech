@@ -40,5 +40,5 @@
                         = link_to edit_user_site_path(user_id: @user.id, id: site.id), class: "btn btn-outline-primary btn-sm mr-2 rounded-circle" do
                           %i.fas.fa-pencil-alt
                         
-                        = link_to user_site_path(user_id: @user.id, id: site.id), method: :delete, class: "btn btn-outline-danger btn-sm rounded-circle", :data => {:confirm => 'Are you sure?'} do
+                        = link_to user_site_path(user_id: @user.id, id: site.id), method: :delete, class: "btn btn-outline-danger btn-sm rounded-circle", :data => {:confirm => 'Are you sure you want to delete the entire site?'} do
                           %i.far.fa-trash-alt                            

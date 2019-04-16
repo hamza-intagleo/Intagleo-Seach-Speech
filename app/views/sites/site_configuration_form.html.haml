@@ -47,7 +47,7 @@
                         .input-group-prepend
                           .input-group-text
                             %i.fas.fa-eye-dropper
-                        = text_field_tag :widget_fill_color_hover, (@site_configuration.present? ? @site_configuration.widget_fill_color_hover : nil), class: "form-control form-control-lg rounded-pill jscolor"
+                        = text_field_tag :widget_fill_color_hover, (@site_configuration.present? ? @site_configuration.widget_fill_color_hover : nil), class: "form-control form-control-lg rounded-pill jscolor {onFineChange:'update_widget_fill_color_hover(this)'}"
 
                 .row        
                   .col-md-6
@@ -66,7 +66,7 @@
                         .input-group-prepend
                           .input-group-text
                             %i.fas.fa-eye-dropper
-                        = text_field_tag :widget_icon_color_hover, (@site_configuration.present? ? @site_configuration.widget_icon_color_hover : nil), class: "form-control form-control-lg rounded-pill jscolor"    
+                        = text_field_tag :widget_icon_color_hover, (@site_configuration.present? ? @site_configuration.widget_icon_color_hover : nil), class: "form-control form-control-lg rounded-pill jscolor {onFineChange:'update_widget_icon_color_hover(this)'}"    
 
                 .row
                   .col-md-12      
@@ -132,12 +132,27 @@
                     %i.fas.fa-2x.fa-microphone
                 .widget-text
                   = text_field_tag 'text', nil, placeholder: "#{@site.site_configuration.present? ? @site.site_configuration.widget_placeholder_text : 'Speak now...'}", readonly: true
+              .mt-5
+                %label
+                  Widget Preview Hover
+                #right-reply-widget
+                  = link_to 'javascript:void(0);', class: ' btn btn-primary wow fadeInRight', id: 'speech_icon' do
+                    .widget-circle#show_hover.round-widget
+                      %i.fas.fa-2x.fa-microphone
+                  .widget-text
+                    = text_field_tag 'text_hover', nil, placeholder: "#{@site.site_configuration.present? ? @site.site_configuration.widget_placeholder_text : 'Speak now...'}", readonly: true
+
+
 
 :javascript
   
   $('#show').css('background', '#'+$('#widget_fill_color').val())
   $('#show i').css('color', '#'+$('#widget_icon_color').val())
   $('.widget-text #text').attr('placeholder', $('#widget_placeholder_text').val())
+
+  $('#show_hover').css('background', '#'+$('#widget_fill_color_hover').val())
+  $('#show_hover i').css('color', '#'+$('#widget_icon_color_hover').val())
+  $('.widget-text #text_hover').attr('placeholder', $('#widget_placeholder_text').val())
 
   if ($('#widget_shape').val() == 'Rounded'){
     $('#show').addClass('round-widget').removeClass('rectangle-widget')
@@ -149,10 +164,19 @@
     $('#show').css('background', '#'+jscolor)
   }
 
+  function update_widget_fill_color_hover(jscolor){
+    $('#show_hover').css('background', '#'+jscolor)
+  }
+
   function update_widget_icon_color(jscolor){
     $('#show i').css('color', '#'+jscolor)
   }
 
+  function update_widget_icon_color_hover(jscolor){
+    $('#show_hover i').css('color', '#'+jscolor)
+  }
+
   $('body').on('keyup', '#widget_placeholder_text', function(){
     $('.widget-text #text').attr('placeholder', $(this).val())
+    $('.widget-text #text_hover').attr('placeholder', $(this).val())
   })
