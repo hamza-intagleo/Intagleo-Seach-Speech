@@ -1,10 +1,10 @@
 .container-fluid
   .row.pt-5
-    .col-md-12.offset-lg-3.col-lg-6
+    .col-md-12.offset-lg-4.col-lg-4
       %h4
         Log in
   .row.pt-4
-    .col-md-12.offset-lg-3.col-lg-6
+    .col-md-12.offset-lg-4.col-lg-4
       .graph-box.p-5.mb-5 
         = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
           = render "devise/shared/error_messages", resource: resource
@@ -16,12 +16,16 @@
             = f.password_field :password, autocomplete: "current-password", class: "form-control form-control-lg rounded-pill"
           
           - if devise_mapping.rememberable?
-            .field
+            .field.float-left
               = f.check_box :remember_me
-              = f.label :remember_me
+              = f.label :remember_me ,class:"remember_label"
+          - if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations'
+            .field.float-right
+              = link_to "Forgot your password?", new_password_path(resource_name)
+          .clearfix  
           .row
             .col-md-12.pt-3
-              .float-left.mr-3
-                = render "users/shared/links"
               .form-group
-                = f.submit "Log in", :class => 'btn btn-dark rounded-pill btn-custom'
+                = f.submit "Log in", :class => 'btn btn-dark rounded-pill btn-custom submit-btn'
+              .text-center.mr-3
+                = render "users/shared/links"
