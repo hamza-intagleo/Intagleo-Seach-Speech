@@ -92,7 +92,8 @@
     // Open Checkout with further options:
     handler.open({
       name: 'Right Reply.',
-      description: 'Payment'
+      description: 'Payment',
+      email: "#{current_user.email}"
     });
     e.preventDefault();
   });
