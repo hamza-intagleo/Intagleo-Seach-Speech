@@ -5,8 +5,10 @@ $(document).ready(function(){
   $('body').on('change', '#widget_shape', function(){
     if ($(this).val() == 'Rounded') {
       $('#show').addClass('round-widget').removeClass('rectangle-widget')
+      $('#show_hover').addClass('round-widget').removeClass('rectangle-widget')
     } else {
       $('#show').addClass('rectangle-widget').removeClass('round-widget')
+      $('#show_hover').addClass('rectangle-widget').removeClass('round-widget')
     }
   })
 
